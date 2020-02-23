@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="img_background_color">#80AA00FF</color>
+    <color name="btn_background_color">#BFAA00FF</color>
+    <color name="et_background_color">#40FFFFFF</color>
+    <color name="et_hint_color">#40FFFFFF</color>
+    <color name="sign_in_intro">#BFFFFFFF</color>
+    <color name="chat_item_background_color">#40FFFFFF</color>
+    <color name="chat_item_tv_color">#F3E5F5</color>
+    <color name="chat_item_tv_username_color">#F3E5F5</color>
+    <color name="chat_et_background_color">#80FFFFFF</color>
+    <color name="chat_et_color">#80000000</color>
+</resources>

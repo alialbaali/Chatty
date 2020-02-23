@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.ChatFragment">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/tb"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/cl"
+            app:layout_constraintRight_toRightOf="@id/cl"
+            app:layout_constraintTop_toTopOf="@id/cl">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tb_tv"
+                style="@style/tb_tv_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name" />
+        </com.google.android.material.appbar.MaterialToolbar>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="@dimen/padding_extra_small"
+            app:layout_constraintBottom_toTopOf="@id/linearLayout"
+            app:layout_constraintLeft_toLeftOf="@id/cl"
+            app:layout_constraintRight_toRightOf="@id/cl"
+            app:layout_constraintTop_toBottomOf="@id/tb"
+            tools:itemCount="5"
+            tools:listitem="@layout/chat_item" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_extra_small"
+            android:background="@drawable/chat_et_background"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/cl"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toLeftOf="@id/cl"
+            app:layout_constraintRight_toRightOf="@id/cl"
+            app:layout_constraintTop_toBottomOf="@id/rv">
+
+
+            <EditText
+                android:id="@+id/et"
+                style="@style/chat_et_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_extra_small"
+                android:layout_weight="1"
+                android:autofillHints="true"
+                android:hint="@string/type_a_message"
+                android:inputType="textLongMessage|textAutoCorrect|textMultiLine|text|textAutoComplete"
+                android:padding="@dimen/padding_small"
+                android:textAllCaps="false" />
+
+            <ImageButton
+                android:id="@+id/btn_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_extra_small"
+                android:layout_weight="0"
+                android:background="#00FFFFFF"
+                android:contentDescription="@string/send"
+                android:padding="@dimen/padding_extra_small"
+                android:src="@drawable/ic_send_black_24dp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

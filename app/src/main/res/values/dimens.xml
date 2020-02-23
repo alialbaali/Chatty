@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="radius">7dp</dimen>
+    <dimen name="tb_tv_dimen">25sp</dimen>
+    <dimen name="et_text_dimen">20sp</dimen>
+    <dimen name="btn_text_dimen">22</dimen>
+    <dimen name="tv_dimen">18sp</dimen>
+    <dimen name="sign_in_tv_dimen">32sp</dimen>
+    <dimen name="chat_item_tv_dimen">15sp</dimen>
+    <dimen name="chat_item_tv_username_dimen">12sp</dimen>
+    <dimen name="chat_et_dimen">20sp</dimen>
+
+    <!-- Margin -->
+    <dimen name="margin_extra_small">4dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_normal">16dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_extra_large">36dp</dimen>
+
+    <!-- Padding -->
+    <dimen name="padding_extra_small">4dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_small_normal">12dp</dimen>
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+    <dimen name="padding_extra_large">36dp</dimen>
+</resources>

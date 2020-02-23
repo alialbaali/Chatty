@@ -1,0 +1,66 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorBackground">@drawable/app_background</item>
+    </style>
+
+    <style name="tb_tv_style" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">@dimen/tb_tv_dimen</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+
+    <style name="et_style" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@drawable/et_background</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColorHint">@color/et_hint_color</item>
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/et_text_dimen</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+
+    <style name="btn_style" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">@drawable/btn_background</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/btn_text_dimen</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="tv_style" parent="Widget.MaterialComponents.TextView">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">@dimen/tv_dimen</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="sign_in_intro_style" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">@dimen/sign_in_tv_dimen</item>
+        <item name="android:textColor">@color/sign_in_intro</item>
+    </style>
+
+
+    <style name="chat_item_tv" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">@dimen/chat_item_tv_dimen</item>
+        <item name="android:textColor">@color/chat_item_tv_color</item>
+    </style>
+
+    <style name="chat_item_tv_username" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">@dimen/chat_item_tv_username_dimen</item>
+        <item name="android:textColor">@color/chat_item_tv_username_color</item>
+    </style>
+
+    <style name="chat_et_style" parent="Widget.AppCompat.EditText">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">@dimen/chat_et_dimen</item>
+        <item name="android:textColorHint">@color/chat_et_color</item>
+        <item name="android:textColor">@color/chat_et_color</item>
+        <item name="android:background">#00FFFFFF</item>
+    </style>
+
+</resources>

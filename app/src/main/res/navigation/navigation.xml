@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/signGraph">
+
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.apps.chatychaty.ui.ChatFragment"
+        android:label="ChatFragment"
+        tools:layout="@layout/fragment_sign_up" />
+    <navigation
+        android:id="@+id/signGraph"
+        app:startDestination="@id/signUpFragment" >
+        <fragment
+            android:id="@+id/signUpFragment"
+            android:name="com.apps.chatychaty.ui.SignUpFragment"
+            android:label="SignUpFragment"
+            tools:layout="@layout/fragment_sign_up" >
+            <action
+                android:id="@+id/action_signUpFragment_to_signInFragment"
+                app:destination="@id/signInFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/signInFragment"
+            android:name="com.apps.chatychaty.ui.SignInFragment"
+            android:label="SignInFragment"
+            tools:layout="@layout/fragment_sign_in" >
+            <action
+                android:id="@+id/action_signInFragment_to_signUpFragment"
+                app:destination="@id/signUpFragment" />
+        </fragment>
+    </navigation>
+    <action android:id="@+id/action_global_chatFragment" app:destination="@id/chatFragment" />
+</navigation>

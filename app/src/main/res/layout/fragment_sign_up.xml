@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.SignUpFragment">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/tb"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/cl"
+            app:layout_constraintRight_toRightOf="@id/cl"
+            app:layout_constraintTop_toTopOf="@id/cl">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tb_tv"
+                style="@style/tb_tv_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name" />
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="@dimen/margin_normal"
+            app:layout_constraintBottom_toTopOf="@id/et_username"
+            app:layout_constraintLeft_toLeftOf="@id/cl"
+            app:layout_constraintRight_toRightOf="@id/cl"
+            app:layout_constraintTop_toBottomOf="@id/tb"
+            app:srcCompat="@drawable/img_background" />
+
+        <EditText
+            android:id="@+id/et_username"
+            style="@style/et_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_normal"
+            android:autofillHints="@string/password"
+            android:hint="@string/username"
+            android:inputType="text"
+            android:padding="@dimen/padding_normal"
+            app:layout_constraintBottom_toTopOf="@+id/et_password"
+            app:layout_constraintLeft_toLeftOf="@id/cl"
+            app:layout_constraintRight_toRightOf="@id/cl"
+            app:layout_constraintTop_toBottomOf="@+id/tb"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <EditText
+            android:id="@+id/et_password"
+            style="@style/et_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_normal"
+            android:autofillHints="@string/password"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:padding="@dimen/padding_normal"
+            app:layout_constraintBottom_toTopOf="@+id/btn_sign_up"
+            app:layout_constraintLeft_toLeftOf="@id/cl"
+            app:layout_constraintRight_toRightOf="@id/cl"
+            app:layout_constraintTop_toBottomOf="@+id/et_username" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_sign_up"
+            style="@style/btn_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_normal"
+            android:padding="@dimen/padding_small_normal"
+            android:text="@string/sign_up"
+            app:layout_constraintBottom_toTopOf="@+id/tv_sign_in"
+            app:layout_constraintLeft_toLeftOf="@id/cl"
+            app:layout_constraintRight_toRightOf="@id/cl"
+            app:layout_constraintTop_toBottomOf="@+id/et_password" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_sign_in"
+            style="@style/tv_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_normal"
+            android:gravity="center_horizontal"
+            android:text="@string/already_have_an_account"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/cl"
+            app:layout_constraintRight_toRightOf="@id/cl" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
