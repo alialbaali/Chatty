@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.apps.chatychaty.viewModel.ChatViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,6 +71,7 @@
                 android:hint="@string/type_a_message"
                 android:inputType="textLongMessage|textAutoCorrect|textMultiLine|text|textAutoComplete"
                 android:padding="@dimen/padding_small"
+                android:text="@{viewModel.currentMessage.text}"
                 android:textAllCaps="false" />
 
             <ImageButton

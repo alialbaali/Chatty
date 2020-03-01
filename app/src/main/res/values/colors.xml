@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="app_name_color">#F3E5F5</color>
     <color name="img_background_color">#80AA00FF</color>
     <color name="btn_background_color">#BFAA00FF</color>
     <color name="et_background_color">#40FFFFFF</color>

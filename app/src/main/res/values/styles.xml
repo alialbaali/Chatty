@@ -6,9 +6,9 @@
 
     <style name="tb_tv_style" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">@dimen/tb_tv_dimen</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/app_name_color</item>
         <item name="android:gravity">center_horizontal</item>
-        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
     </style>
 
 
@@ -43,7 +43,7 @@
     </style>
 
 
-    <style name="chat_item_tv" parent="Widget.AppCompat.TextView">
+    <style name="chat_item_tv_text" parent="Widget.AppCompat.TextView">
         <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:textSize">@dimen/chat_item_tv_dimen</item>
         <item name="android:textColor">@color/chat_item_tv_color</item>

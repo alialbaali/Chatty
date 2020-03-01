@@ -19,6 +19,7 @@ class SignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
 
         return binding.root
     }
