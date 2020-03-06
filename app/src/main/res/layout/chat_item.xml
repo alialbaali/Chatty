@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/cl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
 
         <ImageView
             android:id="@+id/img"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_gravity="bottom"
             android:layout_margin="@dimen/margin_extra_small"
-            app:layout_constraintBottom_toBottomOf="@id/cl"
-            app:layout_constraintLeft_toLeftOf="@id/cl"
-            app:layout_constraintRight_toLeftOf="@id/linearLayout"
-            app:layout_constraintTop_toTopOf="@id/cl"
-            app:layout_constraintVertical_bias="1.0"
             tools:srcCompat="@drawable/img_background" />
 
         <LinearLayout
@@ -31,11 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_extra_small"
             android:background="@drawable/chat_item_background"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@id/cl"
-            app:layout_constraintLeft_toRightOf="@id/img"
-            app:layout_constraintRight_toRightOf="@id/cl"
-            app:layout_constraintTop_toTopOf="@id/cl">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/chat_item_tv_text"
@@ -57,7 +47,5 @@
                 tools:text="Ali Albaali" />
 
         </LinearLayout>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>

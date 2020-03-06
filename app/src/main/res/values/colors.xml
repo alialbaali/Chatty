@@ -11,4 +11,6 @@
     <color name="chat_item_tv_username_color">#F3E5F5</color>
     <color name="chat_et_background_color">#80FFFFFF</color>
     <color name="chat_et_color">#80000000</color>
+    <color name="app_background_end_color">#6A1B9A</color>
+    <color name="app_background_start_color">#8E24AA</color>
 </resources>

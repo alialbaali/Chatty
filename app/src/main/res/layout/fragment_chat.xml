@@ -71,7 +71,7 @@
                 android:hint="@string/type_a_message"
                 android:inputType="textLongMessage|textAutoCorrect|textMultiLine|text|textAutoComplete"
                 android:padding="@dimen/padding_small"
-                android:text="@{viewModel.currentMessage.text}"
+                android:text="@={viewModel.currentMessage.text}"
                 android:textAllCaps="false" />
 
             <ImageButton

@@ -20,7 +20,10 @@
             tools:layout="@layout/fragment_sign_up" >
             <action
                 android:id="@+id/action_signUpFragment_to_signInFragment"
-                app:destination="@id/signInFragment" />
+                app:destination="@id/signInFragment"
+                app:launchSingleTop="true"
+                app:popUpTo="@id/signInFragment"
+                app:popUpToInclusive="false" />
         </fragment>
         <fragment
             android:id="@+id/signInFragment"
@@ -29,8 +32,16 @@
             tools:layout="@layout/fragment_sign_in" >
             <action
                 android:id="@+id/action_signInFragment_to_signUpFragment"
-                app:destination="@id/signUpFragment" />
+                app:destination="@id/signUpFragment"
+                app:launchSingleTop="true"
+                app:popUpTo="@id/signUpFragment"
+                app:popUpToInclusive="false" />
         </fragment>
     </navigation>
-    <action android:id="@+id/action_global_chatFragment" app:destination="@id/chatFragment" />
+    <action
+        android:id="@+id/action_global_chatFragment"
+        app:destination="@id/chatFragment"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/signGraph"
+        app:popUpToInclusive="true" />
 </navigation>

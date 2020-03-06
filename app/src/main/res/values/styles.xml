@@ -1,6 +1,7 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/app_background_start_color</item>
         <item name="android:colorBackground">@drawable/app_background</item>
     </style>
 
@@ -24,7 +25,9 @@
 
 
     <style name="btn_style" parent="Widget.MaterialComponents.Button">
-        <item name="android:background">@drawable/btn_background</item>
+        <item name="android:radius">@dimen/radius</item>
+        <item name="android:backgroundTint">@color/btn_background_color</item>
+        <item name="android:textAllCaps">false</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">@dimen/btn_text_dimen</item>
         <item name="android:fontFamily">@font/roboto_medium</item>
