@@ -13,4 +13,5 @@
     <color name="chat_et_color">#80000000</color>
     <color name="app_background_end_color">#6A1B9A</color>
     <color name="app_background_start_color">#8E24AA</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>

@@ -63,7 +63,7 @@
         <item name="android:textSize">@dimen/chat_et_dimen</item>
         <item name="android:textColorHint">@color/chat_et_color</item>
         <item name="android:textColor">@color/chat_et_color</item>
-        <item name="android:background">#00FFFFFF</item>
+        <item name="android:background">@color/transparent</item>
     </style>
 
 </resources>

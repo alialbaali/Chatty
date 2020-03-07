@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.apps.chatychaty.viewModel.SignSharedViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
