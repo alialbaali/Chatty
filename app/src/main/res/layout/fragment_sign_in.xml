@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.apps.chatychaty.viewModel.SignSharedViewModel" />
@@ -55,6 +56,7 @@
             android:hint="@string/username"
             android:inputType="text"
             android:padding="@dimen/padding_normal"
+            android:text="@={viewModel.currentUser.username}"
             app:layout_constraintBottom_toTopOf="@+id/et_password"
             app:layout_constraintLeft_toLeftOf="@id/cl"
             app:layout_constraintRight_toRightOf="@id/cl"
@@ -71,6 +73,7 @@
             android:hint="@string/password"
             android:inputType="textPassword"
             android:padding="@dimen/padding_normal"
+            android:text="@={viewModel.currentUser.password}"
             app:layout_constraintBottom_toTopOf="@+id/btn_sign_in"
             app:layout_constraintLeft_toLeftOf="@id/cl"
             app:layout_constraintRight_toRightOf="@id/cl"

@@ -16,7 +16,7 @@ class UserRepository(private val userClient: UserClient) {
 
     suspend fun logIn(user: User): Response {
         return withContext(Dispatchers.IO) {
-            userClient.createAccount(user)
+            userClient.logIn(user)
         }
     }
 }

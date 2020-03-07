@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.apps.chatychaty.databinding.FragmentSignUpBinding
+import com.apps.chatychaty.network.Repos
 import com.apps.chatychaty.viewModel.SignSharedViewModel
+import com.apps.chatychaty.viewModel.SignSharedViewModelFactory
 
 /**
  * A simple [Fragment] subclass.
@@ -18,7 +20,9 @@ class SignUpFragment : Fragment() {
 
     private lateinit var binding: FragmentSignUpBinding
 
-    private val viewModel by viewModels<SignSharedViewModel>()
+    private val viewModel by viewModels<SignSharedViewModel> {
+        SignSharedViewModelFactory(Repos.userRepository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

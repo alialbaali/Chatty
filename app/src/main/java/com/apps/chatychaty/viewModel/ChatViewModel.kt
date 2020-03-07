@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.apps.chatychaty.model.Message
-import com.apps.chatychaty.network.token
+import com.apps.chatychaty.network.user
 import com.apps.chatychaty.repo.MessageRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -41,11 +41,9 @@ class ChatViewModel(private val messageRepository: MessageRepository) : ViewMode
 
                 try {
                     messageRepository.postMessage(
-                        currentMessage.value!!.also { it.text.trim() },
-                        token
-                    )
+                        currentMessage.value!!.also { it.text.trim() })
                     getMessages()
-                    currentMessage.postValue(Message(text = "", user = "alialbaali"))
+                    currentMessage.postValue(Message(user = user))
                 } catch (e: HttpException) {
                     Timber.i(e.response().toString())
                 }

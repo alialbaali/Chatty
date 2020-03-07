@@ -7,16 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.apps.chatychaty.databinding.FragmentSignInBinding
+import com.apps.chatychaty.network.Repos
 import com.apps.chatychaty.viewModel.SignSharedViewModel
+import com.apps.chatychaty.viewModel.SignSharedViewModelFactory
 
 /**
  * A simple [Fragment] subclass.
  */
 class SignInFragment : Fragment() {
     private lateinit var binding: FragmentSignInBinding
-    private val viewModel by viewModels<SignSharedViewModel>()
+    private val viewModel by viewModels<SignSharedViewModel> {
+        SignSharedViewModelFactory(Repos.userRepository)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,10 +43,16 @@ class SignInFragment : Fragment() {
 
         binding.btnSignIn.let { btnSignIn ->
             btnSignIn.setOnClickListener {
+                viewModel.logIn()
+            }
+        }
+
+        viewModel.authorized.observe(viewLifecycleOwner, Observer {
+            if (it) {
                 this.findNavController()
                     .navigate(SignInFragmentDirections.actionGlobalChatFragment())
             }
-        }
+        })
 
 
         return binding.root

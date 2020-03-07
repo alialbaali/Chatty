@@ -12,7 +12,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 private const val BASE_URL = "https://chatychaty0.herokuapp.com/api/v1/"
 
 private val logger = HttpLoggingInterceptor().also {
-    HttpLoggingInterceptor.Level.BODY
+    it.level = HttpLoggingInterceptor.Level.BODY
 }
 
 private val moshi = Moshi.Builder()
@@ -53,4 +53,5 @@ internal object Repos {
     }
 }
 
-const val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFsaWFsYmFhbGkiLCJqdGkiOiIwY2E3NDdiZC03NTdhLTQ3NmYtYjMzOS01MTIzMTgwNGI5OGMiLCJuYmYiOjE1ODM1ODU2OTYsImV4cCI6MTU4NDE5MDQ5NiwiaWF0IjoxNTgzNTg1Njk2LCJpc3MiOiJodHRwczovL2NoYXR5Y2hhdHkwLmhlcm9rdWFwcC5jb20vIiwiYXVkIjoiaHR0cHM6Ly9jaGF0eWNoYXR5MC5oZXJva3VhcHAuY29tLyJ9.w5DlTjtxy652W1YD3WqgS44Nk72rmNSRIq6TVOCQBq8"
+var token: String? = ""
+var user: String = ""
