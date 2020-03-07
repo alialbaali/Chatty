@@ -7,9 +7,9 @@ import kotlinx.coroutines.withContext
 
 class MessageRepository(private val messageClient: MessageClient) {
 
-    suspend fun postMessage(message: Message) {
+    suspend fun postMessage(message: Message, value: String) {
         withContext(Dispatchers.IO) {
-            messageClient.postMessage(message)
+            messageClient.postMessage(message,"Bearer $value")
         }
     }
 
@@ -19,8 +19,8 @@ class MessageRepository(private val messageClient: MessageClient) {
         }
     }
 
-    suspend fun getImg(){
-        withContext(Dispatchers.IO){
+    suspend fun getImg() {
+        withContext(Dispatchers.IO) {
             messageClient.getImg()
         }
         TODO("make the function return an image type")

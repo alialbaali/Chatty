@@ -2,25 +2,68 @@ package com.apps.chatychaty.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.apps.chatychaty.model.Message
-import com.apps.chatychaty.model.User
+import com.apps.chatychaty.network.token
+import com.apps.chatychaty.repo.MessageRepository
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import timber.log.Timber
 
-class ChatViewModel() : ViewModel() {
+class ChatViewModel(private val messageRepository: MessageRepository) : ViewModel() {
 
-    val messages = MutableLiveData<MutableList<Message>>()
+    val messages = MutableLiveData<List<Message>>()
 
     val currentMessage = MutableLiveData<Message>()
 
 
     init {
-        currentMessage.value = Message(0, "", user = User(0, "Ali Albaali", ""))
-        messages.value = mutableListOf()
+        currentMessage.value = Message(text = "", user = "alialbaali")
+        getMessages()
     }
 
-    fun insertNote() {
-        currentMessage.value?.text?.trim()
-        messages.value?.add(currentMessage.value!!)
-        currentMessage.value = Message(0, "", user = User(0, "Ali Albaali", ""))
+    private fun getMessages() {
+        viewModelScope.launch {
+
+            try {
+                messages.postValue(messageRepository.getMessages())
+            } catch (e: HttpException) {
+                Timber.i(e.message())
+            }
+
+        }
+    }
+
+    fun postMessage() {
+        viewModelScope.launch {
+            if (!currentMessage.value?.text.isNullOrBlank()) {
+
+                try {
+                    messageRepository.postMessage(
+                        currentMessage.value!!.also { it.text.trim() },
+                        token
+                    )
+                    getMessages()
+                    currentMessage.postValue(Message(text = "", user = "alialbaali"))
+                } catch (e: HttpException) {
+                    Timber.i(e.response().toString())
+                }
+
+            }
+        }
     }
 }
 
+internal class ChatViewModelFactory(private val messageRepository: MessageRepository) :
+    ViewModelProvider.Factory {
+
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(ChatViewModel::class.java)) {
+            return ChatViewModel(messageRepository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+
+}

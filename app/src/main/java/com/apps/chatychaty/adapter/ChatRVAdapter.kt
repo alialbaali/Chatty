@@ -37,7 +37,7 @@ class MessageItemViewHolder(private val binding: MessageItemBinding) :
 
     fun bind(item: Message) {
         binding.chatItemTvText.text = item.text
-        binding.chatItemTvUsername.text = item.user.username
+        binding.chatItemTvUsername.text = item.user
     }
 }
 

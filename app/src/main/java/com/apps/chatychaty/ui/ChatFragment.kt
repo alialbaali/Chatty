@@ -11,7 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apps.chatychaty.adapter.ChatRVAdapter
 import com.apps.chatychaty.databinding.FragmentChatBinding
+import com.apps.chatychaty.network.Repos
 import com.apps.chatychaty.viewModel.ChatViewModel
+import com.apps.chatychaty.viewModel.ChatViewModelFactory
 
 /**
  * A simple [Fragment] subclass.
@@ -20,7 +22,9 @@ class ChatFragment : Fragment() {
 
     private lateinit var binding: FragmentChatBinding
 
-    private val viewModel by viewModels<ChatViewModel>()
+    private val viewModel by viewModels<ChatViewModel> {
+        ChatViewModelFactory(Repos.messageRepository)
+    }
 
     private lateinit var adapter: ChatRVAdapter
 
@@ -46,11 +50,12 @@ class ChatFragment : Fragment() {
                     adapter.submitList(messages)
                 }
             })
+
         }
 
         binding.btnSend.let { btnSend ->
             btnSend.setOnClickListener {
-                viewModel.insertNote()
+                viewModel.postMessage()
                 adapter.notifyDataSetChanged()
             }
         }
