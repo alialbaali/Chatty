@@ -5,26 +5,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.apps.chatychaty.databinding.ChatItemBinding
+import com.apps.chatychaty.databinding.MessageItemBinding
 import com.apps.chatychaty.model.Message
 
-class RVAdapter() : ListAdapter<Message, ItemViewHolder>(ItemDiffCallback()) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        return ItemViewHolder.create(parent)
+class ChatRVAdapter() : ListAdapter<Message, MessageItemViewHolder>(MessageItemDiffCallback()) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageItemViewHolder {
+        return MessageItemViewHolder.create(parent)
     }
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MessageItemViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
 }
 
-class ItemViewHolder(private val binding: ChatItemBinding) : RecyclerView.ViewHolder(binding.root) {
+class MessageItemViewHolder(private val binding: MessageItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
     companion object {
-        fun create(parent: ViewGroup): ItemViewHolder {
-            return ItemViewHolder(
-                ChatItemBinding.inflate(
+        fun create(parent: ViewGroup): MessageItemViewHolder {
+            return MessageItemViewHolder(
+                MessageItemBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
@@ -40,7 +41,7 @@ class ItemViewHolder(private val binding: ChatItemBinding) : RecyclerView.ViewHo
     }
 }
 
-class ItemDiffCallback() : DiffUtil.ItemCallback<Message>() {
+class MessageItemDiffCallback() : DiffUtil.ItemCallback<Message>() {
     override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {
         return oldItem.id == newItem.id
     }
