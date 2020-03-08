@@ -15,7 +15,10 @@ import timber.log.Timber
 class SignSharedViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     val currentUser = MutableLiveData<User>()
+
     val authorized = MutableLiveData<Boolean>()
+
+    lateinit var logIn: LogIn
 
     init {
         viewModelScope.launch {
@@ -35,7 +38,7 @@ class SignSharedViewModel(private val userRepository: UserRepository) : ViewMode
                     authorized.postValue(true)
                 }
             } catch (e: HttpException) {
-                Timber.i(e.response().toString())
+                logIn.showSnackbar(e.message())
             }
         }
     }
@@ -53,4 +56,8 @@ internal class SignSharedViewModelFactory(private val userRepository: UserReposi
         throw IllegalArgumentException("Unknown ViewModel Class")
     }
 
+}
+
+interface LogIn {
+    fun showSnackbar(value: String)
 }

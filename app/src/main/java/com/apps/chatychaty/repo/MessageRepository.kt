@@ -9,10 +9,9 @@ import timber.log.Timber
 
 class MessageRepository(private val messageClient: MessageClient) {
 
-    suspend fun postMessage(message: Message) {
+    suspend fun postMessage(message: Message, value: String) {
         withContext(Dispatchers.IO) {
-            messageClient.postMessage(message,"Bearer $token")
-            Timber.i(token)
+            messageClient.postMessage(message,"Bearer $value")
         }
     }
 
