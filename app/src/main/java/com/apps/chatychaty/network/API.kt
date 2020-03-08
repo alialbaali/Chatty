@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 
 private const val BASE_URL = "https://chatychaty0.herokuapp.com/api/v1/"
 
@@ -22,6 +23,8 @@ private val moshi = Moshi.Builder()
 private val okHttpClient by lazy {
     OkHttpClient.Builder()
         .addInterceptor(logger)
+        .readTimeout(60, TimeUnit.SECONDS)
+        .writeTimeout(60, TimeUnit.SECONDS)
         .build()
 }
 
@@ -52,6 +55,3 @@ internal object Repos {
         MessageRepository(Clients.messageClient)
     }
 }
-
-var token: String? = ""
-var user: String = ""

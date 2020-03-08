@@ -2,7 +2,6 @@ package com.apps.chatychaty.repo
 
 import com.apps.chatychaty.model.Message
 import com.apps.chatychaty.network.MessageClient
-import com.apps.chatychaty.network.token
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber

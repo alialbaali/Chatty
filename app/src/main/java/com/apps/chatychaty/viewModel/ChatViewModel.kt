@@ -5,8 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.apps.chatychaty.model.Message
-import com.apps.chatychaty.network.token
-import com.apps.chatychaty.network.user
 import com.apps.chatychaty.repo.MessageRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -14,17 +12,22 @@ import timber.log.Timber
 
 class ChatViewModel(private val messageRepository: MessageRepository) : ViewModel() {
 
-    val messages = MutableLiveData<List<Message>>()
+    internal val messages = MutableLiveData<List<Message>>()
 
     val currentMessage = MutableLiveData<Message>()
 
+    internal var token = MutableLiveData<String>()
+
+    internal var username = ""
+
+    internal lateinit var error: Error
 
     init {
-        currentMessage.value = Message(text = "", user = "alialbaali")
+        currentMessage.value = Message(user = "")
         getMessages()
     }
 
-    private fun getMessages() {
+    internal fun getMessages() {
         viewModelScope.launch {
 
             try {
@@ -36,17 +39,21 @@ class ChatViewModel(private val messageRepository: MessageRepository) : ViewMode
         }
     }
 
-    fun postMessage() {
+    internal fun postMessage() {
         viewModelScope.launch {
+            Timber.i("${currentMessage.value?.text}")
             if (!currentMessage.value?.text.isNullOrBlank()) {
-
+                Timber.i("Post Message")
                 try {
                     messageRepository.postMessage(
-                        currentMessage.value!!.also { it.text.trim() }, token!!)
-                    getMessages()
-                    currentMessage.postValue(Message(user = user))
+                        currentMessage.value!!.also { it.text.trim() },
+                        token.value!!
+                    )
+
+                    currentMessage.value = Message(user = username)
+
                 } catch (e: HttpException) {
-                    Timber.i(e.response().toString())
+                    error.snackbar(e.message())
                 }
 
             }
