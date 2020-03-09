@@ -8,7 +8,6 @@ import com.apps.chatychaty.model.Message
 import com.apps.chatychaty.repo.MessageRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
-import timber.log.Timber
 
 class ChatViewModel(private val messageRepository: MessageRepository) : ViewModel() {
 
@@ -20,11 +19,14 @@ class ChatViewModel(private val messageRepository: MessageRepository) : ViewMode
 
     internal var username = ""
 
+    internal val success = MutableLiveData<Boolean>()
+
     internal lateinit var error: Error
 
     init {
-        currentMessage.value = Message(user = "")
+        currentMessage.value = Message()
         getMessages()
+        success.value = false
     }
 
     internal fun getMessages() {
@@ -33,7 +35,7 @@ class ChatViewModel(private val messageRepository: MessageRepository) : ViewMode
             try {
                 messages.postValue(messageRepository.getMessages())
             } catch (e: HttpException) {
-                Timber.i(e.message())
+                error.snackbar(e.message())
             }
 
         }
@@ -41,16 +43,16 @@ class ChatViewModel(private val messageRepository: MessageRepository) : ViewMode
 
     internal fun postMessage() {
         viewModelScope.launch {
-            Timber.i("${currentMessage.value?.text}")
+
             if (!currentMessage.value?.text.isNullOrBlank()) {
-                Timber.i("Post Message")
+
                 try {
                     messageRepository.postMessage(
                         currentMessage.value!!.also { it.text.trim() },
                         token.value!!
                     )
 
-                    currentMessage.value = Message(user = username)
+                    currentMessage.value = Message()
 
                 } catch (e: HttpException) {
                     error.snackbar(e.message())
@@ -58,6 +60,22 @@ class ChatViewModel(private val messageRepository: MessageRepository) : ViewMode
 
             }
         }
+    }
+
+
+    internal fun getNewMessages(id: Int): Boolean {
+        viewModelScope.launch {
+            try {
+
+
+                if (messageRepository.getNewMessages(id).isNotEmpty()) {
+                    success.postValue(true)
+                }
+            } catch (e: HttpException) {
+                error.snackbar(e.message())
+            }
+        }
+        return success.value ?: false
     }
 }
 

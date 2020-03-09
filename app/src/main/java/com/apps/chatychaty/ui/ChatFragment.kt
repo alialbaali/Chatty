@@ -19,6 +19,7 @@ import com.apps.chatychaty.viewModel.ChatViewModelFactory
 import com.apps.chatychaty.viewModel.Error
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.delay
+import timber.log.Timber
 
 /**
  * A simple [Fragment] subclass.
@@ -39,9 +40,7 @@ class ChatFragment : Fragment(), Error {
         activity?.getPreferences(Context.MODE_PRIVATE).let {
 
             it?.let {
-                val username = it.getString("username", null)!!
-                viewModel.currentMessage.value?.user = username
-                viewModel.username = username
+                it.getString("username", null)!!
                 viewModel.token.value = it.getString("token", null)!!
             }
         }
@@ -66,11 +65,12 @@ class ChatFragment : Fragment(), Error {
         binding.rv.let { rv ->
             rv.adapter = adapter
             rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            rv.smoothScrollToPosition(viewModel.messages.value?.size?.minus(1) ?: 0)
 
             viewModel.messages.observe(viewLifecycleOwner, Observer { messages ->
                 messages.let {
                     adapter.submitList(messages)
-                    rv.smoothScrollToPosition(messages.size.minus(1))
+                    binding.rv.smoothScrollToPosition(messages.size.minus(1))
                 }
             })
 
@@ -92,8 +92,17 @@ class ChatFragment : Fragment(), Error {
             lifecycleScope.launchWhenResumed {
                 while (this@ChatFragment.isResumed) {
                     delay(1000)
-                    viewModel.getMessages()
-                    adapter.notifyDataSetChanged()
+
+                    Timber.i(viewModel.messages.value?.size.toString())
+
+                    if (viewModel.getNewMessages(viewModel.messages.value?.size ?: 0)) {
+
+                        viewModel.getMessages()
+
+                        adapter.notifyDataSetChanged()
+
+                        viewModel.success.postValue(false)
+                    }
                 }
             }
         }

@@ -23,6 +23,7 @@ import com.google.android.material.snackbar.Snackbar
  */
 class SignInFragment : Fragment(), LogIn, Error {
     private lateinit var binding: FragmentSignInBinding
+
     private val viewModel by viewModels<SignSharedViewModel> {
         SignSharedViewModelFactory(Repos.userRepository)
     }

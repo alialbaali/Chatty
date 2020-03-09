@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
-private const val BASE_URL = "https://chatychaty0.herokuapp.com/api/v1/"
+private const val BASE_URL = "https://chatychaty0.herokuapp.com/api/"
 
 private val logger = HttpLoggingInterceptor().also {
     it.level = HttpLoggingInterceptor.Level.BODY

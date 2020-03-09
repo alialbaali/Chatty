@@ -4,13 +4,12 @@ import com.apps.chatychaty.model.Message
 import com.apps.chatychaty.network.MessageClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 
 class MessageRepository(private val messageClient: MessageClient) {
 
     suspend fun postMessage(message: Message, value: String) {
         withContext(Dispatchers.IO) {
-            messageClient.postMessage(message,"Bearer $value")
+            messageClient.postMessage(message, "Bearer $value")
         }
     }
 
@@ -25,6 +24,12 @@ class MessageRepository(private val messageClient: MessageClient) {
             messageClient.getImg()
         }
         TODO("make the function return an image type")
+    }
+
+    suspend fun getNewMessages(id: Int): List<Message> {
+        return withContext(Dispatchers.IO) {
+            messageClient.getNewMessages(id)
+        }
     }
 }
 

@@ -9,6 +9,10 @@
             name="viewModel"
             type="com.apps.chatychaty.viewModel.SignSharedViewModel" />
     </data>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/cool"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl"
@@ -101,4 +105,5 @@
             app:layout_constraintRight_toRightOf="@id/cl" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

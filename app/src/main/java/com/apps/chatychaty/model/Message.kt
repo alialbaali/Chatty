@@ -9,5 +9,5 @@ data class Message(
     var text: String = "",
 
     @Json(name = "sender")
-    var user: String
+    var user: String = ""
 )

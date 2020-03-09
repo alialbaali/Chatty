@@ -7,10 +7,10 @@ import retrofit2.http.POST
 
 interface UserClient {
 
-    @POST("Authentication/CreateAccount")
+    @POST("v1/Authentication/CreateAccount")
     suspend fun createAccount(@Body user: User): Response
 
-    @POST("Authentication/Login")
+    @POST("v1/Authentication/Login")
     suspend fun logIn(@Body user: User): Response
 
 }

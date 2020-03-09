@@ -8,6 +8,7 @@ import com.apps.chatychaty.model.User
 import com.apps.chatychaty.repo.UserRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import timber.log.Timber
 
 class SignSharedViewModel(private val userRepository: UserRepository) : ViewModel() {
 
@@ -22,24 +23,51 @@ class SignSharedViewModel(private val userRepository: UserRepository) : ViewMode
         }
     }
 
-    fun logIn() {
+    internal fun logIn() {
         viewModelScope.launch {
             try {
 
                 currentUser.value!!.let { user ->
 
                     userRepository.logIn(user).also { response ->
+
+                        if (!response.errors.isNullOrBlank()) {
+                            error.snackbar(response.errors.toString())
+                        }
+
                         logIn.putPreferences(user.username, response.token)
                     }
 
                 }
 
             } catch (e: HttpException) {
-                error.snackbar(e.message())
+//                error.snackbar(e.message())
             }
         }
     }
 
+    internal fun createAccount() {
+        viewModelScope.launch {
+            try {
+
+                currentUser.value!!.let { user ->
+
+                    userRepository.createAccount(user).also { response ->
+
+                        if (!response.errors.isNullOrBlank()) {
+                            error.snackbar(response.errors.toString())
+                        }
+
+                        logIn.putPreferences(user.username, response.token)
+                    }
+
+                }
+
+            } catch (e: HttpException) {
+//                error.snackbar(e.message())
+            }
+        }
+    }
 }
 
 internal class SignSharedViewModelFactory(private val userRepository: UserRepository) :
@@ -59,6 +87,6 @@ internal interface Error {
     fun snackbar(value: String)
 }
 
-interface LogIn {
+internal interface LogIn {
     fun putPreferences(username: String, token: String?)
 }
