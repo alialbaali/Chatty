@@ -14,4 +14,13 @@
     <color name="app_background_end_color">#6A1B9A</color>
     <color name="app_background_start_color">#8E24AA</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="app_color">#9C27B0</color>
+    <color name="error_color">#F44336</color>
+
+
+    <color name="hint_color">#BDBDBD</color>
+    <color name="til_background_color">#EEEEEE</color>
+    <color name="text_color">#424242</color>
+
+
 </resources>

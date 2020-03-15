@@ -33,7 +33,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tb_tv"
-                    style="@style/tb_tv_style"
+                    style="@style/TextAppearance.Toolbar.Text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/app_name" />

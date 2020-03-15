@@ -7,8 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.apps.chatychaty.model.User
 import com.apps.chatychaty.repo.UserRepository
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.HttpException
-import timber.log.Timber
+import java.io.File
 
 class SignSharedViewModel(private val userRepository: UserRepository) : ViewModel() {
 
@@ -16,6 +19,7 @@ class SignSharedViewModel(private val userRepository: UserRepository) : ViewMode
 
     internal lateinit var error: Error
     internal lateinit var logIn: LogIn
+    internal lateinit var img: String
 
     init {
         viewModelScope.launch {
@@ -31,32 +35,29 @@ class SignSharedViewModel(private val userRepository: UserRepository) : ViewMode
 
                     userRepository.logIn(user).also { response ->
 
-                        if (!response.errors.isNullOrBlank()) {
-                            error.snackbar(response.errors.toString())
-                        }
-
                         logIn.putPreferences(user.username, response.token)
                     }
 
                 }
 
             } catch (e: HttpException) {
-//                error.snackbar(e.message())
+                error.snackbar(e.message())
             }
         }
     }
 
+
     internal fun createAccount() {
         viewModelScope.launch {
             try {
-
                 currentUser.value!!.let { user ->
 
-                    userRepository.createAccount(user).also { response ->
+                    val file = File(img)
+                    val body = file.asRequestBody("image/*".toMediaTypeOrNull())
+                    val mp = MultipartBody.Part.createFormData("img", file.name, body)
 
-                        if (!response.errors.isNullOrBlank()) {
-                            error.snackbar(response.errors.toString())
-                        }
+
+                    userRepository.createAccount(user, mp).also { response ->
 
                         logIn.putPreferences(user.username, response.token)
                     }
@@ -64,8 +65,14 @@ class SignSharedViewModel(private val userRepository: UserRepository) : ViewMode
                 }
 
             } catch (e: HttpException) {
-//                error.snackbar(e.message())
+                error.snackbar(e.message())
             }
+        }
+    }
+
+    fun deleteAllMessages() {
+        viewModelScope.launch {
+            userRepository.deleteAllMessages()
         }
     }
 }

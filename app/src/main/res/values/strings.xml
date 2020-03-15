@@ -6,10 +6,12 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="sign_up">Sign Up</string>
-    <string name="already_have_an_account">Already have an account?</string>
+    <string name="already_have_an_account"><u>Already have account?</u></string>
     <string name="sign_in_intro">Get closer to the people you care about</string>
     <string name="sign_in">Sign In</string>
-    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="create_account"><u>Create account</u></string>
     <string name="type_a_message">Type a Message</string>
     <string name="send">Send</string>
+    <string name="user_image">User image</string>
+    <string name="name">Name</string>
 </resources>

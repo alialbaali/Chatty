@@ -9,5 +9,8 @@ data class User(
     var username: String = "",
 
     @Json(name = "password")
-    var password: String = ""
+    var password: String = "",
+
+    @Json(name = "img")
+    val img: String = ""
 )

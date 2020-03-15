@@ -1,8 +1,12 @@
 package com.apps.chatychaty.ui
 
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,13 +53,13 @@ class SignUpFragment : Fragment(), LogIn, Error {
             }
         }
 
-        binding.btnSignUp.let { btnSignUp ->
-
-            btnSignUp.setOnClickListener {
-                viewModel.createAccount()
-            }
-
-        }
+//        binding.btnSignUp.let { btnSignUp ->
+//
+//            btnSignUp.setOnClickListener {
+//                viewModel.createAccount()
+//            }
+//
+//        }
 
         viewModel.let { viewModel ->
 
@@ -63,6 +67,21 @@ class SignUpFragment : Fragment(), LogIn, Error {
             viewModel.logIn = this
 
         }
+
+//        binding.img.let { img ->
+//            img.setOnClickListener {
+//
+//                val intent = Intent(Intent.ACTION_PICK).apply {
+//                    this.type = "image/*"
+//                    this.putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/jpeg", "image/png"))
+//                }
+//                if (intent.resolveActivity(activity?.packageManager!!) != null) {
+//                    startActivityForResult(intent, 1)
+//                }
+//            }
+//
+//        }
+
 
         return binding.root
     }
@@ -82,5 +101,28 @@ class SignUpFragment : Fragment(), LogIn, Error {
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == 1) {
+                val img = data?.data
+                img?.path
+//                binding.img.setImageURI(img)
+//                val array = arrayOf(MediaStore.Images.Media.DATE_ADDED)
+//                val cursor =
+//                    activity?.contentResolver?.query(img ?: Uri.EMPTY, array, null, null, null)
+//                cursor?.moveToFirst()
+//                val columnIndex = cursor?.getColumnIndex(array[0])
+//                val imgString = cursor?.getString(columnIndex!!)
+//                cursor?.close()
+
+                viewModel.img = img?.path ?: ""
+                snackbar(img?.path ?: "")
+
+            }
+        } else {
+            snackbar("Error occurred!")
+        }
+    }
 }

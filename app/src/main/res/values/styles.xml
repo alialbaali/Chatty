@@ -2,35 +2,44 @@
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:statusBarColor">@color/app_background_start_color</item>
-        <item name="android:windowBackground">@drawable/app_background</item>
     </style>
 
-    <style name="tb_tv_style" parent="Widget.MaterialComponents.TextView">
+    <style name="TextAppearance.Toolbar.Text" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textSize">@dimen/tb_tv_dimen</item>
-        <item name="android:textColor">@color/app_name_color</item>
+        <item name="android:textColor">@android:color/black</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:fontFamily">@font/roboto_bold</item>
     </style>
 
-
-    <style name="et_style" parent="Widget.AppCompat.EditText">
-        <item name="android:background">@drawable/et_background</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:textColorHint">@color/et_hint_color</item>
-        <item name="fontFamily">@font/roboto</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:textSize">@dimen/et_text_dimen</item>
-        <item name="android:textColor">@android:color/white</item>
+    <style name="Style.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="hintEnabled">true</item>
+        <item name="hintAnimationEnabled">true</item>
+        <item name="boxBackgroundColor">@color/til_background_color</item>
+        <item name="boxStrokeWidth">@dimen/til_stroke_width</item>
+        <item name="boxStrokeColor">@color/app_color</item>
+        <item name="boxStrokeWidthFocused">@dimen/til_stroke_width</item>
+        <item name="hintTextColor">@color/app_color</item>
     </style>
 
+    <style name="TextAppearance.TextInputEditText" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 
-    <style name="btn_style" parent="Widget.MaterialComponents.Button">
-        <item name="android:radius">@dimen/radius</item>
-        <item name="android:backgroundTint">@color/btn_background_color</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">@dimen/btn_text_dimen</item>
+    <style name="TextAppearance.Text" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">@dimen/text_dimen</item>
+    </style>
+
+    <style name="Style.Button" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="cornerRadius">@dimen/radius</item>
+        <item name="android:textSize">@dimen/btn_text_dimen</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/app_color</item>
+        <item name="strokeColor">@color/app_color</item>
+        <item name="strokeWidth">2dp</item>
     </style>
 
     <style name="tv_style" parent="Widget.MaterialComponents.TextView">

@@ -2,13 +2,15 @@
 <resources>
     <dimen name="radius">7dp</dimen>
     <dimen name="tb_tv_dimen">25sp</dimen>
-    <dimen name="et_text_dimen">20sp</dimen>
-    <dimen name="btn_text_dimen">22sp</dimen>
+    <dimen name="tiet_text_dimen">18sp</dimen>
+    <dimen name="btn_text_dimen">20sp</dimen>
     <dimen name="tv_dimen">18sp</dimen>
     <dimen name="sign_in_tv_dimen">32sp</dimen>
     <dimen name="chat_item_tv_dimen">15sp</dimen>
     <dimen name="chat_item_tv_username_dimen">12sp</dimen>
     <dimen name="chat_et_dimen">20sp</dimen>
+    <dimen name="til_stroke_width">2dp</dimen>
+    <dimen name="text_dimen">18sp</dimen>
 
     <!-- Margin -->
     <dimen name="margin_extra_small">4dp</dimen>
