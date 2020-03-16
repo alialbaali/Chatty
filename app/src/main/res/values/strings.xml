@@ -14,4 +14,6 @@
     <string name="send">Send</string>
     <string name="user_image">User image</string>
     <string name="name">Name</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="chats">Chats</string>
 </resources>

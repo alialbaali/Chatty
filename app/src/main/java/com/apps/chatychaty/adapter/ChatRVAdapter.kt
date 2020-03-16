@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.apps.chatychaty.databinding.MessageItemBinding
+import com.apps.chatychaty.databinding.ListItemMessageBinding
 import com.apps.chatychaty.model.Message
 
 class ChatRVAdapter() : ListAdapter<Message, MessageItemViewHolder>(MessageItemDiffCallback()) {
@@ -19,13 +19,13 @@ class ChatRVAdapter() : ListAdapter<Message, MessageItemViewHolder>(MessageItemD
 
 }
 
-class MessageItemViewHolder(private val binding: MessageItemBinding) :
+class MessageItemViewHolder(private val binding: ListItemMessageBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     companion object {
         fun create(parent: ViewGroup): MessageItemViewHolder {
             return MessageItemViewHolder(
-                MessageItemBinding.inflate(
+                ListItemMessageBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
