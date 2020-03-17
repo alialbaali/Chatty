@@ -1,7 +1,7 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/app_background_start_color</item>
+        <item name="android:statusBarColor">@color/app_background</item>
     </style>
 
     <style name="TextAppearance.Toolbar.Text" parent="TextAppearance.MaterialComponents.Body1">
@@ -39,7 +39,7 @@
         <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:textColor">@color/app_color</item>
         <item name="strokeColor">@color/app_color</item>
-        <item name="strokeWidth">2dp</item>
+        <item name="strokeWidth">3dp</item>
     </style>
 
     <style name="tv_style" parent="Widget.MaterialComponents.TextView">

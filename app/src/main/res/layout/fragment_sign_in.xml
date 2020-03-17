@@ -13,7 +13,8 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/cool"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/app_background">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl"
@@ -47,6 +48,7 @@
                 android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginBottom="@dimen/margin_small"
                 android:hint="@string/username"
+                app:endIconMode="clear_text"
                 app:layout_constraintBottom_toTopOf="@id/til_password"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintStart_toStartOf="@+id/start_guideline"
@@ -57,7 +59,9 @@
                     android:id="@+id/et_username"
                     style="@style/TextAppearance.TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="text|textPersonName"
+                    android:text="@={viewModel.currentUser.username}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -69,6 +73,7 @@
                 android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginBottom="@dimen/margin_small"
                 android:hint="@string/password"
+                app:endIconMode="password_toggle"
                 app:layout_constraintBottom_toTopOf="@+id/forgot_password"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
@@ -78,7 +83,9 @@
                     android:id="@+id/et_password"
                     style="@style/TextAppearance.TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:text="@={viewModel.currentUser.password}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textview.MaterialTextView
@@ -100,14 +107,14 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/padding_normal"
                 android:text="@string/sign_in"
-                app:layout_constraintBottom_toTopOf="@+id/tv_sign_in"
+                app:layout_constraintBottom_toTopOf="@+id/tv_sign_up"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
                 app:layout_constraintTop_toBottomOf="@+id/forgot_password" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_sign_in"
+                android:id="@+id/tv_sign_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_normal"

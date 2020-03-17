@@ -18,6 +18,7 @@
     <color name="error_color">#F44336</color>
     <color name="light_gray">#EEEEEE</color>
     <color name="medium_gray">#9E9E9E</color>
+    <color name="app_background">#FAFAFA</color>
 
     <color name="black">#212121</color>
     <color name="light_black">#424242</color>

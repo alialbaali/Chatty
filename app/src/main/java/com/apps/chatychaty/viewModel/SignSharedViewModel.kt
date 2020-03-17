@@ -23,7 +23,7 @@ class SignSharedViewModel(private val userRepository: UserRepository) : ViewMode
 
     init {
         viewModelScope.launch {
-//            currentUser.postValue(User())
+            currentUser.postValue(User())
         }
     }
 
@@ -70,7 +70,7 @@ class SignSharedViewModel(private val userRepository: UserRepository) : ViewMode
         }
     }
 
-    fun deleteAllMessages() {
+    internal fun deleteAllMessages() {
         viewModelScope.launch {
             userRepository.deleteAllMessages()
         }

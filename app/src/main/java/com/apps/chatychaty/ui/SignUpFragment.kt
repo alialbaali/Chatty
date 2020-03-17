@@ -53,13 +53,13 @@ class SignUpFragment : Fragment(), LogIn, Error {
             }
         }
 
-//        binding.btnSignUp.let { btnSignUp ->
-//
-//            btnSignUp.setOnClickListener {
-//                viewModel.createAccount()
-//            }
-//
-//        }
+        binding.btnSignUp.let { btnSignUp ->
+
+            btnSignUp.setOnClickListener {
+                viewModel.createAccount()
+            }
+
+        }
 
         viewModel.let { viewModel ->
 

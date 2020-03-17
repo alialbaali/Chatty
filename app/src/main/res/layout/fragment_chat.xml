@@ -31,12 +31,22 @@
                 app:layout_constraintTop_toTopOf="@id/cl"
                 app:layout_constraintVertical_chainStyle="spread_inside">
 
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="@dimen/margin_normal"
+                    android:contentDescription="@string/user_image"
+                    android:src="@drawable/img_background" />
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tb_tv"
                     style="@style/TextAppearance.Toolbar.Text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/app_name" />
+                    android:gravity="start"
+                    android:text="@string/name" />
+
             </com.google.android.material.appbar.MaterialToolbar>
 
 
@@ -93,9 +103,7 @@
                     android:contentDescription="@string/send"
                     android:padding="@dimen/padding_extra_small"
                     android:src="@drawable/ic_send_black_24dp" />
-
             </LinearLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
