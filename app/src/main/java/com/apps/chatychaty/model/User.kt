@@ -5,6 +5,9 @@ import com.squareup.moshi.Json
 data class User(
     val id: Long = 0L,
 
+    @Json(name = "name")
+    var name: String,
+
     @Json(name = "userName")
     var username: String = "",
 
