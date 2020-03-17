@@ -24,7 +24,7 @@ class ChatViewModel(private val messageRepository: MessageRepository) : ViewMode
     internal lateinit var error: Error
 
     init {
-        currentMessage.value = Message()
+//        currentMessage.value = Message()
         getMessages()
         success.value = false
     }
@@ -52,7 +52,7 @@ class ChatViewModel(private val messageRepository: MessageRepository) : ViewMode
                         token.value!!
                     )
 
-                    currentMessage.value = Message()
+//                    currentMessage.value = Message()
 
                 } catch (e: HttpException) {
                     error.snackbar(e.message())

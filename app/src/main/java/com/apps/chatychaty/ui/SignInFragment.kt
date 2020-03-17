@@ -42,15 +42,15 @@ class SignInFragment : Fragment(), LogIn, Error {
 
         }
 
-        // Sign Up TextView
-        binding.tvSignUp.let { tvSignUp ->
-
-            tvSignUp.setOnClickListener {
-                this.findNavController()
-                    .navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
-            }
-
-        }
+//        // Sign Up TextView
+//        binding.tvSignUp.let { tvSignUp ->
+//
+////            tvSignUp.setOnClickListener {
+////                this.findNavController()
+////                    .navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
+////            }
+//
+//        }
 
         // Sign In Button
         binding.btnSignIn.let { btnSignIn ->

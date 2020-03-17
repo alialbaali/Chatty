@@ -23,7 +23,7 @@ class SignSharedViewModel(private val userRepository: UserRepository) : ViewMode
 
     init {
         viewModelScope.launch {
-            currentUser.postValue(User())
+//            currentUser.postValue(User())
         }
     }
 

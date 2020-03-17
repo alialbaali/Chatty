@@ -50,7 +50,7 @@
                 app:layout_constraintRight_toRightOf="@id/cl"
                 app:layout_constraintTop_toBottomOf="@id/tb"
                 tools:itemCount="5"
-                tools:listitem="@layout/list_item_message" />
+                tools:listitem="@layout/list_item_receiver_message" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"

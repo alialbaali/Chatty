@@ -53,7 +53,7 @@ class ChatFragment : Fragment(), Error {
     ): View? {
         binding = FragmentChatBinding.inflate(inflater, container, false)
 
-        adapter = ChatRVAdapter()
+//        adapter = ChatRVAdapter()
 
         // Binding
         binding.let {
