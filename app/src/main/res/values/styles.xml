@@ -75,4 +75,16 @@
         <item name="android:background">@color/transparent</item>
     </style>
 
+    <style name="TextAppearance.Message.Text" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">@dimen/message_text_dimen</item>
+        <item name="android:textColor">@color/light_black</item>
+    </style>
+
+    <style name="TextAppearance.Message.Time" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">@dimen/message_time_dimen</item>
+        <item name="android:textColor">@color/medium_gray</item>
+    </style>
+
 </resources>
