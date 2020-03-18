@@ -3,13 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/signGraph">
+    app:startDestination="@id/listFragment">
 
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.apps.chatychaty.ui.ChatFragment"
         android:label="ChatFragment"
-        tools:layout="@layout/fragment_sign_up" />
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_chatFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_chatFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
     <navigation
         android:id="@+id/signGraph"
         app:startDestination="@id/signUpFragment" >
@@ -37,11 +44,44 @@
                 app:popUpTo="@id/signUpFragment"
                 app:popUpToInclusive="false" />
         </fragment>
+        <action
+            android:id="@+id/action_global_listFragment"
+            app:destination="@id/listFragment" />
     </navigation>
-    <action
-        android:id="@+id/action_global_chatFragment"
-        app:destination="@id/chatFragment"
-        app:launchSingleTop="true"
-        app:popUpTo="@id/signGraph"
-        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.apps.chatychaty.ui.ListFragment"
+        android:label="ListFragment"
+        tools:layout="@layout/fragment_list">
+        <action
+            android:id="@+id/action_listFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.apps.chatychaty.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.apps.chatychaty.ui.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
 </navigation>

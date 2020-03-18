@@ -16,4 +16,6 @@
     <string name="name">Name</string>
     <string name="forgot_your_password">Forgot your password?</string>
     <string name="chats">Chats</string>
+    <string name="chat">Chat</string>
+    <string name="enter_username">Enter username</string>
 </resources>
