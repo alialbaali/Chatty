@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_normal"
                 android:text="@string/create_account"
-                android:textAppearance="@style/TextAppearance.Text"
+                android:textAppearance="@style/TextAppearance.Sign.Text"
                 app:layout_constraintBottom_toBottomOf="@id/cl"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintStart_toStartOf="@id/start_guideline" />
