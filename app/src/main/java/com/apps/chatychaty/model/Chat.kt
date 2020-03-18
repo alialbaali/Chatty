@@ -11,5 +11,5 @@ data class Chat(
     val senderId: Long,
 
     @Json(name = "SecondUserId")
-    val recipientId: Long
+    val receiverId: Long
 )

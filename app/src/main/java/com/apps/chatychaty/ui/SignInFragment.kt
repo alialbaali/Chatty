@@ -38,6 +38,7 @@ class SignInFragment : Fragment(), LogIn, Error {
         binding.let {
 
             it.lifecycleOwner = this
+
             it.viewModel = viewModel
 
         }
@@ -78,7 +79,7 @@ class SignInFragment : Fragment(), LogIn, Error {
 
     override fun putPreferences(username: String, token: String?) {
 
-        this.findNavController().navigate(SignInFragmentDirections.actionGlobalChatFragment())
+        this.findNavController().navigate(SignInFragmentDirections.actionGlobalListFragment())
 
         activity?.getPreferences(Context.MODE_PRIVATE)?.edit {
             this.putString("username", username)

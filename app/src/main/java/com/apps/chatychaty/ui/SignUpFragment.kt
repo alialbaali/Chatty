@@ -90,7 +90,7 @@ class SignUpFragment : Fragment(), LogIn, Error {
 
     override fun putPreferences(username: String, token: String?) {
 
-        this.findNavController().navigate(SignUpFragmentDirections.actionGlobalChatFragment())
+        this.findNavController().navigate(SignUpFragmentDirections.actionGlobalListFragment())
 
         activity?.getPreferences(Context.MODE_PRIVATE)?.edit {
             this.putString("username", username)

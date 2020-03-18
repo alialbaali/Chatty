@@ -14,7 +14,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/img"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_margin="@dimen/margin_normal"
@@ -25,7 +25,7 @@
             android:contentDescription="@string/user_image" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
@@ -36,14 +36,14 @@
             tools:text="Ali"
             android:textColor="#424242"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@id/textView2"
+            app:layout_constraintBottom_toTopOf="@id/text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/img"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
@@ -57,8 +57,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintStart_toEndOf="@+id/img"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
