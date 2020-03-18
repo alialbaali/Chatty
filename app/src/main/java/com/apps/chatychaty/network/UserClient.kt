@@ -17,4 +17,7 @@ interface UserClient {
 
     @DELETE("v1/Main/DeleteAllMessages")
     suspend fun deleteAllMessages()
+
+    @GET("")
+    suspend fun getUsers(user: User): List<User>
 }

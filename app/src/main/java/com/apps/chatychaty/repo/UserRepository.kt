@@ -21,9 +21,15 @@ class UserRepository(private val userClient: UserClient) {
         }
     }
 
-    suspend fun deleteAllMessages(){
-        withContext(Dispatchers.IO){
+    suspend fun deleteAllMessages() {
+        withContext(Dispatchers.IO) {
             userClient.deleteAllMessages()
+        }
+    }
+
+    suspend fun getUsers(user: User): List<User> {
+        return withContext(Dispatchers.IO){
+            userClient.getUsers(user)
         }
     }
 }
