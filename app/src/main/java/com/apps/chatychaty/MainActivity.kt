@@ -12,13 +12,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         getPreferences(Context.MODE_PRIVATE).let {
-            val username = it.getString("username", null)
             val token = it.getString("token", null)
 
-            if (username != null && token != null) {
+            if (token != null) {
                 this.findNavController(R.id.nav_host_fragment_container).let {nav ->
                     nav.popBackStack()
-                    nav.navigate(R.id.chatFragment)
+                    nav.navigate(R.id.listFragment)
                 }
             }
 

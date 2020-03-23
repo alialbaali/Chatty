@@ -10,7 +10,7 @@ interface UserClient {
     @POST("v2/Authentication/CreateAccount")
     suspend fun signUp(@Body user: User): Response
 
-    @POST("v1/Authentication/Login")
+    @POST("v2/Authentication/Login")
     suspend fun signIn(@Body user: User): Response
 
     @DELETE("v1/Main/DeleteAllMessages")

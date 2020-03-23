@@ -13,6 +13,6 @@ class Response(
     @Json(name = "errors")
     val error: String?,
 
-    @Json(name = "user")
+    @Json(name = "profile")
     val user :User
 )

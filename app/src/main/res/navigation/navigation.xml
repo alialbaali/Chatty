@@ -46,7 +46,9 @@
         </fragment>
         <action
             android:id="@+id/action_global_listFragment"
-            app:destination="@id/listFragment" />
+            app:destination="@id/listFragment"
+            app:popUpTo="@id/signUpFragment"
+            app:popUpToInclusive="true" />
     </navigation>
     <fragment
         android:id="@+id/listFragment"
