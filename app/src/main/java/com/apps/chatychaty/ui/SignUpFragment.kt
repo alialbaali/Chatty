@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.apps.chatychaty.databinding.FragmentSignUpBinding
 import com.apps.chatychaty.network.Repos
 import com.apps.chatychaty.viewModel.Error
-import com.apps.chatychaty.viewModel.SignIn
+import com.apps.chatychaty.viewModel.Sign
 import com.apps.chatychaty.viewModel.SignSharedViewModel
 import com.apps.chatychaty.viewModel.SignSharedViewModelFactory
 import com.google.android.material.snackbar.Snackbar
@@ -21,7 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 /**
  * A simple [Fragment] subclass.
  */
-class SignUpFragment : Fragment(), SignIn, Error {
+class SignUpFragment : Fragment(), Sign, Error {
 
     private lateinit var binding: FragmentSignUpBinding
 
@@ -52,7 +52,7 @@ class SignUpFragment : Fragment(), SignIn, Error {
         binding.btnSignUp.let { btnSignUp ->
 
             btnSignUp.setOnClickListener {
-                viewModel.createAccount()
+                viewModel.signUp()
             }
 
         }
@@ -60,7 +60,7 @@ class SignUpFragment : Fragment(), SignIn, Error {
         viewModel.let { viewModel ->
 
             viewModel.error = this
-            viewModel.signIn = this
+            viewModel.sign = this
 
         }
 

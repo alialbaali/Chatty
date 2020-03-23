@@ -14,7 +14,7 @@ class SignSharedViewModel(private val userRepository: UserRepository) : ViewMode
     val currentUser = MutableLiveData<User>()
 
     internal lateinit var error: Error
-    internal lateinit var signIn: SignIn
+    internal lateinit var sign: Sign
 
     init {
         viewModelScope.launch {
@@ -22,23 +22,24 @@ class SignSharedViewModel(private val userRepository: UserRepository) : ViewMode
         }
     }
 
-    internal fun createAccount() {
+    internal fun signUp() {
         viewModelScope.launch {
             try {
-                currentUser.value!!.let { user ->
-
 //                    val file = File(img)
 //                    val body = file.asRequestBody("image/*".toMediaTypeOrNull())
 //                    val mp = MultipartBody.Part.createFormData("img", file.name, body)
 
-                    userRepository.signUp(user).also { response ->
-                        if (response.error == null) {
-                            signIn.putPreferences(response.token!!, response.user.name, response.user.username, response.user.imgUrl)
-                        } else {
-                            error.snackbar(response.error)
-                        }
+                userRepository.signUp(currentUser.value!!).also { response ->
+                    if (response.error == null) {
+                        sign.putPreferences(
+                            response.token!!,
+                            response.user.name,
+                            response.user.username,
+                            response.user.imgUrl
+                        )
+                    } else {
+                        error.snackbar(response.error)
                     }
-
                 }
 
             } catch (e: HttpException) {
@@ -47,17 +48,22 @@ class SignSharedViewModel(private val userRepository: UserRepository) : ViewMode
         }
     }
 
-    internal fun logIn() {
+    internal fun signIn() {
         viewModelScope.launch {
             try {
 
-                currentUser.value!!.let { user ->
+                userRepository.signIn(currentUser.value!!).also { response ->
 
-                    userRepository.signIn(user).also { response ->
-
-//                        signIn.putPreferences(user.username, response.token)
+                    if (response.error == null) {
+                        sign.putPreferences(
+                            response.token!!,
+                            response.user.name,
+                            response.user.username,
+                            response.user.imgUrl
+                        )
+                    } else {
+                        error.snackbar(response.error)
                     }
-
                 }
 
             } catch (e: HttpException) {
@@ -90,6 +96,6 @@ internal interface Error {
     fun snackbar(value: String)
 }
 
-internal interface SignIn {
-    fun putPreferences(token: String, name: String, username: String, imgUrl: String )
+internal interface Sign {
+    fun putPreferences(token: String, name: String, username: String, imgUrl: String)
 }
