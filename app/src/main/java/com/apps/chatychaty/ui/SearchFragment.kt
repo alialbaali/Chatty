@@ -12,14 +12,15 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.apps.chatychaty.DURATION
 import com.apps.chatychaty.adapter.NavigateToChat
 import com.apps.chatychaty.adapter.SearchAdapter
 import com.apps.chatychaty.databinding.FragmentSearchBinding
-import com.apps.chatychaty.databinding.FragmentSearchBinding.inflate
 import com.apps.chatychaty.model.User
 import com.apps.chatychaty.network.Repos
 import com.apps.chatychaty.viewModel.SearchViewModel
 import com.apps.chatychaty.viewModel.SearchViewModelFactory
+import com.google.android.material.transition.MaterialSharedAxis
 
 /**
  * A simple [Fragment] subclass.
@@ -36,7 +37,12 @@ class SearchFragment : Fragment(), NavigateToChat {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = inflate(inflater, container, false)
+        binding = FragmentSearchBinding.inflate(inflater, container, false)
+
+        enterTransition =
+            MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Y, true).apply {
+                duration = DURATION
+            }
 
         binding.lifecycleOwner = this
 
