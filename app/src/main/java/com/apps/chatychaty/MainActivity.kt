@@ -5,6 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 
+const val DURATION = 500L
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,7 +17,7 @@ class MainActivity : AppCompatActivity() {
             val token = it.getString("token", null)
 
             if (token != null) {
-                this.findNavController(R.id.nav_host_fragment_container).let {nav ->
+                this.findNavController(R.id.nav_host_fragment_container).let { nav ->
                     nav.popBackStack()
                     nav.navigate(R.id.listFragment)
                 }

@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.apps.chatychaty.DURATION
 import com.apps.chatychaty.adapter.ChatRVAdapter
 import com.apps.chatychaty.databinding.FragmentChatBinding
 import com.apps.chatychaty.network.Repos
@@ -18,6 +19,7 @@ import com.apps.chatychaty.viewModel.ChatViewModel
 import com.apps.chatychaty.viewModel.ChatViewModelFactory
 import com.apps.chatychaty.viewModel.Error
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.delay
 import timber.log.Timber
 
@@ -53,7 +55,11 @@ class ChatFragment : Fragment(), Error {
     ): View? {
         binding = FragmentChatBinding.inflate(inflater, container, false)
 
-//        adapter = ChatRVAdapter()
+        enterTransition =  MaterialSharedAxis.create(requireContext(),  MaterialSharedAxis.Z, true).apply {
+            duration = DURATION
+        }
+
+        adapter = ChatRVAdapter(0)
 
         // Binding
         binding.let {

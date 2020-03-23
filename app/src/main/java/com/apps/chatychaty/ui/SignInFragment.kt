@@ -10,6 +10,7 @@ import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.apps.chatychaty.DURATION
 import com.apps.chatychaty.R
 import com.apps.chatychaty.databinding.FragmentSignInBinding
 import com.apps.chatychaty.network.Repos
@@ -38,11 +39,11 @@ class SignInFragment : Fragment(), Sign, Error {
         binding = FragmentSignInBinding.inflate(inflater, container, false)
 
         enterTransition =  MaterialFadeThrough.create(requireContext()).apply {
-            duration = 500
+            duration = DURATION
         }
 
         exitTransition =  MaterialFadeThrough.create(requireContext()).apply {
-            duration = 500
+            duration = DURATION
         }
         // Binding
         binding.let {
@@ -59,7 +60,9 @@ class SignInFragment : Fragment(), Sign, Error {
                 .navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
         }
 
-
+        exitTransition =  MaterialSharedAxis.create(requireContext(),  MaterialSharedAxis.Z,true).apply {
+            duration = DURATION
+        }
 
         binding.btnSignIn.setOnClickListener {
             val username = binding.etUsername.text.toString()
