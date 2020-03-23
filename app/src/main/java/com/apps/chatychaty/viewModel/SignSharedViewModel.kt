@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.apps.chatychaty.model.User
 import com.apps.chatychaty.repo.UserRepository
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 

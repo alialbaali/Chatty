@@ -18,6 +18,8 @@ import com.apps.chatychaty.viewModel.Sign
 import com.apps.chatychaty.viewModel.SignSharedViewModel
 import com.apps.chatychaty.viewModel.SignSharedViewModelFactory
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.transition.MaterialFadeThrough
+import com.google.android.material.transition.MaterialSharedAxis
 
 /**
  * A simple [Fragment] subclass.
@@ -35,6 +37,13 @@ class SignInFragment : Fragment(), Sign, Error {
     ): View? {
         binding = FragmentSignInBinding.inflate(inflater, container, false)
 
+        enterTransition =  MaterialFadeThrough.create(requireContext()).apply {
+            duration = 500
+        }
+
+        exitTransition =  MaterialFadeThrough.create(requireContext()).apply {
+            duration = 500
+        }
         // Binding
         binding.let {
 
@@ -80,7 +89,8 @@ class SignInFragment : Fragment(), Sign, Error {
     }
 
     override fun snackbar(value: String) {
-        Snackbar.make(binding.cool, value, Snackbar.LENGTH_LONG).setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).show()
+        Snackbar.make(binding.cool, value, Snackbar.LENGTH_LONG)
+            .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).show()
     }
 
     override fun putPreferences(token: String, name: String, username: String, imgUrl: String) {
