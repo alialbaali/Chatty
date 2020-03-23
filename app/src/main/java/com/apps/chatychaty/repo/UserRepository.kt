@@ -5,19 +5,18 @@ import com.apps.chatychaty.model.User
 import com.apps.chatychaty.network.UserClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.MultipartBody
 
 class UserRepository(private val userClient: UserClient) {
 
-    suspend fun createAccount(user: User, mp: MultipartBody.Part): Response {
+    suspend fun signUp(user: User): Response {
         return withContext(Dispatchers.IO) {
-            userClient.createAccount(user, mp)
+            userClient.signUp(user)
         }
     }
 
-    suspend fun logIn(user: User): Response {
+    suspend fun signIn(user: User): Response {
         return withContext(Dispatchers.IO) {
-            userClient.logIn(user)
+            userClient.signIn(user)
         }
     }
 

@@ -7,12 +7,11 @@ import retrofit2.http.*
 
 interface UserClient {
 
-    @Multipart
-    @POST("v1/Authentication/CreateAccount")
-    suspend fun createAccount(@Body user: User, @Part img: MultipartBody.Part): Response
+    @POST("v2/Authentication/CreateAccount")
+    suspend fun signUp(@Body user: User): Response
 
     @POST("v1/Authentication/Login")
-    suspend fun logIn(@Body user: User): Response
+    suspend fun signIn(@Body user: User): Response
 
 
     @DELETE("v1/Main/DeleteAllMessages")

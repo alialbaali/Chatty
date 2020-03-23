@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.apps.chatychaty.databinding.FragmentSignInBinding
 import com.apps.chatychaty.network.Repos
 import com.apps.chatychaty.viewModel.Error
-import com.apps.chatychaty.viewModel.LogIn
+import com.apps.chatychaty.viewModel.SignIn
 import com.apps.chatychaty.viewModel.SignSharedViewModel
 import com.apps.chatychaty.viewModel.SignSharedViewModelFactory
 import com.google.android.material.snackbar.Snackbar
@@ -21,7 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 /**
  * A simple [Fragment] subclass.
  */
-class SignInFragment : Fragment(), LogIn, Error {
+class SignInFragment : Fragment(), SignIn, Error {
     private lateinit var binding: FragmentSignInBinding
 
     private val viewModel by viewModels<SignSharedViewModel> {
@@ -66,7 +66,7 @@ class SignInFragment : Fragment(), LogIn, Error {
         viewModel.let { viewModel ->
 
             viewModel.error = this
-            viewModel.logIn = this
+            viewModel.signIn = this
 
         }
 
@@ -77,14 +77,18 @@ class SignInFragment : Fragment(), LogIn, Error {
         Snackbar.make(binding.cool, value, Snackbar.LENGTH_LONG).show()
     }
 
-    override fun putPreferences(username: String, token: String?) {
-
-        this.findNavController().navigate(SignInFragmentDirections.actionGlobalListFragment())
-
-        activity?.getPreferences(Context.MODE_PRIVATE)?.edit {
-            this.putString("username", username)
-            this.putString("token", token)
-        }
+    override fun putPreferences(token: String, name: String, username: String, imgUrl: String) {
 
     }
+
+//    override fun putPreferences(username: String, token: String?) {
+//
+//        this.findNavController().navigate(SignInFragmentDirections.actionGlobalListFragment())
+//
+//        activity?.getPreferences(Context.MODE_PRIVATE)?.edit {
+//            this.putString("username", username)
+//            this.putString("token", token)
+//        }
+//
+//    }
 }

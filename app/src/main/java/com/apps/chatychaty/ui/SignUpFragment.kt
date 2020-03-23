@@ -1,9 +1,7 @@
 package com.apps.chatychaty.ui
 
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.apps.chatychaty.databinding.FragmentSignUpBinding
 import com.apps.chatychaty.network.Repos
 import com.apps.chatychaty.viewModel.Error
-import com.apps.chatychaty.viewModel.LogIn
+import com.apps.chatychaty.viewModel.SignIn
 import com.apps.chatychaty.viewModel.SignSharedViewModel
 import com.apps.chatychaty.viewModel.SignSharedViewModelFactory
 import com.google.android.material.snackbar.Snackbar
@@ -23,7 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 /**
  * A simple [Fragment] subclass.
  */
-class SignUpFragment : Fragment(), LogIn, Error {
+class SignUpFragment : Fragment(), SignIn, Error {
 
     private lateinit var binding: FragmentSignUpBinding
 
@@ -62,7 +60,7 @@ class SignUpFragment : Fragment(), LogIn, Error {
         viewModel.let { viewModel ->
 
             viewModel.error = this
-            viewModel.logIn = this
+            viewModel.signIn = this
 
         }
 
@@ -88,39 +86,41 @@ class SignUpFragment : Fragment(), LogIn, Error {
         Snackbar.make(binding.cool, value, Snackbar.LENGTH_LONG).show()
     }
 
-    override fun putPreferences(username: String, token: String?) {
-
+    override fun putPreferences(token: String, name: String, username: String, imgUrl: String) {
         this.findNavController().navigate(SignUpFragmentDirections.actionGlobalListFragment())
 
         activity?.getPreferences(Context.MODE_PRIVATE)?.edit {
-            this.putString("username", username)
             this.putString("token", token)
+            this.putString("name", name)
+            this.putString("username", username)
+            this.putString("img_url", imgUrl)
+            apply()
         }
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == 1) {
-                val img = data?.data
-                img?.path
-//                binding.img.setImageURI(img)
-//                val array = arrayOf(MediaStore.Images.Media.DATE_ADDED)
-//                val cursor =
-//                    activity?.contentResolver?.query(img ?: Uri.EMPTY, array, null, null, null)
-//                cursor?.moveToFirst()
-//                val columnIndex = cursor?.getColumnIndex(array[0])
-//                val imgString = cursor?.getString(columnIndex!!)
-//                cursor?.close()
-
-                viewModel.img = img?.path ?: ""
-                snackbar(img?.path ?: "")
-
-            }
-        } else {
-            snackbar("Error occurred!")
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//
+//        if (resultCode == Activity.RESULT_OK) {
+//            if (requestCode == 1) {
+//                val img = data?.data
+//                img?.path
+////                binding.img.setImageURI(img)
+////                val array = arrayOf(MediaStore.Images.Media.DATE_ADDED)
+////                val cursor =
+////                    activity?.contentResolver?.query(img ?: Uri.EMPTY, array, null, null, null)
+////                cursor?.moveToFirst()
+////                val columnIndex = cursor?.getColumnIndex(array[0])
+////                val imgString = cursor?.getString(columnIndex!!)
+////                cursor?.close()
+//
+//                viewModel.img = img?.path ?: ""
+//                snackbar(img?.path ?: "")
+//
+//            }
+//        } else {
+//            snackbar("Error occurred!")
+//        }
+//    }
 }

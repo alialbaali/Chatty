@@ -7,19 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.apps.chatychaty.model.User
 import com.apps.chatychaty.repo.UserRepository
 import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.HttpException
-import java.io.File
 
 class SignSharedViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     val currentUser = MutableLiveData<User>()
 
     internal lateinit var error: Error
-    internal lateinit var logIn: LogIn
-    internal lateinit var img: String
+    internal lateinit var signIn: SignIn
 
     init {
         viewModelScope.launch {
@@ -27,15 +22,21 @@ class SignSharedViewModel(private val userRepository: UserRepository) : ViewMode
         }
     }
 
-    internal fun logIn() {
+    internal fun createAccount() {
         viewModelScope.launch {
             try {
-
                 currentUser.value!!.let { user ->
 
-                    userRepository.logIn(user).also { response ->
+//                    val file = File(img)
+//                    val body = file.asRequestBody("image/*".toMediaTypeOrNull())
+//                    val mp = MultipartBody.Part.createFormData("img", file.name, body)
 
-                        logIn.putPreferences(user.username, response.token)
+                    userRepository.signUp(user).also { response ->
+                        if (response.error == null) {
+                            signIn.putPreferences(response.token!!, response.user.name, response.user.username, response.user.imgUrl)
+                        } else {
+                            error.snackbar(response.error)
+                        }
                     }
 
                 }
@@ -46,20 +47,15 @@ class SignSharedViewModel(private val userRepository: UserRepository) : ViewMode
         }
     }
 
-
-    internal fun createAccount() {
+    internal fun logIn() {
         viewModelScope.launch {
             try {
+
                 currentUser.value!!.let { user ->
 
-                    val file = File(img)
-                    val body = file.asRequestBody("image/*".toMediaTypeOrNull())
-                    val mp = MultipartBody.Part.createFormData("img", file.name, body)
+                    userRepository.signIn(user).also { response ->
 
-
-                    userRepository.createAccount(user, mp).also { response ->
-
-                        logIn.putPreferences(user.username, response.token)
+//                        signIn.putPreferences(user.username, response.token)
                     }
 
                 }
@@ -94,6 +90,6 @@ internal interface Error {
     fun snackbar(value: String)
 }
 
-internal interface LogIn {
-    fun putPreferences(username: String, token: String?)
+internal interface SignIn {
+    fun putPreferences(token: String, name: String, username: String, imgUrl: String )
 }

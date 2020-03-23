@@ -14,6 +14,6 @@ data class User(
     @Json(name = "password")
     var password: String = "",
 
-    @Json(name = "img")
-    val img: String = ""
+    @Json(name = "img_url")
+    var imgUrl: String = ""
 )

@@ -11,5 +11,8 @@ class Response(
     val token: String?,
 
     @Json(name = "errors")
-    val errors: String?
+    val error: String?,
+
+    @Json(name = "user")
+    val user :User
 )
