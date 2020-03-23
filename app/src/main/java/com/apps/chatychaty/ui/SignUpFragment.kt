@@ -10,6 +10,7 @@ import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.apps.chatychaty.R
 import com.apps.chatychaty.databinding.FragmentSignUpBinding
 import com.apps.chatychaty.network.Repos
 import com.apps.chatychaty.viewModel.Error
@@ -42,19 +43,29 @@ class SignUpFragment : Fragment(), Sign, Error {
 
         }
 
-        binding.tvSignIn.let { tvSignIn ->
-            tvSignIn.setOnClickListener {
-                this.findNavController()
-                    .navigate(SignUpFragmentDirections.actionSignUpFragmentToSignInFragment())
-            }
+        binding.tvSignIn.setOnClickListener {
+            this.findNavController()
+                .navigate(SignUpFragmentDirections.actionSignUpFragmentToSignInFragment())
         }
 
-        binding.btnSignUp.let { btnSignUp ->
+        binding.btnSignUp.setOnClickListener {
+            val name = binding.etName.text.toString()
+            val username = binding.etUsername.text.toString()
+            val password = binding.etPassword.text.toString()
 
-            btnSignUp.setOnClickListener {
-                viewModel.signUp()
+            if (name.isBlank()) {
+                binding.tilName.error = resources.getString(R.string.name_error)
+            }
+            if (username.isBlank()) {
+                binding.tilUsername.error = resources.getString(R.string.username_error)
+            }
+            if (password.isBlank()) {
+                binding.tilPassword.error = resources.getString(R.string.password_error)
             }
 
+            if (name.isNotBlank() and username.isNotBlank() and password.isNotBlank()) {
+                viewModel.signUp()
+            }
         }
 
         viewModel.let { viewModel ->
@@ -83,7 +94,7 @@ class SignUpFragment : Fragment(), Sign, Error {
     }
 
     override fun snackbar(value: String) {
-        Snackbar.make(binding.cool, value, Snackbar.LENGTH_LONG).show()
+        Snackbar.make(binding.cool, value, Snackbar.LENGTH_LONG).setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).show()
     }
 
     override fun putPreferences(token: String, name: String, username: String, imgUrl: String) {

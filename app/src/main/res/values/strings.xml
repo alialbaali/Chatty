@@ -18,4 +18,10 @@
     <string name="chats">Chats</string>
     <string name="chat">Chat</string>
     <string name="enter_username">Enter username</string>
+    <string name="search">Search chats</string>
+    <string name="required">*Required</string>
+    <string name="password_error">Password must be at least 6 characters and must have at least one digit</string>
+    <string name="username_error">Username can\'t be empty</string>
+    <string name="name_error">Name can\'t be empty</string>
+    <string name="password_error_empty">Password can\'t be empty</string>
 </resources>

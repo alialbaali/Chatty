@@ -25,6 +25,7 @@
 
     <style name="TextAppearance.TextInputEditText" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="singleLine">true</item>
         <item name="android:textSize">18sp</item>
     </style>
 

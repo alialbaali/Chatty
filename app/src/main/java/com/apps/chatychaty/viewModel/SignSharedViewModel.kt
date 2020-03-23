@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.apps.chatychaty.model.User
 import com.apps.chatychaty.repo.UserRepository
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -24,6 +25,7 @@ class SignSharedViewModel(private val userRepository: UserRepository) : ViewMode
 
     internal fun signUp() {
         viewModelScope.launch {
+
             try {
 //                    val file = File(img)
 //                    val body = file.asRequestBody("image/*".toMediaTypeOrNull())
@@ -43,7 +45,7 @@ class SignSharedViewModel(private val userRepository: UserRepository) : ViewMode
                 }
 
             } catch (e: HttpException) {
-                error.snackbar(e.message())
+                error.snackbar(e.response().toString())
             }
         }
     }
@@ -67,7 +69,7 @@ class SignSharedViewModel(private val userRepository: UserRepository) : ViewMode
                 }
 
             } catch (e: HttpException) {
-                error.snackbar(e.message())
+                error.snackbar(e.response().toString())
             }
         }
     }

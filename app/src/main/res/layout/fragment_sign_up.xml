@@ -48,6 +48,8 @@
                 android:layout_marginBottom="@dimen/margin_small"
                 android:hint="@string/name"
                 app:counterEnabled="true"
+                app:helperTextEnabled="true"
+                app:helperText="@string/required"
                 app:counterMaxLength="32"
                 app:endIconMode="clear_text"
                 app:errorEnabled="true"
@@ -75,6 +77,8 @@
                 android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginBottom="@dimen/margin_small"
                 android:hint="@string/username"
+                app:helperTextEnabled="true"
+                app:helperText="@string/required"
                 app:counterEnabled="true"
                 app:counterMaxLength="32"
                 app:endIconMode="clear_text"
@@ -101,6 +105,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginBottom="@dimen/margin_extra_large"
+                app:helperTextEnabled="true"
+                app:helperText="@string/required"
                 android:hint="@string/password"
                 app:endIconMode="password_toggle"
                 app:errorEnabled="true"
@@ -147,7 +153,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_end="416dp" />
+                app:layout_constraintGuide_begin="@dimen/margin_normal" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/end_guideline"

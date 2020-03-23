@@ -13,7 +13,6 @@ interface UserClient {
     @POST("v1/Authentication/Login")
     suspend fun signIn(@Body user: User): Response
 
-
     @DELETE("v1/Main/DeleteAllMessages")
     suspend fun deleteAllMessages()
 
