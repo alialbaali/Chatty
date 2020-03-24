@@ -2,8 +2,10 @@ package com.apps.chatychaty.network
 
 import com.apps.chatychaty.model.Response
 import com.apps.chatychaty.model.User
-import okhttp3.MultipartBody
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.POST
 
 interface UserClient {
 

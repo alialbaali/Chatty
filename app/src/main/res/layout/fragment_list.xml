@@ -28,6 +28,7 @@
                 app:layout_constraintTop_toTopOf="@id/cl">
 
                 <ImageView
+                    android:id="@+id/img"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginEnd="@dimen/margin_normal"
@@ -40,7 +41,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="@string/chats" />
+                    android:text="@string/chats"
+                    app:fontFamily="@font/roboto_medium" />
 
             </com.google.android.material.appbar.MaterialToolbar>
 

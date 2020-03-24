@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/edit"
+        android:contentDescription="@string/edit_profile"
+        android:enabled="true"
+        android:icon="@drawable/ic_chat_24px"
+        android:title="@string/edit_profile"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/done"
+        android:contentDescription="@string/done"
+        android:enabled="true"
+        android:icon="@drawable/ic_done_black_24dp"
+        android:title="@string/done"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+</menu>

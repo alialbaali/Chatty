@@ -14,5 +14,5 @@ class Response(
     val error: String?,
 
     @Json(name = "profile")
-    val user :User
+    val user: User
 )

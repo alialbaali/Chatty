@@ -13,9 +13,9 @@ data class Message(
     @Json(name = "sender")
     var senderId: Long,
 
-    @Json(name="delivered")
+    @Json(name = "delivered")
     val delivered: Boolean,
 
-    @Json(name="conversationId")
+    @Json(name = "conversationId")
     val chatId: Long
 )

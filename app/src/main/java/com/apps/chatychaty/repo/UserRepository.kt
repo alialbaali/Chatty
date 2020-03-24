@@ -27,7 +27,7 @@ class UserRepository(private val userClient: UserClient) {
     }
 
     suspend fun getUsers(user: User): List<User> {
-        return withContext(Dispatchers.IO){
+        return withContext(Dispatchers.IO) {
             userClient.getUsers(user)
         }
     }

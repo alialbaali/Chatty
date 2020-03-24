@@ -67,7 +67,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.apps.chatychaty.ProfileFragment"
+        android:name="com.apps.chatychaty.ui.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
         <action
