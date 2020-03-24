@@ -43,6 +43,8 @@
                     android:inputType="text"
                     android:maxLength="32"
                     android:singleLine="true"
+                    android:textColorHint="@color/colorOnPrimary_600"
+                    android:textColor="@color/colorOnPrimary_900"
                     android:text="@={viewModel.user.username}"
                     android:textCursorDrawable="@null"
                     android:textSize="@dimen/text_dimen" />

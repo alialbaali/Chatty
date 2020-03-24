@@ -9,7 +9,7 @@
         android:id="@+id/chatFragment"
         android:name="com.apps.chatychaty.ui.ChatFragment"
         android:label="ChatFragment"
-        tools:layout="@layout/fragment_chat" >
+        tools:layout="@layout/fragment_chat">
         <action
             android:id="@+id/action_chatFragment_to_listFragment"
             app:destination="@id/listFragment" />
@@ -19,12 +19,12 @@
     </fragment>
     <navigation
         android:id="@+id/signGraph"
-        app:startDestination="@id/signUpFragment" >
+        app:startDestination="@id/signUpFragment">
         <fragment
             android:id="@+id/signUpFragment"
             android:name="com.apps.chatychaty.ui.SignUpFragment"
             android:label="SignUpFragment"
-            tools:layout="@layout/fragment_sign_up" >
+            tools:layout="@layout/fragment_sign_up">
             <action
                 android:id="@+id/action_signUpFragment_to_signInFragment"
                 app:destination="@id/signInFragment"
@@ -36,7 +36,7 @@
             android:id="@+id/signInFragment"
             android:name="com.apps.chatychaty.ui.SignInFragment"
             android:label="SignInFragment"
-            tools:layout="@layout/fragment_sign_in" >
+            tools:layout="@layout/fragment_sign_in">
             <action
                 android:id="@+id/action_signInFragment_to_signUpFragment"
                 app:destination="@id/signUpFragment"
@@ -69,7 +69,7 @@
         android:id="@+id/profileFragment"
         android:name="com.apps.chatychaty.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_listFragment"
             app:destination="@id/listFragment" />

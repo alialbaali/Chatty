@@ -4,7 +4,7 @@
     <size
         android:width="48dp"
         android:height="48dp" />
-    <solid android:color="@color/img_background_color" />
+    <solid android:color="@color/colorAccent" />
     <corners android:radius="50dp" />
 
 </shape>
