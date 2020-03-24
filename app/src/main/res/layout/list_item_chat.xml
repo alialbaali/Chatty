@@ -9,20 +9,20 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl"
-        android:layout_margin="@dimen/margin_extra_small"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_extra_small">
 
         <ImageView
             android:id="@+id/img"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_margin="@dimen/margin_normal"
+            android:contentDescription="@string/user_image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/img_background"
-            android:contentDescription="@string/user_image" />
+            tools:srcCompat="@drawable/img_background" />
 
         <TextView
             android:id="@+id/name"
@@ -33,14 +33,14 @@
             android:layout_marginEnd="@dimen/margin_normal"
             android:layout_marginBottom="1dp"
             android:fontFamily="@font/roboto_medium"
-            tools:text="Ali"
             android:textColor="#424242"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@id/text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Ali" />
 
         <TextView
             android:id="@+id/text"
@@ -51,14 +51,14 @@
             android:layout_marginEnd="@dimen/margin_normal"
             android:layout_marginBottom="@dimen/margin_normal"
             android:fontFamily="@font/roboto"
-            tools:text="Hello"
             android:textColor="#757575"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img"
-            app:layout_constraintTop_toBottomOf="@+id/name" />
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            tools:text="Hello" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

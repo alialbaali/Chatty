@@ -1,6 +1,7 @@
 package com.apps.chatychaty.ui
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apps.chatychaty.DURATION
+import com.apps.chatychaty.R
 import com.apps.chatychaty.adapter.NavigateToChat
 import com.apps.chatychaty.adapter.SearchAdapter
 import com.apps.chatychaty.databinding.FragmentSearchBinding
@@ -50,9 +52,18 @@ class SearchFragment : Fragment(), NavigateToChat {
 
         adapter = SearchAdapter()
 
+        binding.tb.navigationIcon?.setTint(resources.getColor(R.color.colorOnPrimary_900))
+
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
         binding.tb.setNavigationOnClickListener {
+            imm.hideSoftInputFromWindow(binding.et.windowToken, 0)
             this.findNavController().navigateUp()
         }
+
+        binding.et.requestFocus()
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+
 
         binding.rv.let { rv ->
 

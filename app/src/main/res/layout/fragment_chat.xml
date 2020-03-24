@@ -67,7 +67,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_extra_small"
-                android:background="@drawable/chat_et_background"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="@id/cl"
                 app:layout_constraintHorizontal_bias="1.0"

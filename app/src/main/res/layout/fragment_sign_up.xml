@@ -13,8 +13,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/cool"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/app_background">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl"

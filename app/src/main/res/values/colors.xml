@@ -1,32 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="app_name_color">#F3E5F5</color>
-    <color name="img_background_color">#80AA00FF</color>
-    <color name="btn_background_color">#BFAA00FF</color>
-    <color name="et_background_color">#40FFFFFF</color>
-    <color name="et_hint_color">#40FFFFFF</color>
-    <color name="sign_in_intro">#BFFFFFFF</color>
-    <color name="chat_item_background_color">#40FFFFFF</color>
-    <color name="chat_item_tv_color">#F3E5F5</color>
-    <color name="chat_item_tv_username_color">#F3E5F5</color>
-    <color name="chat_et_background_color">#80FFFFFF</color>
-    <color name="chat_et_color">#80000000</color>
-    <color name="app_background_end_color">#6A1B9A</color>
-    <color name="app_background_start_color">#8E24AA</color>
+    <color name="colorPrimary">#FAFAFA</color>
+    <color name="colorOnPrimary_900">#212121</color>
+    <color name="colorOnPrimary_800">#424242</color>
+    <color name="colorOnPrimary_600">#757575</color>
+
+    <color name="colorSecondary">#EEEEEE</color>
+    <color name="colorOnSecondary">#BDBDBD</color>
+
+    <color name="colorAccent">#9C27B0</color>
+
     <color name="transparent">#00FFFFFF</color>
-    <color name="app_color">#9C27B0</color>
-    <color name="error_color">#F44336</color>
-    <color name="light_gray">#EEEEEE</color>
-    <color name="medium_gray">#9E9E9E</color>
-    <color name="app_background">#FAFAFA</color>
-
-    <color name="black">#212121</color>
-    <color name="light_black">#424242</color>
-
-
-    <color name="hint_color">#BDBDBD</color>
-    <color name="til_background_color">#EEEEEE</color>
-    <color name="text_color">#424242</color>
-
-
 </resources>

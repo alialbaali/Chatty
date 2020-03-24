@@ -25,8 +25,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="@id/cl"
                 app:layout_constraintRight_toRightOf="@id/cl"
-                app:layout_constraintTop_toTopOf="@id/cl"
-                app:menu="@menu/menu_chat">
+                app:layout_constraintTop_toTopOf="@id/cl">
 
                 <ImageView
                     android:layout_width="48dp"
@@ -64,12 +63,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/margin_normal"
-            android:backgroundTint="@color/app_color"
+            android:backgroundTint="@color/colorAccent"
             android:fontFamily="@font/roboto_medium"
             android:text="@string/chat"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorPrimary"
             app:icon="@drawable/ic_chat_24px"
-            app:iconTint="@android:color/white" />
+            app:iconTint="@color/colorPrimary" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

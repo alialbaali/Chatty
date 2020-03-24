@@ -57,16 +57,6 @@ class ListFragment : Fragment() {
                 .navigate(ListFragmentDirections.actionListFragmentToSearchFragment())
         }
 
-        binding.tb.let { tb ->
-
-            val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
-
-            (tb.menu.findItem(R.id.search).actionView as SearchView).apply {
-                this.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
-            }
-        }
-
-
         return binding.root
     }
 
