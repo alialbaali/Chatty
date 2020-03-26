@@ -10,9 +10,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.apps.chatychaty.DURATION
 import com.apps.chatychaty.R
 import com.apps.chatychaty.adapter.NavigateToChat
@@ -20,14 +18,17 @@ import com.apps.chatychaty.adapter.SearchAdapter
 import com.apps.chatychaty.databinding.FragmentSearchBinding
 import com.apps.chatychaty.model.User
 import com.apps.chatychaty.network.Repos
+import com.apps.chatychaty.viewModel.Error
+import com.apps.chatychaty.viewModel.NavigateToList
 import com.apps.chatychaty.viewModel.SearchViewModel
 import com.apps.chatychaty.viewModel.SearchViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
 
 /**
  * A simple [Fragment] subclass.
  */
-class SearchFragment : Fragment(), NavigateToChat {
+class SearchFragment : Fragment(), NavigateToChat, NavigateToList, Error {
 
     private lateinit var binding: FragmentSearchBinding
 
@@ -50,7 +51,10 @@ class SearchFragment : Fragment(), NavigateToChat {
 
         binding.viewModel = viewModel
 
-        adapter = SearchAdapter()
+        viewModel.error = this
+        viewModel.navigateToList = this
+
+//        adapter = SearchAdapter()
 
         binding.tb.navigationIcon?.setTint(resources.getColor(R.color.colorOnPrimary_900))
 
@@ -64,27 +68,30 @@ class SearchFragment : Fragment(), NavigateToChat {
         binding.et.requestFocus()
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
 
-
-        binding.rv.let { rv ->
-
-            rv.adapter = adapter
-
-            rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-            viewModel.users.observe(viewLifecycleOwner, Observer {
-                it?.let {
-                    adapter.submitList(it)
-                }
-            })
-
-        }
+//
+//        binding.rv.let { rv ->
+//
+//            rv.adapter = adapter
+//
+//            rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//
+//            viewModel.users.observe(viewLifecycleOwner, Observer {
+//                it?.let {
+//                    adapter.submitList(it)
+//                }
+//            })
+//
+//        }
 
         binding.et.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 (activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
                     v.windowToken, 0
                 )
-                viewModel.getUsers()
+                activity?.getPreferences(Context.MODE_PRIVATE).let {
+                    viewModel.token = it?.getString("token", null) ?: ""
+                }
+                viewModel.getUser()
             }
             true
         }
@@ -94,6 +101,22 @@ class SearchFragment : Fragment(), NavigateToChat {
 
     override fun navigate(user: User) {
         TODO("Navigate to a new chat with the provided user")
+    }
+
+    override fun navigate(user: User, chatId: Int) {
+        this.findNavController().navigate(
+            SearchFragmentDirections.actionSearchFragmentToListFragment(
+                user.username,
+                user.name,
+                user.imgUrl,
+                chatId
+            )
+        )
+    }
+
+    override fun snackbar(value: String) {
+        Snackbar.make(binding.cool, value, Snackbar.LENGTH_LONG)
+            .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).show()
     }
 
 }
