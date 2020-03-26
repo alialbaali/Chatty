@@ -2,7 +2,7 @@ package com.apps.chatychaty.model
 
 import com.squareup.moshi.Json
 
-class Response(
+data class Response(
 
     @Json(name = "success")
     val condition: Boolean,

@@ -38,11 +38,11 @@ class SignInFragment : Fragment(), Sign, Error {
     ): View? {
         binding = FragmentSignInBinding.inflate(inflater, container, false)
 
-        enterTransition =  MaterialFadeThrough.create(requireContext()).apply {
+        enterTransition = MaterialFadeThrough.create(requireContext()).apply {
             duration = DURATION
         }
 
-        exitTransition =  MaterialFadeThrough.create(requireContext()).apply {
+        exitTransition = MaterialFadeThrough.create(requireContext()).apply {
             duration = DURATION
         }
         // Binding

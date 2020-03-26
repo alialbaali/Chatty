@@ -8,12 +8,12 @@ data class User(
     @Json(name = "displayName")
     var name: String = "",
 
-    @Json(name = "userName")
+    @Json(name = "username")
     var username: String = "",
 
     @Json(name = "password")
     var password: String = "",
 
-    @Json(name = "img_url")
+    @Json(name = "photoURL")
     var imgUrl: String = ""
 )

@@ -12,7 +12,6 @@ import com.apps.chatychaty.DURATION
 import com.apps.chatychaty.R
 import com.apps.chatychaty.databinding.FragmentProfileBinding
 import com.google.android.material.transition.MaterialSharedAxis
-import timber.log.Timber
 
 /**
  * A simple [Fragment] subclass.
@@ -42,9 +41,8 @@ class ProfileFragment : Fragment() {
 
         activity?.getPreferences(Context.MODE_PRIVATE).let {
             val name = it?.getString("name", null)
-            val username = it?.getString("username", null)
+            val username = "@${it?.getString("username", null)}"
 
-            Timber.i(it?.getString("img_url", null).plus(name))
             binding.name.setText(name)
             binding.username.text = username
         }
