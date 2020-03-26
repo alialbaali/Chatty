@@ -1,15 +1,18 @@
 package com.apps.chatychaty.model
 
-import com.squareup.moshi.Json
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+
+@Entity(tableName = "chats")
 data class Chat(
 
-    @Json(name = "Id")
-    val id: Long = 0L,
+    @PrimaryKey(autoGenerate = false)
+    @ColumnInfo(name = "chat_id")
+    val chatId: Int,
 
-    @Json(name = "FirstUserId")
-    val senderId: Long,
-
-    @Json(name = "SecondUserId")
-    val receiverId: Long
+    @Embedded
+    val user: User
 )
