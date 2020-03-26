@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.apps.chatychaty.database.ChatDao
+import com.apps.chatychaty.database.MessageDao
 import com.apps.chatychaty.model.Chat
 import com.apps.chatychaty.model.Message
 
@@ -14,7 +16,8 @@ import com.apps.chatychaty.model.Message
 )
 abstract class AppDatabase : RoomDatabase() {
 
-
+    abstract val chatDao: ChatDao
+    abstract val messageDao: MessageDao
 
     companion object {
         @Volatile
