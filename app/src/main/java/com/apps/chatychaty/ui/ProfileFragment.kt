@@ -1,6 +1,8 @@
 package com.apps.chatychaty.ui
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,24 +10,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.edit
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.apps.chatychaty.DURATION
-import com.apps.chatychaty.R
+import com.apps.chatychaty.*
+import com.apps.chatychaty.database.AppDatabase
 import com.apps.chatychaty.databinding.FragmentProfileBinding
-import com.apps.chatychaty.getPref
 import com.apps.chatychaty.network.Repos
 import com.apps.chatychaty.viewModel.Error
 import com.apps.chatychaty.viewModel.ProfileViewModel
 import com.apps.chatychaty.viewModel.ProfileViewModelFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
@@ -74,7 +77,7 @@ class ProfileFragment : Fragment(), Error, UpdateName {
 
         val menuDoneItem = binding.tb.menu.findItem(R.id.done)
 
-        if (args.chatId != 0){
+        if (args.chatId != 0) {
             menuEditItem.isVisible = false
             binding.cl.isVisible = false
         }
@@ -119,6 +122,10 @@ class ProfileFragment : Fragment(), Error, UpdateName {
             true
         }
 
+
+
+
+
         menuDoneItem.setOnMenuItemClickListener {
             it.isVisible = false
             menuEditItem.isVisible = true
@@ -134,6 +141,35 @@ class ProfileFragment : Fragment(), Error, UpdateName {
             true
         }
 
+        binding.btnSignOut.setOnClickListener {
+            this.findNavController()
+                .navigate(ProfileFragmentDirections.actionProfileFragmentToSignGraph())
+
+            signOut()
+        }
+
+
+        val followSystemTheme = resources.getString(R.string.follow_system_theme)
+        val lightTheme = resources.getString(R.string.light_theme)
+        val darkTheme = resources.getString(R.string.dark_theme)
+
+        binding.tvAppThemeOption.text = resources.getString(R.string.follow_system_theme)
+
+        when (activity?.getPref("theme")) {
+            followSystemTheme ->
+                binding.tvAppThemeOption.text = resources.getString(R.string.follow_system_theme)
+
+            lightTheme ->
+                binding.tvAppThemeOption.text = resources.getString(R.string.light_theme)
+
+            darkTheme ->
+                binding.tvAppThemeOption.text = resources.getString(R.string.dark_theme)
+
+        }
+
+        binding.tvAppThemeOption.setOnClickListener {
+            themeDialog()
+        }
 
         return binding.root
     }
@@ -166,15 +202,74 @@ class ProfileFragment : Fragment(), Error, UpdateName {
         }
     }
 
+    @SuppressLint("ApplySharedPref")
+    private fun signOut() {
+
+        lifecycleScope.launch(Dispatchers.IO) {
+
+            AppDatabase.getInstance(context!!).clearAllTables()
+
+            activity!!.getPreferences(Context.MODE_PRIVATE).edit().clear().commit()
+
+        }
+
+    }
+
+    private fun themeDialog() {
+        AlertDialog.Builder(context)
+            .setTitle(resources.getString(R.string.app_theme))
+            .setItems(
+                arrayOf(
+                    resources.getString(R.string.follow_system_theme),
+                    resources.getString(R.string.light_theme),
+                    resources.getString(R.string.dark_theme)
+                )
+            ) { dialog, which ->
+                when (which) {
+                    0 -> {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+
+                        activity?.setPref(
+                            "theme",
+                            resources.getString(R.string.follow_system_theme)
+                        )
+
+                        binding.tvAppThemeOption.text =
+                            resources.getString(R.string.follow_system_theme)
+
+                    }
+                    1 -> {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+                        activity?.setPref(
+                            "theme",
+                            resources.getString(R.string.light_theme)
+                        )
+
+
+                        binding.tvAppThemeOption.text =
+                            resources.getString(R.string.light_theme)
+                    }
+                    2 -> {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+                        activity?.setPref(
+                            "theme",
+                            resources.getString(R.string.dark_theme)
+                        )
+
+                        binding.tvAppThemeOption.text = resources.getString(R.string.dark_theme)
+                    }
+                }
+            }.create().show()
+    }
+
     override fun snackbar(value: String) {
-        Snackbar.make(binding.cool, value, Snackbar.LENGTH_LONG)
-            .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).show()
+        binding.cool.snackbar(value)
     }
 
     override fun updateName(name: String) {
-        activity?.getPreferences(Context.MODE_PRIVATE)?.edit {
-            this.putString("name", name)
-        }
+        activity?.setPref("name", name)
     }
 }
 
