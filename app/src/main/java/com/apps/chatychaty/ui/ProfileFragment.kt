@@ -3,21 +3,21 @@ package com.apps.chatychaty.ui
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.database.Cursor
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.edit
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.apps.chatychaty.DURATION
 import com.apps.chatychaty.R
 import com.apps.chatychaty.databinding.FragmentProfileBinding
+import com.apps.chatychaty.getPref
 import com.apps.chatychaty.network.Repos
 import com.apps.chatychaty.viewModel.Error
 import com.apps.chatychaty.viewModel.ProfileViewModel
@@ -26,9 +26,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
-import timber.log.Timber
-import java.io.File
-import java.net.URI
 
 /**
  * A simple [Fragment] subclass.
@@ -40,6 +37,8 @@ class ProfileFragment : Fragment(), Error, UpdateName {
     private val viewModel by viewModels<ProfileViewModel> {
         ProfileViewModelFactory(Repos.userRepository)
     }
+
+    private val args by navArgs<ProfileFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,28 +60,24 @@ class ProfileFragment : Fragment(), Error, UpdateName {
         }
         binding.tb.navigationIcon?.setTint(resources.getColor(R.color.colorOnPrimary_900))
 
-        activity?.getPreferences(Context.MODE_PRIVATE).let {
-            it?.let {
 
-                val token = it.getString("token", null)
-                val name = it.getString("name", null)
-                val username = "@${it.getString("username", null)}"
-                val imgUrl = it.getString("img_url", null)
+        binding.name.setText(args.name)
+        val username = "@${args.username}"
+        binding.username.text = username
+        Glide.with(this).load(args.imgUrl)
+            .circleCrop()
+            .apply(RequestOptions.overrideOf(125, 125))
+            .into(binding.img)
 
-                binding.name.setText(name)
-                binding.username.text = username
-                Glide.with(this).load(imgUrl)
-                    .circleCrop()
-                    .apply(RequestOptions.overrideOf(125, 125))
-                    .into(binding.img)
-
-                viewModel.token = token ?: ""
-            }
-        }
 
         val menuEditItem = binding.tb.menu.findItem(R.id.edit)
 
         val menuDoneItem = binding.tb.menu.findItem(R.id.done)
+
+        if (args.chatId != 0){
+            menuEditItem.isVisible = false
+            binding.cl.isVisible = false
+        }
 
         menuEditItem.icon.setTint(resources.getColor(R.color.colorOnPrimary_900))
 
@@ -183,6 +178,6 @@ class ProfileFragment : Fragment(), Error, UpdateName {
     }
 }
 
-internal interface UpdateName{
+internal interface UpdateName {
     fun updateName(name: String)
 }
