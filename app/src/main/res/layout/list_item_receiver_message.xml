@@ -7,46 +7,53 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_small"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginEnd="@dimen/message_end_margin"
-        android:layout_marginBottom="@dimen/margin_small"
-        android:background="@drawable/message_background">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/cool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/padding_small"
-            android:paddingTop="@dimen/padding_small"
-            android:paddingEnd="@dimen/padding_small"
-            android:paddingBottom="@dimen/padding_extra_small"
-            android:textAppearance="@style/TextAppearance.Message.Text"
-            app:layout_constraintBottom_toTopOf="@id/time"
-            app:layout_constraintEnd_toEndOf="@id/cl"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/cl"
-            app:layout_constraintTop_toTopOf="@id/cl"
-            tools:text="Hello What's up man? How are you doing? " />
+            android:layout_gravity="start"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/message_end_margin"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:background="@drawable/message_background">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/padding_small"
-            android:paddingTop="@dimen/padding_extra_small"
-            android:paddingEnd="@dimen/padding_small"
-            android:paddingBottom="@dimen/padding_small"
-            android:textAppearance="@style/TextAppearance.Message.Time"
-            app:layout_constraintBottom_toBottomOf="@id/cl"
-            app:layout_constraintEnd_toEndOf="@id/cl"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@id/cl"
-            app:layout_constraintTop_toBottomOf="@id/text"
-            tools:text="6:30 AM" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/padding_small"
+                android:paddingTop="@dimen/padding_small"
+                android:paddingEnd="@dimen/padding_small"
+                android:paddingBottom="@dimen/padding_extra_small"
+                android:textAppearance="@style/TextAppearance.Message.Text"
+                app:layout_constraintBottom_toTopOf="@id/time"
+                app:layout_constraintEnd_toEndOf="@id/cl"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/cl"
+                app:layout_constraintTop_toTopOf="@id/cl"
+                tools:text="Hello What's up man? How are you doing? " />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/padding_small"
+                android:paddingTop="@dimen/padding_extra_small"
+                android:paddingEnd="@dimen/padding_small"
+                android:paddingBottom="@dimen/padding_small"
+                android:textAppearance="@style/TextAppearance.Message.Time"
+                app:layout_constraintBottom_toBottomOf="@id/cl"
+                app:layout_constraintEnd_toEndOf="@id/cl"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/cl"
+                app:layout_constraintTop_toBottomOf="@id/text"
+                tools:text="6:30 AM" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
