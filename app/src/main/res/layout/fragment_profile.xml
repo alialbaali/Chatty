@@ -13,24 +13,11 @@
         android:layout_height="match_parent"
         tools:context=".note.ui.NotebookFragment">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/empty_notebook"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginEnd="@dimen/margin_normal"
-            android:gravity="center"
-            android:lineSpacingMultiplier="1.5"
-            android:lines="2"
-            android:maxLines="2"
-            android:text="Notebook"
-            android:visibility="gone"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
-
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/abl"
             android:layout_width="match_parent"
-            android:layout_height="120dp">
+            android:layout_height="120dp"
+            android:elevation="@dimen/elevation">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/ctb"
@@ -64,13 +51,15 @@
                         android:orientation="vertical">
 
                         <EditText
-                            android:textColor="@color/colorOnPrimary_800"
-                            android:enabled="false"
-                            android:background="@color/transparent"
                             android:id="@+id/name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:background="@color/transparent"
+                            android:enabled="false"
+                            android:hint="@string/name"
+                            android:inputType="textPersonName"
                             android:maxLength="32"
+                            android:textColor="@color/colorOnPrimary_800"
                             android:textSize="24sp"
                             tools:text="Ali Albaali" />
 
@@ -78,10 +67,10 @@
                             android:id="@+id/username"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/colorOnPrimary_600"
                             android:maxLength="33"
-                            tools:text="\@alialbaali"
-                            android:textSize="16sp" />
+                            android:textColor="@color/colorOnPrimary_600"
+                            android:textSize="16sp"
+                            tools:text="\@alialbaali" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -96,6 +85,76 @@
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/settings"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_large"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_marginBottom="@dimen/margin_large"
+                android:text="@string/settings"
+                android:textAppearance="@style/TextAppearance.Settings"
+                app:layout_constraintBottom_toTopOf="@id/tv_app_theme"
+                app:layout_constraintEnd_toEndOf="@id/cl"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_app_theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_large"
+                android:text="@string/app_theme"
+                android:textAppearance="@style/TextAppearance.Settings.Item"
+                app:layout_constraintStart_toStartOf="@id/cl"
+                app:layout_constraintTop_toBottomOf="@id/settings" />
+
+            <!--            <View-->
+            <!--                android:id="@+id/line"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="1dp"-->
+            <!--                android:layout_margin="@dimen/margin_normal"-->
+            <!--                android:background="@color/colorOnPrimary_600"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/tv_app_theme" />-->
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_app_theme_option"
+                style="@style/TextAppearance.Settings.Options"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:layout_marginEnd="@dimen/margin_large"
+                android:layout_marginBottom="@dimen/margin_small"
+                app:layout_constraintEnd_toEndOf="@id/cl"
+                app:layout_constraintTop_toBottomOf="@+id/settings"
+                tools:text="Dark theme" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_sign_out"
+                style="@style/Style.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_normal"
+                android:padding="@dimen/padding_small_normal"
+                android:text="@string/sign_out"
+                android:textAllCaps="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/cl"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
