@@ -30,14 +30,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_normal"
-            android:layout_marginEnd="@dimen/margin_normal"
             android:layout_marginBottom="1dp"
             android:fontFamily="@font/roboto_medium"
-            android:textColor="#424242"
-            android:textSize="20sp"
+            android:maxLength="32"
+            android:singleLine="true"
+            android:textColor="@color/colorOnPrimary_800"
+            android:textSize="@dimen/list_chat_item_name_dimen"
             app:layout_constraintBottom_toTopOf="@id/text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Ali" />
@@ -51,14 +50,16 @@
             android:layout_marginEnd="@dimen/margin_normal"
             android:layout_marginBottom="@dimen/margin_normal"
             android:fontFamily="@font/roboto"
-            android:textColor="#757575"
-            android:textSize="16sp"
+            android:maxLength="32"
+            android:singleLine="true"
+            android:textColor="@color/colorOnPrimary_600"
+            android:textSize="@dimen/list_chat_item_body_dimen"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img"
             app:layout_constraintTop_toBottomOf="@+id/name"
-            tools:text="Hello" />
+            tools:text="Hello " />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
