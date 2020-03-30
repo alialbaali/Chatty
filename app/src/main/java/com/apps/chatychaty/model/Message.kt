@@ -11,7 +11,7 @@ data class Message(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "message_id")
     @Json(name = "messageId")
-    val messageId: Long = 0L,
+    val messageId: Int = 0,
 
     @ColumnInfo(name = "message_body")
     @Json(name = "body")
@@ -19,7 +19,7 @@ data class Message(
 
     @ColumnInfo(name = "name")
     @Json(name = "sender")
-    var name: String,
+    var username: String = "",
 
     @ColumnInfo(name = "delivered")
     @Json(name = "delivered")
