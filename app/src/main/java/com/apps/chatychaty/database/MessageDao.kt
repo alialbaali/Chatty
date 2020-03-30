@@ -1,18 +1,22 @@
 package com.apps.chatychaty.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.apps.chatychaty.model.Message
 
 @Dao
 interface MessageDao {
 
     @Insert
-    fun insertMessage(message: Message)
+    suspend fun insertMessage(message: Message)
 
     @Query("SELECT * FROM messages where chat_id = :chatId")
-    fun getMessages(chatId: Long): LiveData<List<Message>>
+    fun getMessages(chatId: Int): LiveData<List<Message>>
+
+    @Query("SELECT COUNT(*) FROM chats")
+    suspend fun count(): Int
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateMessages(messages: List<Message>)
 
 }

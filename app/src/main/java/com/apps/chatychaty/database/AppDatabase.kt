@@ -1,11 +1,9 @@
-package com.noto.database
+package com.apps.chatychaty.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.apps.chatychaty.database.ChatDao
-import com.apps.chatychaty.database.MessageDao
 import com.apps.chatychaty.model.Chat
 import com.apps.chatychaty.model.Message
 
@@ -14,17 +12,17 @@ import com.apps.chatychaty.model.Message
     version = 1,
     exportSchema = false
 )
-abstract class AppDatabase : RoomDatabase() {
+internal abstract class AppDatabase : RoomDatabase() {
 
-    abstract val chatDao: ChatDao
-    abstract val messageDao: MessageDao
+    internal abstract val chatDao: ChatDao
+    internal abstract val messageDao: MessageDao
 
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
 
-        fun getInstance(context: Context): AppDatabase {
+        internal fun getInstance(context: Context): AppDatabase {
             synchronized(this) {
                 var instance = INSTANCE
 
