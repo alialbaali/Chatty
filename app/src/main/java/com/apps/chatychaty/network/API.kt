@@ -1,5 +1,8 @@
 package com.apps.chatychaty.network
 
+import com.apps.chatychaty.database.ChatDao
+import com.apps.chatychaty.database.MessageDao
+import com.apps.chatychaty.repo.ChatRepository
 import com.apps.chatychaty.repo.MessageRepository
 import com.apps.chatychaty.repo.UserRepository
 import com.squareup.moshi.Moshi
@@ -11,6 +14,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
 private const val BASE_URL = "https://chatychaty0.herokuapp.com/api/"
+internal const val AUTH_SCHEME = "Bearer "
 
 private val logger = HttpLoggingInterceptor().also {
     it.level = HttpLoggingInterceptor.Level.BODY
@@ -44,6 +48,18 @@ private object Clients {
     internal val messageClient by lazy {
         retrofit.create(MessageClient::class.java)
     }
+
+    internal val chatClient by lazy {
+        retrofit.create(ChatClient::class.java)
+    }
+}
+
+internal object DAOs {
+
+    lateinit var chatDao: ChatDao
+
+    lateinit var messageDao: MessageDao
+
 }
 
 internal object Repos {
@@ -52,6 +68,10 @@ internal object Repos {
     }
 
     internal val messageRepository by lazy {
-        MessageRepository(Clients.messageClient)
+        MessageRepository(Clients.messageClient, DAOs.messageDao)
+    }
+
+    internal val chatRepository by lazy {
+        ChatRepository(Clients.chatClient, DAOs.chatDao)
     }
 }
