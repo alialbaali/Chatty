@@ -1,35 +1,60 @@
 package com.apps.chatychaty.repo
 
+import androidx.lifecycle.LiveData
+import com.apps.chatychaty.database.MessageDao
 import com.apps.chatychaty.model.Message
+import com.apps.chatychaty.network.AUTH_SCHEME
 import com.apps.chatychaty.network.MessageClient
+import com.apps.chatychaty.token
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class MessageRepository(private val messageClient: MessageClient) {
+class MessageRepository(
+    private val messageClient: MessageClient,
+    private val messageDao: MessageDao
+) {
 
-    suspend fun postMessage(message: Message, value: String) {
-        withContext(Dispatchers.IO) {
-            messageClient.postMessage(message, "Bearer $value")
-        }
-    }
-
-    suspend fun getMessages(): List<Message> {
+    suspend fun insertMessageClient(token: String, message: Message): Message {
         return withContext(Dispatchers.IO) {
-            messageClient.getMessages()
+            messageClient.insertMessage(AUTH_SCHEME.plus(token), message)
         }
     }
 
-    suspend fun getImg() {
+    suspend fun insertMessageDao(message: Message) {
         withContext(Dispatchers.IO) {
-            messageClient.getImg()
+            messageDao.insertMessage(message)
         }
-        TODO("make the function return an image type")
     }
 
-    suspend fun getNewMessages(id: Int): List<Message> {
+    suspend fun getMessagesClient(token: String, lastMessageId: Int): List<Message> {
         return withContext(Dispatchers.IO) {
-            messageClient.getNewMessages(id)
+            messageClient.getMessages(AUTH_SCHEME.plus(token), lastMessageId)
         }
     }
+
+    suspend fun getMessagesDao(chatId: Int): LiveData<List<Message>> {
+        return withContext(Dispatchers.Main) {
+            messageDao.getMessages(chatId)
+        }
+    }
+
+    suspend fun countDao(): Int {
+        return withContext(Dispatchers.IO) {
+            messageDao.count()
+        }
+    }
+
+    suspend fun updateMessagesDao(messages: List<Message>) {
+        withContext(Dispatchers.IO) {
+            messageDao.updateMessages(messages)
+        }
+    }
+
+    suspend fun isMessageDelivered(messageId: Int): Boolean {
+        return withContext(Dispatchers.IO) {
+            messageClient.isMessageDelivered(AUTH_SCHEME.plus(token), messageId)
+        }
+    }
+
 }
 
