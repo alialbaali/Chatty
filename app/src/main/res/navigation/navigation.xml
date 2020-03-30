@@ -16,6 +16,18 @@
         <action
             android:id="@+id/action_chatFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <argument
+            android:name="chatId"
+            app:argType="integer" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <argument
+            android:name="img_url"
+            app:argType="string" />
     </fragment>
     <navigation
         android:id="@+id/signGraph"
@@ -63,7 +75,12 @@
             app:destination="@id/profileFragment" />
         <action
             android:id="@+id/action_listFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
+            app:destination="@id/searchFragment"
+            app:launchSingleTop="false" />
+        <argument
+            android:name="username"
+            android:defaultValue=" "
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -73,6 +90,36 @@
         <action
             android:id="@+id/action_profileFragment_to_listFragment"
             app:destination="@id/listFragment" />
+        <argument
+            android:name="name"
+            android:defaultValue=" "
+            app:argType="string" />
+        <argument
+            android:name="username"
+            android:defaultValue=" "
+            app:argType="string" />
+        <argument
+            android:name="img_url"
+            android:defaultValue=" "
+            app:argType="string" />
+        <argument
+            android:name="chat_id"
+            app:argType="integer"/>
+        <action
+            android:id="@+id/action_profileFragment_to_signGraph"
+            app:destination="@id/signGraph"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/signGraph"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_profileFragment_to_listFragment2"
+            app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_listFragment3"
+            app:destination="@id/listFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/listFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -81,9 +128,9 @@
         tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment_to_listFragment"
-            app:destination="@id/listFragment" />
-        <action
-            android:id="@+id/action_searchFragment_to_chatFragment"
-            app:destination="@id/chatFragment" />
+            app:destination="@id/listFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/listFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 </navigation>

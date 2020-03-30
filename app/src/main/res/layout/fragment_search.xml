@@ -36,6 +36,7 @@
                     android:id="@+id/et"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_normal"
                     android:background="@color/transparent"
                     android:focusable="true"
                     android:fontFamily="@font/roboto"
@@ -43,10 +44,9 @@
                     android:inputType="text"
                     android:maxLength="32"
                     android:singleLine="true"
-                    android:textColorHint="@color/colorOnPrimary_600"
+                    android:text="@={viewModel.username}"
                     android:textColor="@color/colorOnPrimary_900"
-                    android:text="@={viewModel.user.username}"
-                    android:textCursorDrawable="@null"
+                    android:textColorHint="@color/colorOnPrimary_600"
                     android:textSize="@dimen/text_dimen" />
 
             </com.google.android.material.appbar.MaterialToolbar>

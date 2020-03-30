@@ -1,6 +1,5 @@
 package com.apps.chatychaty.ui
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,22 +12,17 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.apps.chatychaty.DURATION
 import com.apps.chatychaty.R
-import com.apps.chatychaty.adapter.NavigateToChat
 import com.apps.chatychaty.adapter.SearchAdapter
 import com.apps.chatychaty.databinding.FragmentSearchBinding
-import com.apps.chatychaty.model.User
 import com.apps.chatychaty.network.Repos
-import com.apps.chatychaty.viewModel.Error
-import com.apps.chatychaty.viewModel.NavigateToList
 import com.apps.chatychaty.viewModel.SearchViewModel
 import com.apps.chatychaty.viewModel.SearchViewModelFactory
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
 
 /**
  * A simple [Fragment] subclass.
  */
-class SearchFragment : Fragment(), NavigateToChat, NavigateToList, Error {
+class SearchFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchBinding
 
@@ -50,9 +44,6 @@ class SearchFragment : Fragment(), NavigateToChat, NavigateToList, Error {
         binding.lifecycleOwner = this
 
         binding.viewModel = viewModel
-
-        viewModel.error = this
-        viewModel.navigateToList = this
 
 //        adapter = SearchAdapter()
 
@@ -85,38 +76,16 @@ class SearchFragment : Fragment(), NavigateToChat, NavigateToList, Error {
 
         binding.et.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                (activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-                    v.windowToken, 0
-                )
-                activity?.getPreferences(Context.MODE_PRIVATE).let {
-                    viewModel.token = it?.getString("token", null) ?: ""
-                }
-                viewModel.getUser()
+
+                imm.hideSoftInputFromWindow(v.windowToken, 0)
+
+                this.findNavController()
+                    .navigate(SearchFragmentDirections.actionSearchFragmentToListFragment(viewModel.username.value!!))
+
             }
             true
         }
 
         return binding.root
     }
-
-    override fun navigate(user: User) {
-        TODO("Navigate to a new chat with the provided user")
-    }
-
-    override fun navigate(user: User, chatId: Int) {
-        this.findNavController().navigate(
-            SearchFragmentDirections.actionSearchFragmentToListFragment(
-                user.username,
-                user.name,
-                user.imgUrl,
-                chatId
-            )
-        )
-    }
-
-    override fun snackbar(value: String) {
-        Snackbar.make(binding.cool, value, Snackbar.LENGTH_LONG)
-            .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).show()
-    }
-
 }

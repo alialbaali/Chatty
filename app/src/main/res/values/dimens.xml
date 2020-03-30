@@ -13,6 +13,8 @@
     <dimen name="text_dimen">18sp</dimen>
     <dimen name="message_text_dimen">16sp</dimen>
     <dimen name="message_time_dimen">12sp</dimen>
+    <dimen name="settings_tv_dimen">20sp</dimen>
+    <dimen name="settings_Item_tv_dimen">16sp</dimen>
 
     <!-- Margin -->
     <dimen name="margin_extra_small">4dp</dimen>
@@ -30,4 +32,7 @@
     <dimen name="padding_extra_large">36dp</dimen>
     <dimen name="abl_height_dimen">100dp</dimen>
     <dimen name="message_end_margin">150dp</dimen>
+    <dimen name="list_chat_item_body_dimen">16sp</dimen>
+    <dimen name="list_chat_item_name_dimen">20sp</dimen>
+    <dimen name="elevation">25dp</dimen>
 </resources>

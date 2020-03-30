@@ -35,7 +35,7 @@ internal class SearchAdapter :
 
         init {
             binding.root.setOnClickListener {
-                navigateToChat.navigate(user)
+//                navigateToChat.navigate(user)
             }
         }
 
@@ -68,8 +68,4 @@ private class SearchUserItemDiffCallback() : DiffUtil.ItemCallback<User>() {
     override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
         return oldItem == newItem
     }
-}
-
-interface NavigateToChat {
-    fun navigate(user: User)
 }

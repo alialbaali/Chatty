@@ -92,8 +92,8 @@
                     style="@style/TextAppearance.TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text|textPersonName"
-                    android:text="@{viewModel.currentUser.username}" />
+                    android:inputType="text"
+                    android:text="@={viewModel.currentUser.username}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

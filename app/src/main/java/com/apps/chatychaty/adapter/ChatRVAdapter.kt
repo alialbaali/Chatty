@@ -13,7 +13,7 @@ private const val VIEW_TYPE_Sender_MESSAGE = 1
 private const val VIEW_TYPE_RECEIVER_MESSAGE = 2
 
 // Chat RV Adapter
-internal class ChatRVAdapter(private val senderId: Long) :
+internal class ChatRVAdapter(private val senderUsername: String) :
     ListAdapter<Message, RecyclerView.ViewHolder>(MessageItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -35,7 +35,7 @@ internal class ChatRVAdapter(private val senderId: Long) :
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (this.currentList[position].senderId == senderId) {
+        return if (this.currentList[position].username == senderUsername) {
             VIEW_TYPE_Sender_MESSAGE
         } else {
             VIEW_TYPE_RECEIVER_MESSAGE
@@ -55,8 +55,8 @@ internal class ChatRVAdapter(private val senderId: Long) :
         }
 
         fun bind(message: Message) {
-            binding.text.text = message.text
-            TODO("Add Time in hours and mins")
+            binding.text.text = message.messageBody
+//            TODO("Add Time in hours and mins")
         }
 
     }
@@ -74,8 +74,8 @@ internal class ChatRVAdapter(private val senderId: Long) :
         }
 
         fun bind(message: Message) {
-            binding.text.text = message.text
-            TODO("Add Time in hours and mins")
+            binding.text.text = message.messageBody
+//            TODO("Add Time in hours and mins")
         }
 
     }
@@ -83,7 +83,7 @@ internal class ChatRVAdapter(private val senderId: Long) :
 
 private class MessageItemDiffCallback() : DiffUtil.ItemCallback<Message>() {
     override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.messageId == newItem.messageId
     }
 
     override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean {

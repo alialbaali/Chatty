@@ -1,17 +1,14 @@
 package com.apps.chatychaty.ui
 
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.apps.chatychaty.DURATION
-import com.apps.chatychaty.R
+import com.apps.chatychaty.*
 import com.apps.chatychaty.databinding.FragmentSignUpBinding
 import com.apps.chatychaty.network.Repos
 import com.apps.chatychaty.viewModel.Error
@@ -39,11 +36,11 @@ class SignUpFragment : Fragment(), Sign, Error {
     ): View? {
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
-        exitTransition =  MaterialFadeThrough.create(requireContext()).apply {
+        exitTransition = MaterialFadeThrough.create(requireContext()).apply {
             duration = DURATION
         }
 
-        enterTransition =  MaterialFadeThrough.create(requireContext()).apply {
+        enterTransition = MaterialFadeThrough.create(requireContext()).apply {
             duration = DURATION
         }
 
@@ -61,9 +58,10 @@ class SignUpFragment : Fragment(), Sign, Error {
 
         binding.btnSignUp.setOnClickListener {
 
-            exitTransition = MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Z, true).apply {
-                duration = DURATION
-            }
+            exitTransition =
+                MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Z, true).apply {
+                    duration = DURATION
+                }
 
             val name = binding.etName.text.toString()
             val username = binding.etUsername.text.toString()
@@ -110,21 +108,18 @@ class SignUpFragment : Fragment(), Sign, Error {
     }
 
     override fun snackbar(value: String) {
-        Snackbar.make(binding.cool, value, Snackbar.LENGTH_LONG)
-            .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE).show()
+       binding.cool.snackbar(value)
     }
 
     override fun putPreferences(token: String, name: String, username: String, imgUrl: String) {
         this.findNavController().navigate(SignUpFragmentDirections.actionGlobalListFragment())
 
-        activity?.getPreferences(Context.MODE_PRIVATE)?.edit {
-            this.putString("token", token)
-            this.putString("name", name)
-            this.putString("username", username)
-            this.putString("img_url", imgUrl)
-            apply()
-        }
+        activity?.setPref("token", token)
+        activity?.setPref("name", name)
+        activity?.setPref("username", username)
+        activity?.setPref("img_url", imgUrl)
 
+        com.apps.chatychaty.token = activity?.getPref("token")
     }
 
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

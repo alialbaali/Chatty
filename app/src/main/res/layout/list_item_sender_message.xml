@@ -33,6 +33,7 @@
                 android:paddingEnd="@dimen/padding_small"
                 android:paddingBottom="@dimen/padding_extra_small"
                 android:textAppearance="@style/TextAppearance.Message.Text"
+                android:textColor="#F5F5F5"
                 app:layout_constraintBottom_toTopOf="@id/time"
                 app:layout_constraintEnd_toEndOf="@id/cl"
                 app:layout_constraintHorizontal_bias="1.0"
