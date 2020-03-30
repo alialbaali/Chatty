@@ -31,15 +31,15 @@ class SignSharedViewModel(private val userRepository: UserRepository) : ViewMode
 //                    val mp = MultipartBody.Part.createFormData("img", file.name, body)
 
                 userRepository.signUp(currentUser.value!!).also { response ->
-                    if (response.error == null) {
+                    if (response.condition) {
                         sign.putPreferences(
                             response.token!!,
-                            response.user.name,
+                            response.user!!.name,
                             response.user.username,
                             response.user.imgUrl
                         )
                     } else {
-                        error.snackbar(response.error)
+                        error.snackbar(response.errors.toString())
                     }
                 }
 
@@ -55,27 +55,21 @@ class SignSharedViewModel(private val userRepository: UserRepository) : ViewMode
 
                 userRepository.signIn(currentUser.value!!).also { response ->
 
-                    if (response.error == null) {
+                    if (response.condition) {
                         sign.putPreferences(
                             response.token!!,
-                            response.user.name,
+                            response.user!!.name,
                             response.user.username,
                             response.user.imgUrl
                         )
                     } else {
-                        error.snackbar(response.error)
+                        error.snackbar(response.errors.toString())
                     }
                 }
 
             } catch (e: HttpException) {
                 error.snackbar(e.response().toString())
             }
-        }
-    }
-
-    internal fun deleteAllMessages() {
-        viewModelScope.launch {
-            userRepository.deleteAllMessages()
         }
     }
 }
