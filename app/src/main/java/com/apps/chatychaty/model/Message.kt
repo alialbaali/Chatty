@@ -23,7 +23,7 @@ data class Message(
 
     @ColumnInfo(name = "delivered")
     @Json(name = "delivered")
-    val delivered: Boolean? = null,
+    var delivered: Boolean? = null,
 
     @ColumnInfo(name = "chat_id")
     @Json(name = "chatId")

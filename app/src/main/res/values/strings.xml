@@ -33,4 +33,5 @@
     <string name="dark_theme">Dark theme</string>
     <string name="light_theme">Light theme</string>
     <string name="follow_system_theme">Follow system theme</string>
+    <string name="delivered">Delivered</string>
 </resources>

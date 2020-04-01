@@ -13,16 +13,17 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_extra_small">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/img"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_normal"
+            android:background="@color/colorSecondary"
             android:contentDescription="@string/user_image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/img_background" />
+            app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance" />
 
         <TextView
             android:id="@+id/name"
@@ -36,13 +37,13 @@
             android:singleLine="true"
             android:textColor="@color/colorOnPrimary_800"
             android:textSize="@dimen/list_chat_item_name_dimen"
-            app:layout_constraintBottom_toTopOf="@id/text"
+            app:layout_constraintBottom_toTopOf="@id/body"
             app:layout_constraintStart_toEndOf="@+id/img"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Ali" />
 
         <TextView
-            android:id="@+id/text"
+            android:id="@+id/body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"

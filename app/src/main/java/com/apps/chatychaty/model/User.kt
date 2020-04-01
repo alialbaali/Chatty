@@ -15,5 +15,5 @@ data class User(
     var password: String = "",
 
     @Json(name = "photoURL")
-    var imgUrl: String = ""
+    var imgUrl: String? = ""
 )

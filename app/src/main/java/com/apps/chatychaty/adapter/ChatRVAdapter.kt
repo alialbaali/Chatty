@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.apps.chatychaty.R
 import com.apps.chatychaty.databinding.ListItemReceiverMessageBinding
 import com.apps.chatychaty.databinding.ListItemSenderMessageBinding
 import com.apps.chatychaty.model.Message
@@ -55,7 +56,14 @@ internal class ChatRVAdapter(private val senderUsername: String) :
         }
 
         fun bind(message: Message) {
-            binding.text.text = message.messageBody
+            binding.body.text = message.messageBody
+            if (message.delivered == true) {
+                binding.delivered.setImageResource(R.drawable.ic_done_24dp)
+            } else {
+                binding.delivered.setImageResource(R.drawable.ic_loading_24dp)
+            }
+//            binding.time.text = DateFormat.getTimeInstance(DateFormat.SHORT).format(Date()).toString()
+
 //            TODO("Add Time in hours and mins")
         }
 
@@ -74,7 +82,8 @@ internal class ChatRVAdapter(private val senderUsername: String) :
         }
 
         fun bind(message: Message) {
-            binding.text.text = message.messageBody
+            binding.body.text = message.messageBody
+//            binding.time.text = Calendar.getInstance().time.toString()
 //            TODO("Add Time in hours and mins")
         }
 

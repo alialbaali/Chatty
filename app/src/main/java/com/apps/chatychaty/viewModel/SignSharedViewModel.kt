@@ -92,5 +92,5 @@ internal interface Error {
 }
 
 internal interface Sign {
-    fun putPreferences(token: String, name: String, username: String, imgUrl: String)
+    fun putPreferences(token: String, name: String, username: String, imgUrl: String?)
 }

@@ -10,7 +10,7 @@ import androidx.navigation.findNavController
 import com.apps.chatychaty.database.AppDatabase
 import com.apps.chatychaty.network.DAOs
 
-const val DURATION = 500L
+const val DURATION = 350L
 var token: String? = null
 
 class MainActivity : AppCompatActivity() {

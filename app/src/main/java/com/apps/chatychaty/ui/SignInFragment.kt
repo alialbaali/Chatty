@@ -93,7 +93,7 @@ class SignInFragment : Fragment(), Sign, Error {
         binding.cool.snackbar(value)
     }
 
-    override fun putPreferences(token: String, name: String, username: String, imgUrl: String) {
+    override fun putPreferences(token: String, name: String, username: String, imgUrl: String?) {
         this.findNavController().navigate(SignInFragmentDirections.actionGlobalListFragment())
 
         activity?.setPref("token", token)

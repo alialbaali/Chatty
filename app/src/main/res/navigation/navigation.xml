@@ -27,7 +27,8 @@
             app:argType="string" />
         <argument
             android:name="img_url"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <navigation
         android:id="@+id/signGraph"
@@ -100,8 +101,8 @@
             app:argType="string" />
         <argument
             android:name="img_url"
-            android:defaultValue=" "
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true" />
         <argument
             android:name="chat_id"
             app:argType="integer"/>

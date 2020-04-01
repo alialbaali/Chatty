@@ -23,7 +23,7 @@ interface MessageClient {
     @GET("v2/Message/CheckDelivered")
     suspend fun isMessageDelivered(
         @Header("Authorization") token: String,
-        @Header("MessageIdE") messageId: Int
+        @Header("MessageId") messageId: Int
     ): Boolean
 
 }

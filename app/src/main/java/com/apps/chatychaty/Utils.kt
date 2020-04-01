@@ -11,9 +11,11 @@ fun View.snackbar(value: String) {
         .show()
 }
 
-fun Activity.setPref(key: String, value: String) {
+fun Activity.setPref(key: String, value: String?) {
     this.getPreferences(Context.MODE_PRIVATE).edit {
-        this.putString(key, value)
+        if (value != null) {
+            this.putString(key, value)
+        }
         apply()
     }
 }

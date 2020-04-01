@@ -31,6 +31,7 @@ import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * A simple [Fragment] subclass.
@@ -59,9 +60,8 @@ class ListFragment : Fragment(), NavigateToChat, Error {
 
         Glide.with(this)
             .load(activity?.getPref("img_url"))
-            .placeholder(resources.getDrawable(R.drawable.img_background, null))
+            .placeholder(resources.getDrawable(R.drawable.ic_person_24dp, null))
             .circleCrop()
-            .apply(RequestOptions.overrideOf(120, 120))
             .into(binding.img)
 
         if (args.username.isNotBlank()) {
@@ -89,7 +89,7 @@ class ListFragment : Fragment(), NavigateToChat, Error {
 
             val name = activity?.getPref("name")!!
             val username = activity?.getPref("username")!!
-            val imgUrl = activity?.getPref("img_url")!!
+            val imgUrl = activity?.getPref("img_url")
             this.findNavController().navigate(
                 ListFragmentDirections.actionListFragmentToProfileFragment(
                     name,

@@ -61,10 +61,10 @@ internal class ChatItemViewHolder(
 
         binding.name.text = item.user.name
 
-        Glide.with(itemView).load(item.user.imgUrl)
-            .placeholder(itemView.context.getDrawable(R.drawable.img_background))
+        Glide.with(itemView)
+            .load(item.user.imgUrl)
+            .placeholder(itemView.context.getDrawable(R.drawable.ic_person_24dp))
             .circleCrop()
-            .apply(RequestOptions.overrideOf(120, 120))
             .into(binding.img)
     }
 }

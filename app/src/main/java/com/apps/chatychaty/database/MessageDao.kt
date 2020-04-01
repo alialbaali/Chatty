@@ -19,4 +19,6 @@ interface MessageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateMessages(messages: List<Message>)
 
+    @Query("UPDATE messages SET delivered = 1 ")
+    suspend fun updateDelivered()
 }

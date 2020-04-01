@@ -22,7 +22,7 @@ import com.google.android.material.transition.MaterialSharedAxis
 /**
  * A simple [Fragment] subclass.
  */
-class SignUpFragment : Fragment(), Sign, Error {
+ class SignUpFragment : Fragment(), Sign, Error {
 
     private lateinit var binding: FragmentSignUpBinding
 
@@ -111,7 +111,7 @@ class SignUpFragment : Fragment(), Sign, Error {
        binding.cool.snackbar(value)
     }
 
-    override fun putPreferences(token: String, name: String, username: String, imgUrl: String) {
+    override fun putPreferences(token: String, name: String, username: String, imgUrl: String?) {
         this.findNavController().navigate(SignUpFragmentDirections.actionGlobalListFragment())
 
         activity?.setPref("token", token)

@@ -1,13 +1,19 @@
 package com.apps.chatychaty.ui
 
 
+import android.content.Context
 import android.os.Bundle
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,7 +29,11 @@ import com.apps.chatychaty.viewModel.SharedViewModel
 import com.apps.chatychaty.viewModel.SharedViewModelFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.transition.MaterialFade
 import com.google.android.material.transition.MaterialSharedAxis
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
@@ -46,6 +56,8 @@ class ChatFragment : Fragment(), Error {
     ): View? {
         binding = FragmentChatBinding.inflate(inflater, container, false)
 
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
         enterTransition =
             MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Z, true).apply {
                 duration = DURATION
@@ -63,9 +75,8 @@ class ChatFragment : Fragment(), Error {
 
         Glide.with(this)
             .load(args.imgUrl)
-            .placeholder(resources.getDrawable(R.drawable.img_background, null))
+            .placeholder(resources.getDrawable(R.drawable.ic_person_24dp, null))
             .circleCrop()
-            .apply(RequestOptions.overrideOf(120, 120))
             .into(binding.img)
 
         // RV
@@ -102,10 +113,12 @@ class ChatFragment : Fragment(), Error {
         binding.et.requestFocus()
 
         binding.tb.setNavigationOnClickListener {
+            imm.hideSoftInputFromWindow(binding.et.windowToken, 0)
             this.findNavController().navigateUp()
         }
 
         binding.img.setOnClickListener {
+            imm.hideSoftInputFromWindow(binding.et.windowToken, 0)
 
             exitTransition =
                 MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.X, true).apply {
@@ -122,7 +135,57 @@ class ChatFragment : Fragment(), Error {
             )
         }
         binding.root.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
-            binding.rv.smoothScrollToPosition(viewModel.messages.value?.size?.minus(1) ?: 0)
+            if (viewModel.messages.value?.isNotEmpty() == true) {
+                binding.rv.smoothScrollToPosition(viewModel.messages.value?.size?.minus(1) ?: 0)
+            }
+        }
+
+        viewModel.let { viewModel ->
+            lifecycleScope.launch(Dispatchers.IO) {
+
+                while (lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED)) {
+
+                    delay(1500)
+
+                    val username = activity?.getPref("username")!!
+
+                    viewModel.isMessageDelivered(username)
+
+                }
+            }
+        }
+        val enterAnimation = MaterialFade.create(requireContext(), true).apply {
+            duration = DURATION
+        }
+
+        val exitAnimation = MaterialFade.create(requireContext(), false).apply {
+            duration = DURATION
+        }
+
+        if (binding.et.text.isBlank()) {
+            binding.btnSend.isEnabled = false
+            binding.btnSend.visibility = View.GONE
+            TransitionManager.beginDelayedTransition(binding.linearLayout, exitAnimation)
+        }
+        binding.et.addTextChangedListener {
+            if (it?.isNotBlank() == true) {
+                TransitionManager.beginDelayedTransition(binding.linearLayout, enterAnimation)
+                binding.btnSend.isEnabled = true
+                binding.btnSend.visibility = View.VISIBLE
+            } else {
+                TransitionManager.beginDelayedTransition(binding.linearLayout, exitAnimation)
+                binding.btnSend.isEnabled = false
+                binding.btnSend.visibility = View.GONE
+            }
+        }
+
+        binding.et.setOnClickListener {
+
+            binding.et.requestFocus()
+            imm.toggleSoftInput(
+                InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY
+            )
         }
 
         return binding.root

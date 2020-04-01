@@ -25,21 +25,33 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text"
+                android:id="@+id/body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/padding_small"
-                android:paddingTop="@dimen/padding_small"
-                android:paddingEnd="@dimen/padding_small"
-                android:paddingBottom="@dimen/padding_extra_small"
+
+                android:padding="@dimen/padding_small"
                 android:textAppearance="@style/TextAppearance.Message.Text"
                 android:textColor="#F5F5F5"
-                app:layout_constraintBottom_toTopOf="@id/time"
+                app:layout_constraintBottom_toTopOf="@id/delivered"
                 app:layout_constraintEnd_toEndOf="@id/cl"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@id/cl"
                 app:layout_constraintTop_toTopOf="@id/cl"
                 tools:text="Hello What's up man? How are you doing? " />
+
+            <ImageView
+                android:id="@+id/delivered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:contentDescription="@string/delivered"
+                android:src="@drawable/ic_done_24dp"
+                android:tint="#F5F5F5"
+                app:layout_constraintBottom_toBottomOf="@id/cl"
+                app:layout_constraintEnd_toEndOf="@id/cl"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/body" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/time"
@@ -50,11 +62,12 @@
                 android:paddingEnd="@dimen/padding_small"
                 android:paddingBottom="@dimen/padding_small"
                 android:textAppearance="@style/TextAppearance.Message.Time"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/cl"
-                app:layout_constraintEnd_toEndOf="@id/cl"
+                app:layout_constraintEnd_toStartOf="@id/delivered"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@id/cl"
-                app:layout_constraintTop_toBottomOf="@id/text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/body"
                 tools:text="6:30 AM" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

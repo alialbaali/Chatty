@@ -6,8 +6,10 @@ import com.apps.chatychaty.model.Message
 import com.apps.chatychaty.network.AUTH_SCHEME
 import com.apps.chatychaty.network.MessageClient
 import com.apps.chatychaty.token
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.Call
 
 class MessageRepository(
     private val messageClient: MessageClient,
@@ -55,6 +57,13 @@ class MessageRepository(
             messageClient.isMessageDelivered(AUTH_SCHEME.plus(token), messageId)
         }
     }
+
+    suspend fun updateDelivered() {
+        withContext(Dispatchers.IO) {
+            messageDao.updateDelivered()
+        }
+    }
+
 
 }
 

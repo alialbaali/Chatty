@@ -67,9 +67,10 @@ class ProfileFragment : Fragment(), Error, UpdateName {
         binding.name.setText(args.name)
         val username = "@${args.username}"
         binding.username.text = username
-        Glide.with(this).load(args.imgUrl)
+        Glide.with(this)
+            .load(args.imgUrl)
+            .placeholder(resources.getDrawable(R.drawable.ic_person_24dp, null))
             .circleCrop()
-            .apply(RequestOptions.overrideOf(125, 125))
             .into(binding.img)
 
 

@@ -66,7 +66,9 @@ internal class SharedViewModel(
 
                 messageRepository.insertMessageClient(token!!, message.value!!).let { message ->
 
-                    messageRepository.insertMessageDao(message)
+                    messageRepository.insertMessageDao(message.apply {
+                        this.delivered = false
+                    })
 
                 }
 
@@ -128,6 +130,28 @@ internal class SharedViewModel(
                     .let { messages ->
                         messageRepository.updateMessagesDao(messages)
                     }
+
+            } catch (e: HttpException) {
+                error.snackbar(e.response().toString())
+            }
+        }
+    }
+
+    internal fun isMessageDelivered(username: String) {
+        viewModelScope.launch {
+
+            val lastMessage = messages.value?.lastOrNull {
+                it.username == username && it.delivered == false
+            }
+
+            try {
+
+                if (lastMessage != null) {
+
+                    if (messageRepository.isMessageDelivered(lastMessage.messageId)) {
+                        messageRepository.updateDelivered()
+                    }
+                }
 
             } catch (e: HttpException) {
                 error.snackbar(e.response().toString())

@@ -32,13 +32,14 @@
                 app:layout_constraintVertical_chainStyle="spread_inside"
                 app:navigationIcon="@drawable/ic_back_24px">
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/img"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_normal"
+                    android:background="@color/colorSecondary"
                     android:contentDescription="@string/user_image"
-                    android:src="@drawable/img_background" />
+                    app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tb_tv"

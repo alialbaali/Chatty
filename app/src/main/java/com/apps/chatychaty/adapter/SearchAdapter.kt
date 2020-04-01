@@ -22,7 +22,6 @@ internal class SearchAdapter :
         val user = getItem(position)
         holder.bind(user)
         holder.user = user
-        TODO("Check what data to pass")
     }
 
     class SearchUserItemViewHolder(
@@ -53,7 +52,6 @@ internal class SearchAdapter :
         fun bind(user: User) {
             binding.name.text = user.name
             binding.username.text = user.username
-            TODO("Bind img to user's img")
         }
 
     }

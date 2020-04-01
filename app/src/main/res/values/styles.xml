@@ -86,4 +86,9 @@
         <item name="android:textColor">@color/colorOnPrimary_800</item>
         <item name="android:textSize">@dimen/settings_tv_dimen</item>
     </style>
+
+    <style name="ImageViewShapeAppearance">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>
