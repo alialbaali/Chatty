@@ -39,6 +39,9 @@ internal class ChatItemViewHolder(
         binding.root.setOnClickListener {
             navigateToChat.navigate(chat)
         }
+        binding.img.setOnClickListener {
+            navigateToChat.navigateToUser(chat)
+        }
     }
 
     companion object {
@@ -86,6 +89,8 @@ private class ChatItemDiffCallback : DiffUtil.ItemCallback<Chat>() {
 
 interface NavigateToChat {
     fun navigate(chat: Chat)
+
+    fun navigateToUser(user: Chat)
 
     fun getLastMessage(chatId: Int): String
 }

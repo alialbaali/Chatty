@@ -28,7 +28,6 @@ import com.apps.chatychaty.viewModel.Error
 import com.apps.chatychaty.viewModel.SharedViewModel
 import com.apps.chatychaty.viewModel.SharedViewModelFactory
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.transition.MaterialFade
 import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.Dispatchers
@@ -85,8 +84,10 @@ class ChatFragment : Fragment(), Error {
             viewModel.getLiveDataMessages(args.chatId)
 
             rv.adapter = adapter
-            rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            rv.smoothScrollToPosition(viewModel.messages.value?.size?.minus(1) ?: 0)
+            rv.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false).apply {
+                    stackFromEnd = true
+                }
 
             viewModel.messages.observe(viewLifecycleOwner, Observer { messages ->
                 messages.let {
@@ -133,11 +134,6 @@ class ChatFragment : Fragment(), Error {
                     args.chatId
                 )
             )
-        }
-        binding.root.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
-            if (viewModel.messages.value?.isNotEmpty() == true) {
-                binding.rv.smoothScrollToPosition(viewModel.messages.value?.size?.minus(1) ?: 0)
-            }
         }
 
         viewModel.let { viewModel ->

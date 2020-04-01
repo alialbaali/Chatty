@@ -22,34 +22,41 @@
             android:layout_height="match_parent"
             tools:context=".ui.SearchFragment">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/tb"
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/abl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
                 app:layout_constraintBottom_toTopOf="@id/rv"
                 app:layout_constraintEnd_toEndOf="@id/cl"
                 app:layout_constraintStart_toStartOf="@id/cl"
-                app:layout_constraintTop_toTopOf="@id/cl"
-                app:navigationIcon="@drawable/ic_back_24px">
+                app:layout_constraintTop_toTopOf="@id/cl">
 
-                <EditText
-                    android:id="@+id/et"
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/tb"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/margin_normal"
-                    android:background="@color/transparent"
-                    android:focusable="true"
-                    android:fontFamily="@font/roboto"
-                    android:hint="@string/enter_username"
-                    android:inputType="text"
-                    android:maxLength="32"
-                    android:singleLine="true"
-                    android:text="@={viewModel.username}"
-                    android:textColor="@color/colorOnPrimary_900"
-                    android:textColorHint="@color/colorOnPrimary_600"
-                    android:textSize="@dimen/text_dimen" />
+                    app:navigationIcon="@drawable/ic_back_24px">
 
-            </com.google.android.material.appbar.MaterialToolbar>
+                    <EditText
+                        android:id="@+id/et"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="@dimen/spacing_normal"
+                        android:background="@color/transparent"
+                        android:focusable="true"
+                        android:fontFamily="@font/roboto"
+                        android:hint="@string/enter_username"
+                        android:inputType="text"
+                        android:maxLength="32"
+                        android:singleLine="true"
+                        android:text="@={viewModel.username}"
+                        android:textColor="@color/colorOnPrimary_900"
+                        android:textColorHint="@color/colorOnPrimary_600"
+                        android:textSize="@dimen/text_dimen" />
+
+                </com.google.android.material.appbar.MaterialToolbar>
+            </com.google.android.material.appbar.AppBarLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
@@ -58,7 +65,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/cl"
                 app:layout_constraintEnd_toEndOf="@id/cl"
                 app:layout_constraintStart_toStartOf="@id/cl"
-                app:layout_constraintTop_toBottomOf="@id/tb"
+                app:layout_constraintTop_toBottomOf="@id/abl"
                 tools:listitem="@layout/list_item_search_user" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

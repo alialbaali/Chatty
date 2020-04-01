@@ -21,6 +21,7 @@ import com.apps.chatychaty.databinding.FragmentListBinding
 import com.apps.chatychaty.getPref
 import com.apps.chatychaty.model.Chat
 import com.apps.chatychaty.network.Repos
+import com.apps.chatychaty.snackbar
 import com.apps.chatychaty.viewModel.Error
 import com.apps.chatychaty.viewModel.SharedViewModel
 import com.apps.chatychaty.viewModel.SharedViewModelFactory
@@ -137,6 +138,17 @@ class ListFragment : Fragment(), NavigateToChat, Error {
                     chat.user.imgUrl
                 )
             )
+    }
+
+    override fun navigateToUser(chat: Chat) {
+        this.findNavController().navigate(
+            ListFragmentDirections.actionListFragmentToProfileFragment(
+                chat.user.name,
+                chat.user.username,
+                chat.user.imgUrl,
+                chat.chatId
+            )
+        )
     }
 
     override fun getLastMessage(chatId: Int): String {

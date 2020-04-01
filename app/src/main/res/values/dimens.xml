@@ -17,22 +17,24 @@
     <dimen name="settings_Item_tv_dimen">16sp</dimen>
 
     <!-- Margin -->
-    <dimen name="margin_extra_small">4dp</dimen>
-    <dimen name="margin_small">8dp</dimen>
-    <dimen name="margin_normal">16dp</dimen>
-    <dimen name="margin_large">24dp</dimen>
-    <dimen name="margin_extra_large">36dp</dimen>
+    <dimen name="spacing_extra_small">4dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_normal">16dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_extra_large">36dp</dimen>
+    <dimen name="padding_small_normal">12dp</dimen>
 
     <!-- Padding -->
-    <dimen name="padding_extra_small">4dp</dimen>
-    <dimen name="padding_small">8dp</dimen>
-    <dimen name="padding_small_normal">12dp</dimen>
-    <dimen name="padding_normal">16dp</dimen>
-    <dimen name="padding_large">24dp</dimen>
-    <dimen name="padding_extra_large">36dp</dimen>
     <dimen name="abl_height_dimen">100dp</dimen>
     <dimen name="message_end_margin">150dp</dimen>
     <dimen name="list_chat_item_body_dimen">16sp</dimen>
     <dimen name="list_chat_item_name_dimen">20sp</dimen>
     <dimen name="elevation">25dp</dimen>
+
+    <dimen name="elevation_extra_small">1dp</dimen>
+    <dimen name="elevation_small">2dp</dimen>
+    <dimen name="elevation_normal">4dp</dimen>
+    <dimen name="elevation_large">8dp</dimen>
+    <dimen name="elevation_extra_large">16dp</dimen>
+
 </resources>

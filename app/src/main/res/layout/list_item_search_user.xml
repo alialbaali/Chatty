@@ -8,16 +8,17 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:elevation="@dimen/elevation_small"
         android:id="@+id/cl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_extra_small">
+        android:layout_margin="@dimen/spacing_extra_small">
 
         <ImageView
             android:id="@+id/img"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_margin="@dimen/margin_normal"
+            android:layout_margin="@dimen/spacing_normal"
             android:contentDescription="@string/user_image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,9 +29,9 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_marginEnd="@dimen/spacing_normal"
             android:layout_marginBottom="1dp"
             android:fontFamily="@font/roboto_medium"
             android:textColor="@color/colorOnPrimary_800"
@@ -46,10 +47,10 @@
             android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginStart="@dimen/spacing_normal"
             android:layout_marginTop="1dp"
-            android:layout_marginEnd="@dimen/margin_normal"
-            android:layout_marginBottom="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:layout_marginBottom="@dimen/spacing_normal"
             android:fontFamily="@font/roboto"
             android:textColor="@color/colorOnPrimary_600"
             android:textSize="16sp"

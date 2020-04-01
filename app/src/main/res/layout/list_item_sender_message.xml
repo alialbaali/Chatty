@@ -13,24 +13,23 @@
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:elevation="@dimen/margin_small"
             android:id="@+id/cl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginStart="@dimen/message_end_margin"
-            android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginEnd="@dimen/margin_small"
-            android:layout_marginBottom="@dimen/margin_small"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginEnd="@dimen/spacing_small"
+            android:layout_marginBottom="@dimen/spacing_small"
             android:background="@drawable/list_item_sender_message_background"
+            android:elevation="@dimen/elevation_small"
             app:layout_constraintEnd_toEndOf="parent">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:padding="@dimen/padding_small"
+                android:padding="@dimen/spacing_small"
                 android:textAppearance="@style/TextAppearance.Message.Text"
                 android:textColor="#F5F5F5"
                 app:layout_constraintBottom_toTopOf="@id/delivered"
@@ -44,24 +43,24 @@
                 android:id="@+id/delivered"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_small"
+                android:layout_margin="@dimen/spacing_small"
                 android:contentDescription="@string/delivered"
-                tools:src="@drawable/ic_done_24dp"
                 android:tint="#F5F5F5"
                 app:layout_constraintBottom_toBottomOf="@id/cl"
                 app:layout_constraintEnd_toEndOf="@id/cl"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/body" />
+                app:layout_constraintTop_toBottomOf="@id/body"
+                tools:src="@drawable/ic_done_24dp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/padding_small"
-                android:paddingTop="@dimen/padding_extra_small"
-                android:paddingEnd="@dimen/padding_small"
-                android:paddingBottom="@dimen/padding_small"
+                android:paddingStart="@dimen/spacing_small"
+                android:paddingTop="@dimen/spacing_extra_small"
+                android:paddingEnd="@dimen/spacing_small"
+                android:paddingBottom="@dimen/spacing_small"
                 android:textAppearance="@style/TextAppearance.Message.Time"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/cl"

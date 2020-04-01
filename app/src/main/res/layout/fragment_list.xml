@@ -13,49 +13,57 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-
             android:id="@+id/cl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".ui.ListFragment">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/tb"
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/abl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:elevation="@dimen/elevation_normal"
                 app:layout_constraintLeft_toLeftOf="@id/cl"
                 app:layout_constraintRight_toRightOf="@id/cl"
                 app:layout_constraintTop_toTopOf="@id/cl">
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_normal"
-                    android:background="@color/colorSecondary"
-                    android:contentDescription="@string/user_image"
-                    app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tb_tv"
-                    style="@style/TextAppearance.Toolbar.Text"
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/tb"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:text="@string/chats"
-                    app:fontFamily="@font/roboto_medium" />
+                    android:layout_height="match_parent">
 
-            </com.google.android.material.appbar.MaterialToolbar>
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/img"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginEnd="@dimen/spacing_normal"
+                        android:background="@color/colorSecondary"
+                        android:contentDescription="@string/user_image"
+                        app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tb_tv"
+                        style="@style/TextAppearance.Toolbar.Text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:text="@string/chats"
+                        app:fontFamily="@font/roboto_medium" />
+
+                </com.google.android.material.appbar.MaterialToolbar>
+            </com.google.android.material.appbar.AppBarLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:elevation="@dimen/elevation_large"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tb"
+                app:layout_constraintTop_toBottomOf="@+id/abl"
                 tools:listitem="@layout/list_item_chat" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -65,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/margin_normal"
+            android:layout_margin="@dimen/spacing_normal"
             android:backgroundTint="@color/colorAccent"
             android:fontFamily="@font/roboto_medium"
             android:text="@string/chat"

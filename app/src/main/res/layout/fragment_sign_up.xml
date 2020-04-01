@@ -43,8 +43,8 @@
                 style="@style/Style.TextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_extra_large"
-                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginTop="@dimen/spacing_extra_large"
+                android:layout_marginBottom="@dimen/spacing_small"
                 android:hint="@string/name"
                 app:counterEnabled="true"
                 app:counterMaxLength="32"
@@ -73,8 +73,8 @@
                 style="@style/Style.TextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:layout_marginBottom="@dimen/spacing_small"
                 android:hint="@string/username"
                 app:counterEnabled="true"
                 app:counterMaxLength="32"
@@ -102,8 +102,8 @@
                 style="@style/Style.TextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginBottom="@dimen/margin_extra_large"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:layout_marginBottom="@dimen/spacing_extra_large"
                 android:hint="@string/password"
                 app:endIconMode="password_toggle"
                 app:errorEnabled="true"
@@ -128,7 +128,7 @@
                 style="@style/Style.Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/padding_normal"
+                android:padding="@dimen/spacing_normal"
                 android:text="@string/sign_up"
                 app:layout_constraintBottom_toTopOf="@+id/tv_sign_in"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
@@ -141,7 +141,7 @@
                 style="@style/Style.Sign.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_normal"
+                android:layout_marginBottom="@dimen/spacing_normal"
                 android:text="@string/already_have_an_account"
                 app:layout_constraintBottom_toBottomOf="@id/cl"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
@@ -152,14 +152,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="@dimen/margin_normal" />
+                app:layout_constraintGuide_begin="@dimen/spacing_normal" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/end_guideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_end="@dimen/margin_normal" />
+                app:layout_constraintGuide_end="@dimen/spacing_normal" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

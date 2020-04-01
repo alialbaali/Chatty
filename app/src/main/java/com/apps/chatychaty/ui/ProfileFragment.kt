@@ -25,7 +25,6 @@ import com.apps.chatychaty.viewModel.Error
 import com.apps.chatychaty.viewModel.ProfileViewModel
 import com.apps.chatychaty.viewModel.ProfileViewModelFactory
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -49,7 +48,10 @@ class ProfileFragment : Fragment(), Error, UpdateName {
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
         viewModel.error = this
+
         viewModel.updateName = this
 
         binding.tb.setNavigationOnClickListener {
@@ -58,6 +60,8 @@ class ProfileFragment : Fragment(), Error, UpdateName {
                 MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.X, true).apply {
                     duration = DURATION
                 }
+
+            imm.hideSoftInputFromWindow(binding.name.windowToken, 0)
 
             this.findNavController().navigateUp()
         }
@@ -87,8 +91,6 @@ class ProfileFragment : Fragment(), Error, UpdateName {
 
         menuDoneItem.icon.setTint(resources.getColor(R.color.colorOnPrimary_900))
 
-        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
         menuEditItem.setOnMenuItemClickListener {
             it.isVisible = false
 
@@ -107,7 +109,7 @@ class ProfileFragment : Fragment(), Error, UpdateName {
 
 //            binding.img.let { img ->
 //                img.setOnClickListener {
-//
+//imm.hideSoftInputFromWindow(binding.name.windowToken, 0)
 //                    val intent = Intent(Intent.ACTION_PICK).apply {
 //                        this.type = "image/*"
 //                        this.putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/jpeg", "image/png"))
@@ -143,6 +145,7 @@ class ProfileFragment : Fragment(), Error, UpdateName {
         }
 
         binding.btnSignOut.setOnClickListener {
+            imm.hideSoftInputFromWindow(binding.name.windowToken, 0)
             this.findNavController()
                 .navigate(ProfileFragmentDirections.actionProfileFragmentToSignGraph())
 
@@ -203,17 +206,13 @@ class ProfileFragment : Fragment(), Error, UpdateName {
         }
     }
 
-    @SuppressLint("ApplySharedPref")
     private fun signOut() {
 
         lifecycleScope.launch(Dispatchers.IO) {
-
             AppDatabase.getInstance(context!!).clearAllTables()
 
-            activity!!.getPreferences(Context.MODE_PRIVATE).edit().clear().commit()
-
         }
-
+        activity!!.getPreferences(Context.MODE_PRIVATE).edit().clear().apply()
     }
 
     private fun themeDialog() {
