@@ -6,10 +6,7 @@ import com.apps.chatychaty.model.Message
 import com.apps.chatychaty.network.AUTH_SCHEME
 import com.apps.chatychaty.network.MessageClient
 import com.apps.chatychaty.token
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import retrofit2.Call
+import kotlinx.coroutines.*
 
 class MessageRepository(
     private val messageClient: MessageClient,
@@ -64,6 +61,10 @@ class MessageRepository(
         }
     }
 
-
+    suspend fun getLastMessage(chatId: Int): String {
+        return withContext(Dispatchers.IO) {
+            messageDao.getLastMessage(chatId)
+        }
+    }
 }
 

@@ -1,7 +1,10 @@
 package com.apps.chatychaty.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.apps.chatychaty.model.Message
 
 @Dao
@@ -21,4 +24,7 @@ interface MessageDao {
 
     @Query("UPDATE messages SET delivered = 1 ")
     suspend fun updateDelivered()
+
+    @Query("SELECT message_body FROM messages WHERE chat_id = :chatId ORDER BY message_id DESC LIMIT 1")
+    fun getLastMessage(chatId: Int): String
 }

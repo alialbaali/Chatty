@@ -7,6 +7,7 @@ import com.apps.chatychaty.repo.ChatRepository
 import com.apps.chatychaty.repo.MessageRepository
 import com.apps.chatychaty.token
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import retrofit2.HttpException
 
 internal class SharedViewModel(
@@ -159,6 +160,11 @@ internal class SharedViewModel(
         }
     }
 
+    fun getLastMessage(chatId: Int): String {
+        return runBlocking {
+            messageRepository.getLastMessage(chatId)
+        }
+    }
 }
 
 internal class SharedViewModelFactory(

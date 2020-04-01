@@ -26,7 +26,6 @@ import com.apps.chatychaty.viewModel.Error
 import com.apps.chatychaty.viewModel.SharedViewModel
 import com.apps.chatychaty.viewModel.SharedViewModelFactory
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -140,6 +139,10 @@ class ListFragment : Fragment(), NavigateToChat, Error {
                     chat.user.imgUrl
                 )
             )
+    }
+
+    override fun getLastMessage(chatId: Int): String {
+        return viewModel.getLastMessage(chatId)
     }
 
     override fun snackbar(value: String) {

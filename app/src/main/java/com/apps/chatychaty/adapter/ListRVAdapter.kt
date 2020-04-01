@@ -9,9 +9,10 @@ import com.apps.chatychaty.R
 import com.apps.chatychaty.databinding.ListItemChatBinding
 import com.apps.chatychaty.model.Chat
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 
-internal class ListRVAdapter(private val navigateToChat: NavigateToChat) :
+internal class ListRVAdapter(
+    private val navigateToChat: NavigateToChat
+) :
     ListAdapter<Chat, ChatItemViewHolder>(ChatItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatItemViewHolder {
@@ -57,12 +58,14 @@ internal class ChatItemViewHolder(
         }
     }
 
-    fun bind(item: Chat) {
+    fun bind(chat: Chat) {
 
-        binding.name.text = item.user.name
+        binding.name.text = chat.user.name
+
+        binding.body.text = navigateToChat.getLastMessage(chat.chatId)
 
         Glide.with(itemView)
-            .load(item.user.imgUrl)
+            .load(chat.user.imgUrl)
             .placeholder(itemView.context.getDrawable(R.drawable.ic_person_24dp))
             .circleCrop()
             .into(binding.img)
@@ -83,4 +86,6 @@ private class ChatItemDiffCallback : DiffUtil.ItemCallback<Chat>() {
 
 interface NavigateToChat {
     fun navigate(chat: Chat)
+
+    fun getLastMessage(chatId: Int): String
 }
