@@ -13,6 +13,7 @@
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:elevation="@dimen/margin_small"
             android:id="@+id/cl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -21,7 +21,6 @@ import com.apps.chatychaty.databinding.FragmentListBinding
 import com.apps.chatychaty.getPref
 import com.apps.chatychaty.model.Chat
 import com.apps.chatychaty.network.Repos
-import com.apps.chatychaty.snackbar
 import com.apps.chatychaty.viewModel.Error
 import com.apps.chatychaty.viewModel.SharedViewModel
 import com.apps.chatychaty.viewModel.SharedViewModelFactory
@@ -30,7 +29,6 @@ import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 /**
  * A simple [Fragment] subclass.

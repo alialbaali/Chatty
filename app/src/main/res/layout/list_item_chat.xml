@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_extra_small"
             android:layout_marginBottom="1dp"
             android:fontFamily="@font/roboto_medium"
             android:maxLength="32"
@@ -49,7 +49,7 @@
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="1dp"
             android:layout_marginEnd="@dimen/margin_normal"
-            android:layout_marginBottom="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_extra_small"
             android:fontFamily="@font/roboto"
             android:maxLength="32"
             android:singleLine="true"
@@ -61,6 +61,17 @@
             app:layout_constraintStart_toEndOf="@+id/img"
             app:layout_constraintTop_toBottomOf="@+id/name"
             tools:text="Hello " />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:background="@color/colorSecondary"
+            app:layout_constraintBottom_toBottomOf="@id/cl"
+            app:layout_constraintEnd_toEndOf="@id/cl"
+            app:layout_constraintStart_toEndOf="@id/img" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
