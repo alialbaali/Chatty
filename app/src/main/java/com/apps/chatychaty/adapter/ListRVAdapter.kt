@@ -90,7 +90,7 @@ private class ChatItemDiffCallback : DiffUtil.ItemCallback<Chat>() {
 interface NavigateToChat {
     fun navigate(chat: Chat)
 
-    fun navigateToUser(user: Chat)
+    fun navigateToUser(chat: Chat)
 
     fun getLastMessage(chatId: Int): String
 }
