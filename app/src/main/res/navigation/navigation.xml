@@ -110,8 +110,8 @@
             android:id="@+id/action_profileFragment_to_signGraph"
             app:destination="@id/signGraph"
             app:launchSingleTop="true"
-            app:popUpTo="@id/signGraph"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/listFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_profileFragment_to_listFragment2"
             app:destination="@id/listFragment" />
