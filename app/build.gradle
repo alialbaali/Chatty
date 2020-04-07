@@ -16,7 +16,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
-        versionName '0.8'
+        versionName '0.9'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -102,5 +102,8 @@ dependencies {
 
     // Data Binding
     kapt "com.android.databinding:compiler:3.1.4"
+
+    // Work Manager
+    implementation "androidx.work:work-runtime-ktx:2.3.4"
 
 }
