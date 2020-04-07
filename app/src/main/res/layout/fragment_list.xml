@@ -77,9 +77,9 @@
             android:backgroundTint="@color/colorAccent"
             android:fontFamily="@font/roboto_medium"
             android:text="@string/chat"
-            android:textColor="@color/colorPrimary"
-            app:icon="@drawable/ic_chat_24px"
-            app:iconTint="@color/colorPrimary" />
+            android:textColor="#F5F5F5"
+            app:icon="@drawable/ic_edit_24dp"
+            app:iconTint="#F5F5F5" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

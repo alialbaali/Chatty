@@ -8,11 +8,13 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:elevation="@dimen/elevation_small"
         android:id="@+id/cl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_extra_small">
+        android:layout_margin="@dimen/spacing_extra_small"
+        android:background="@drawable/ripple_chat_list_item"
+        android:clickable="true"
+        android:focusable="true">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/img"

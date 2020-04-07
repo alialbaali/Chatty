@@ -5,7 +5,7 @@
         android:id="@+id/edit"
         android:contentDescription="@string/edit_profile"
         android:enabled="true"
-        android:icon="@drawable/ic_chat_24px"
+        android:icon="@drawable/ic_edit_24dp"
         android:title="@string/edit_profile"
         android:visible="true"
         app:showAsAction="ifRoom" />
@@ -14,7 +14,7 @@
         android:id="@+id/done"
         android:contentDescription="@string/done"
         android:enabled="true"
-        android:icon="@drawable/ic_done_black_24dp"
+        android:icon="@drawable/ic_done_24dp"
         android:title="@string/done"
         android:visible="false"
         app:showAsAction="ifRoom" />
