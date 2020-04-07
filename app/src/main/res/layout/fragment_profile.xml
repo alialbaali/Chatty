@@ -20,12 +20,12 @@
             android:elevation="@dimen/elevation_normal">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:elevation="@dimen/elevation_normal"
                 android:id="@+id/ctb"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="0dp"
-                android:background="@color/colorPrimary">
+                android:background="@color/colorPrimary"
+                android:elevation="@dimen/elevation_normal">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -107,7 +107,8 @@
                 app:layout_constraintBottom_toTopOf="@id/tv_app_theme"
                 app:layout_constraintEnd_toEndOf="@id/cl"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="spread_inside" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_app_theme"
@@ -117,6 +118,8 @@
                 android:layout_marginTop="@dimen/spacing_large"
                 android:text="@string/app_theme"
                 android:textAppearance="@style/TextAppearance.Settings.Item"
+                app:layout_constraintEnd_toStartOf="@+id/tv_app_theme_option"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="@id/cl"
                 app:layout_constraintTop_toBottomOf="@id/settings" />
 
@@ -142,6 +145,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 app:layout_constraintEnd_toEndOf="@id/cl"
+                app:layout_constraintStart_toEndOf="@id/tv_app_theme"
                 app:layout_constraintTop_toBottomOf="@+id/settings"
                 tools:text="Dark theme" />
 
