@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="imgUrl"
+            type="String" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -40,6 +43,7 @@
                         android:layout_marginEnd="@dimen/spacing_normal"
                         android:background="@color/colorSecondary"
                         android:contentDescription="@string/user_image"
+                        app:imageUrl="@{imgUrl}"
                         app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance" />
 
                     <com.google.android.material.textview.MaterialTextView

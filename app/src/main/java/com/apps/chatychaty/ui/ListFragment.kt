@@ -13,8 +13,8 @@ import androidx.lifecycle.whenStarted
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.apps.chatychaty.*
-import com.apps.chatychaty.util.ExceptionHandler
+import com.apps.chatychaty.DURATION
+import com.apps.chatychaty.R
 import com.apps.chatychaty.adapter.ListRVAdapter
 import com.apps.chatychaty.adapter.NavigateToChat
 import com.apps.chatychaty.databinding.FragmentListBinding
@@ -25,7 +25,6 @@ import com.apps.chatychaty.util.snackbar
 import com.apps.chatychaty.viewModel.Error
 import com.apps.chatychaty.viewModel.SharedViewModel
 import com.apps.chatychaty.viewModel.SharedViewModelFactory
-import com.bumptech.glide.Glide
 import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -41,7 +40,7 @@ class ListFragment : Fragment(), NavigateToChat, Error {
     }
 
     private val adapter by lazy {
-        ListRVAdapter(this)
+        ListRVAdapter(viewModel, this)
     }
 
     private val args by navArgs<ListFragmentArgs>()
@@ -56,13 +55,7 @@ class ListFragment : Fragment(), NavigateToChat, Error {
     ): View? {
         viewModel.getChats()
 
-        ExceptionHandler.error = this
-
-        Glide.with(this)
-            .load(activity?.getPref("img_url"))
-            .placeholder(resources.getDrawable(R.drawable.ic_person_24dp, null))
-            .circleCrop()
-            .into(binding.img)
+        binding.imgUrl = activity?.getPref("imgUrl")
 
         if (args.username.isNotBlank()) {
             viewModel.insertChat(args.username)
@@ -130,7 +123,7 @@ class ListFragment : Fragment(), NavigateToChat, Error {
                     viewModel.updateMessages()
                 }
 
-                while (lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED)) {
+                while (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
                     delay(1000)
                     viewModel.checkUpdates()
                 }
@@ -184,10 +177,6 @@ class ListFragment : Fragment(), NavigateToChat, Error {
                 chat.chatId
             )
         )
-    }
-
-    override fun getLastMessage(chatId: Int): String {
-        return viewModel.getLastMessage(chatId)
     }
 
     override fun snackbar(value: String) {

@@ -17,7 +17,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.apps.chatychaty.*
+import com.apps.chatychaty.DURATION
+import com.apps.chatychaty.R
 import com.apps.chatychaty.adapter.ChatRVAdapter
 import com.apps.chatychaty.databinding.FragmentChatBinding
 import com.apps.chatychaty.network.Repos
@@ -27,7 +28,6 @@ import com.apps.chatychaty.util.snackbar
 import com.apps.chatychaty.viewModel.Error
 import com.apps.chatychaty.viewModel.SharedViewModel
 import com.apps.chatychaty.viewModel.SharedViewModelFactory
-import com.bumptech.glide.Glide
 import com.google.android.material.transition.MaterialFade
 import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.Dispatchers
@@ -78,11 +78,7 @@ class ChatFragment : Fragment(), Error {
 
         binding.tbTv.text = args.name
 
-        Glide.with(this)
-            .load(args.imgUrl)
-            .placeholder(resources.getDrawable(R.drawable.ic_person_24dp, null))
-            .circleCrop()
-            .into(binding.img)
+        binding.imgUrl = args.imgUrl
 
         // RV
         binding.rv.let { rv ->
@@ -163,21 +159,22 @@ class ChatFragment : Fragment(), Error {
         val exitAnimation = MaterialFade.create(requireContext(), false).apply {
             duration = DURATION
         }
-
         if (binding.et.text.isBlank()) {
-            TransitionManager.beginDelayedTransition(binding.linearLayout, exitAnimation)
+            binding.btnSend.alpha = 0.5f
             binding.btnSend.isEnabled = false
-            binding.btnSend.visibility = View.GONE
+            TransitionManager.beginDelayedTransition(binding.linearLayout, exitAnimation)
         }
         binding.et.addTextChangedListener {
             if (it?.isNotBlank() == true) {
                 TransitionManager.beginDelayedTransition(binding.linearLayout, enterAnimation)
                 binding.btnSend.isEnabled = true
-                binding.btnSend.visibility = View.VISIBLE
+//                binding.btnSend.visibility = View.VISIBLE
+                binding.btnSend.alpha = 1.0f
             } else {
                 TransitionManager.beginDelayedTransition(binding.linearLayout, exitAnimation)
                 binding.btnSend.isEnabled = false
-                binding.btnSend.visibility = View.GONE
+//                binding.btnSend.visibility = View.INVISIBLE
+                binding.btnSend.alpha = 0.5f
             }
         }
 

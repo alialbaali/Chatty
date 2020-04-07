@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="message"
+            type="com.apps.chatychaty.model.Message" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -29,6 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/spacing_small"
+                android:text="@{message.messageBody}"
                 android:textAppearance="@style/TextAppearance.Message.Text"
                 android:textColor="@color/colorOnPrimary_900"
                 app:layout_constraintBottom_toTopOf="@id/time"

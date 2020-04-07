@@ -1,4 +1,4 @@
-package com.apps.chatychaty
+package com.apps.chatychaty.util
 
 import android.app.Activity
 import android.content.Context

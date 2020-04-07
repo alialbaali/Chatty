@@ -5,18 +5,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.apps.chatychaty.R
 import com.apps.chatychaty.databinding.ListItemChatBinding
 import com.apps.chatychaty.model.Chat
-import com.bumptech.glide.Glide
+import com.apps.chatychaty.viewModel.SharedViewModel
 
 internal class ListRVAdapter(
+    private val viewModel: SharedViewModel,
     private val navigateToChat: NavigateToChat
 ) :
     ListAdapter<Chat, ChatItemViewHolder>(ChatItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatItemViewHolder {
-        return ChatItemViewHolder.create(parent, navigateToChat)
+        return ChatItemViewHolder.create(parent, viewModel, navigateToChat)
     }
 
     override fun onBindViewHolder(holder: ChatItemViewHolder, position: Int) {
@@ -29,6 +29,7 @@ internal class ListRVAdapter(
 
 internal class ChatItemViewHolder(
     private val binding: ListItemChatBinding,
+    private val viewModel: SharedViewModel,
     private val navigateToChat: NavigateToChat
 ) :
     RecyclerView.ViewHolder(binding.root) {
@@ -48,6 +49,7 @@ internal class ChatItemViewHolder(
 
         internal fun create(
             parent: ViewGroup,
+            viewModel: SharedViewModel,
             navigateToChat: NavigateToChat
         ): ChatItemViewHolder {
 
@@ -56,22 +58,15 @@ internal class ChatItemViewHolder(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
-                ), navigateToChat
+                ), viewModel, navigateToChat
             )
         }
     }
 
     fun bind(chat: Chat) {
-
-        binding.name.text = chat.user.name
-
-        binding.body.text = navigateToChat.getLastMessage(chat.chatId)
-
-        Glide.with(itemView)
-            .load(chat.user.imgUrl)
-            .placeholder(itemView.context.getDrawable(R.drawable.ic_person_24dp))
-            .circleCrop()
-            .into(binding.img)
+        binding.chat = chat
+        binding.viewModel = viewModel
+        binding.executePendingBindings()
     }
 }
 
@@ -91,6 +86,4 @@ interface NavigateToChat {
     fun navigate(chat: Chat)
 
     fun navigateToUser(chat: Chat)
-
-    fun getLastMessage(chatId: Int): String
 }

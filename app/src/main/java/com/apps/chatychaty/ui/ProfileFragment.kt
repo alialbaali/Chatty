@@ -1,11 +1,11 @@
 package com.apps.chatychaty.ui
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,14 +17,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.apps.chatychaty.*
+import com.apps.chatychaty.DURATION
+import com.apps.chatychaty.R
 import com.apps.chatychaty.database.AppDatabase
 import com.apps.chatychaty.databinding.FragmentProfileBinding
 import com.apps.chatychaty.network.Repos
+import com.apps.chatychaty.util.getPref
+import com.apps.chatychaty.util.setPref
+import com.apps.chatychaty.util.snackbar
 import com.apps.chatychaty.viewModel.Error
 import com.apps.chatychaty.viewModel.ProfileViewModel
 import com.apps.chatychaty.viewModel.ProfileViewModelFactory
-import com.bumptech.glide.Glide
+import com.google.android.material.transition.MaterialFade
 import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,7 +38,11 @@ import kotlinx.coroutines.launch
  */
 class ProfileFragment : Fragment(), Error, UpdateName {
 
-    private lateinit var binding: FragmentProfileBinding
+    private val binding by lazy {
+        FragmentProfileBinding.inflate(layoutInflater).also {
+            it.lifecycleOwner = this
+        }
+    }
 
     private val viewModel by viewModels<ProfileViewModel> {
         ProfileViewModelFactory(Repos.userRepository)
@@ -42,24 +50,29 @@ class ProfileFragment : Fragment(), Error, UpdateName {
 
     private val args by navArgs<ProfileFragmentArgs>()
 
+    private val imm by lazy {
+        activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentProfileBinding.inflate(inflater, container, false)
-
-        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
         viewModel.error = this
 
         viewModel.updateName = this
 
-        binding.tb.setNavigationOnClickListener {
+        enterTransition =
+            MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Y, true).apply {
+                duration = DURATION
+            }
 
-            enterTransition =
-                MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.X, true).apply {
-                    duration = DURATION
-                }
+        exitTransition =
+            MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Y, false).apply {
+                duration = DURATION
+            }
+
+        binding.tb.setNavigationOnClickListener {
 
             imm.hideSoftInputFromWindow(binding.name.windowToken, 0)
 
@@ -67,15 +80,9 @@ class ProfileFragment : Fragment(), Error, UpdateName {
         }
         binding.tb.navigationIcon?.setTint(resources.getColor(R.color.colorOnPrimary_900))
 
-
         binding.name.setText(args.name)
         val username = "@${args.username}"
         binding.username.text = username
-        Glide.with(this)
-            .load(args.imgUrl)
-            .placeholder(resources.getDrawable(R.drawable.ic_person_24dp, null))
-            .circleCrop()
-            .into(binding.img)
 
 
         val menuEditItem = binding.tb.menu.findItem(R.id.edit)
@@ -91,7 +98,18 @@ class ProfileFragment : Fragment(), Error, UpdateName {
 
         menuDoneItem.icon.setTint(resources.getColor(R.color.colorOnPrimary_900))
 
+        val enterAnimation = MaterialFade.create(requireContext(), true).apply {
+            duration = DURATION
+        }
+
+        val exitAnimation = MaterialFade.create(requireContext(), false).apply {
+            duration = DURATION
+        }
+
         menuEditItem.setOnMenuItemClickListener {
+
+            TransitionManager.beginDelayedTransition(binding.tb, exitAnimation)
+
             it.isVisible = false
 
             menuDoneItem.isVisible = true
@@ -107,19 +125,19 @@ class ProfileFragment : Fragment(), Error, UpdateName {
                 InputMethodManager.HIDE_IMPLICIT_ONLY
             )
 
-//            binding.img.let { img ->
-//                img.setOnClickListener {
-//imm.hideSoftInputFromWindow(binding.name.windowToken, 0)
-//                    val intent = Intent(Intent.ACTION_PICK).apply {
-//                        this.type = "image/*"
-//                        this.putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/jpeg", "image/png"))
-//                    }
-//                    if (intent.resolveActivity(activity?.packageManager!!) != null) {
-//                        startActivityForResult(intent, 1)
-//                    }
-//                }
-//
-//            }
+            binding.img.let { img ->
+                img.setOnClickListener {
+                    imm.hideSoftInputFromWindow(binding.name.windowToken, 0)
+                    val intent = Intent(Intent.ACTION_PICK).apply {
+                        this.type = "image/*"
+                        this.putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/jpeg", "image/png"))
+                    }
+                    if (intent.resolveActivity(activity?.packageManager!!) != null) {
+                        startActivityForResult(intent, 1)
+                    }
+                }
+
+            }
 
 
             true
@@ -130,7 +148,10 @@ class ProfileFragment : Fragment(), Error, UpdateName {
 
 
         menuDoneItem.setOnMenuItemClickListener {
+            TransitionManager.beginDelayedTransition(binding.tb, enterAnimation)
+
             it.isVisible = false
+
             menuEditItem.isVisible = true
 
             binding.name.isEnabled = false
@@ -183,12 +204,30 @@ class ProfileFragment : Fragment(), Error, UpdateName {
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 1) {
-                viewModel.imgPath = data?.data?.path!!
-
+                val img = data?.data
+//
+//        Timber.i("${img?.path}")
 //                binding.img.setImageURI(img)
-//                val array = arrayOf(MediaStore.Images.Media.DATE_ADDED)
-//                val cursor =
-//                    activity?.contentResolver?.query(img ?: Uri.EMPTY, array, null, null, null)
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                    activity?.contentResolver?.query(
+//                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+//                        arrayOf(MediaStore.Images.Media._ID),
+//                        null,
+//                        null
+//                    )?.use { cursor ->
+//                        val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID)
+//
+//                        while (cursor.moveToNext()) {
+//                            val id = cursor.getLong(idColumn)
+//
+//                            val contentUri = ContentUris.withAppendedId(
+//                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+//                                id
+//                            )
+//                        }
+//
+//                    }
+//                }
 //                cursor?.moveToFirst()
 //                val columnIndex = cursor?.getColumnIndex(array[0])
 //                val imgString = cursor?.getString(columnIndex!!)
@@ -209,10 +248,10 @@ class ProfileFragment : Fragment(), Error, UpdateName {
     private fun signOut() {
 
         lifecycleScope.launch(Dispatchers.IO) {
-            AppDatabase.getInstance(context!!).clearAllTables()
+            AppDatabase.getInstance(requireContext()).clearAllTables()
 
         }
-        activity!!.getPreferences(Context.MODE_PRIVATE).edit().clear().apply()
+        activity?.getPreferences(Context.MODE_PRIVATE)?.edit()?.clear()?.apply()
     }
 
     private fun themeDialog() {

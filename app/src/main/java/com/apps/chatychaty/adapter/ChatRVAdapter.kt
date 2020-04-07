@@ -56,12 +56,8 @@ internal class ChatRVAdapter(private val senderUsername: String) :
         }
 
         fun bind(message: Message) {
-            binding.body.text = message.messageBody
-            if (message.delivered == true) {
-                binding.delivered.setImageResource(R.drawable.ic_done_24dp)
-            } else {
-                binding.delivered.setImageResource(R.drawable.ic_loading_24dp)
-            }
+            binding.message = message
+            binding.executePendingBindings()
 //            binding.time.text = DateFormat.getTimeInstance(DateFormat.SHORT).format(Date()).toString()
 
 //            TODO("Add Time in hours and mins")
@@ -82,7 +78,8 @@ internal class ChatRVAdapter(private val senderUsername: String) :
         }
 
         fun bind(message: Message) {
-            binding.body.text = message.messageBody
+            binding.message = message
+            binding.executePendingBindings()
 //            binding.time.text = Calendar.getInstance().time.toString()
 //            TODO("Add Time in hours and mins")
         }

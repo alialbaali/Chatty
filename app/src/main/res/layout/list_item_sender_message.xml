@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="message"
+            type="com.apps.chatychaty.model.Message" />
 
     </data>
 
@@ -29,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="@dimen/spacing_small"
+                android:text="@{message.messageBody}"
                 android:textAppearance="@style/TextAppearance.Message.Text"
                 android:textColor="#F5F5F5"
                 tools:text="Hello What's up man? How are you doing?">
@@ -44,8 +50,9 @@
                 android:layout_marginBottom="@dimen/spacing_extra_small"
                 android:layout_weight="0"
                 android:contentDescription="@string/delivered"
+                android:src="@drawable/ic_loading_24dp"
                 android:tint="#F5F5F5"
-                tools:src="@drawable/ic_done_24dp" />
+                app:isMessageDelivered="@{message.delivered}" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/time"

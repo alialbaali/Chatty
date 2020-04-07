@@ -5,6 +5,14 @@
 
     <data>
 
+        <variable
+            name="chat"
+            type="com.apps.chatychaty.model.Chat" />
+
+        <variable
+            name="viewModel"
+            type="com.apps.chatychaty.viewModel.SharedViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_normal"
             android:background="@color/colorSecondary"
+            app:imageUrl="@{chat.user.imgUrl}"
             android:contentDescription="@string/user_image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,6 +47,7 @@
             android:fontFamily="@font/roboto_medium"
             android:maxLength="32"
             android:singleLine="true"
+            android:text="@{chat.user.name}"
             android:textColor="@color/colorOnPrimary_800"
             android:textSize="@dimen/list_chat_item_name_dimen"
             app:layout_constraintBottom_toTopOf="@id/body"
@@ -58,6 +68,7 @@
             android:singleLine="true"
             android:textColor="@color/colorOnPrimary_600"
             android:textSize="@dimen/list_chat_item_body_dimen"
+            android:text="@{viewModel.getLastMessage(chat.chatId)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

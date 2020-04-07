@@ -14,7 +14,7 @@ interface ChatDao {
     @Query("SELECT * FROM chats WHERE chat_id = :chatId")
     fun getChat(chatId: Int): Chat
 
-    @Query("SELECT * FROM chats")
+    @Query("SELECT * FROM chats ORDER BY chat_id DESC")
     fun getChats(): LiveData<List<Chat>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

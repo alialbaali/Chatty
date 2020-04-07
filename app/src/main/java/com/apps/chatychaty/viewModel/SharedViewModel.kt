@@ -6,9 +6,8 @@ import com.apps.chatychaty.model.Message
 import com.apps.chatychaty.repo.ChatRepository
 import com.apps.chatychaty.repo.MessageRepository
 import com.apps.chatychaty.token
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import retrofit2.HttpException
+import com.apps.chatychaty.util.ExceptionHandler
+import kotlinx.coroutines.*
 
 internal class SharedViewModel(
     private val chatRepository: ChatRepository,
@@ -23,7 +22,10 @@ internal class SharedViewModel(
 
     val message = MutableLiveData<Message>()
 
-    init {
+    private val coroutineScope =
+        CoroutineScope(Job() + Dispatchers.Main + ExceptionHandler.handler)
+
+    internal fun getChats() {
         viewModelScope.launch {
             chats = chatRepository.getChatsDao()
         }
@@ -39,123 +41,83 @@ internal class SharedViewModel(
     }
 
     internal fun insertChat(username: String) {
-        viewModelScope.launch {
+        coroutineScope.launch {
 
-            try {
+            chatRepository.insertChatClient(token!!, username).let { response ->
 
-                chatRepository.insertChatClient(token!!, username).let { response ->
+                if (response.condition) {
 
-                    if (response.condition) {
+                    chatRepository.insertChatDao(Chat(response.chatId!!, response.user!!))
 
-                        chatRepository.insertChatDao(Chat(response.chatId!!, response.user!!))
-
-                    } else {
-                        error.snackbar(response.error.toString())
-                    }
+                } else {
+                    error.snackbar(response.error.toString())
                 }
-
-            } catch (e: HttpException) {
-                error.snackbar(e.response().toString())
             }
         }
     }
 
     internal fun insertMessage(chatId: Int) {
-        viewModelScope.launch {
+        coroutineScope.launch {
 
-            try {
+            messageRepository.insertMessageClient(token!!, message.value!!).let { message ->
 
-                messageRepository.insertMessageClient(token!!, message.value!!).let { message ->
+                messageRepository.insertMessageDao(message)
 
-                    messageRepository.insertMessageDao(message.apply {
-                        this.delivered = false
-                    })
-
-                }
-
-                message.postValue(Message(chatId = chatId))
-
-            } catch (e: HttpException) {
-                error.snackbar(e.response().toString())
             }
+            message.postValue(Message(chatId = chatId))
         }
     }
 
     internal fun checkUpdates() {
-        viewModelScope.launch {
+        coroutineScope.launch {
 
-            try {
+            chatRepository.checkUpdates().let {
 
-                chatRepository.checkUpdates().let {
-
-                    if (it.chatUpdate) {
-                        updateChats()
-                    }
-
-                    if (it.messageUpdate) {
-                        updateMessages()
-                    }
-
+                if (it.chatUpdate) {
+                    updateChats()
                 }
 
-            } catch (e: HttpException) {
-                error.snackbar(e.response().toString())
-            }
+                if (it.messageUpdate) {
+                    updateMessages()
+                }
 
+            }
         }
     }
 
     internal fun updateChats() {
-        viewModelScope.launch {
+        coroutineScope.launch {
 
-            try {
+            chatRepository.getChatsClient(token!!).let { chats ->
 
-                chatRepository.getChatsClient(token!!).let { chats ->
+                chatRepository.updateChatsDao(chats)
 
-                    chatRepository.updateChatsDao(chats)
-
-                }
-
-            } catch (e: HttpException) {
-                error.snackbar(e.response().toString())
             }
-
         }
     }
 
     internal fun updateMessages() {
-        viewModelScope.launch {
-            try {
+        coroutineScope.launch {
 
-                messageRepository.getMessagesClient(token!!, messageRepository.countDao())
-                    .let { messages ->
-                        messageRepository.updateMessagesDao(messages)
-                    }
-
-            } catch (e: HttpException) {
-                error.snackbar(e.response().toString())
-            }
+            messageRepository.getMessagesClient(token!!, messageRepository.countDao())
+                .let { messages ->
+                    messageRepository.updateMessagesDao(messages)
+                }
         }
     }
 
     internal fun isMessageDelivered(username: String) {
-        viewModelScope.launch {
+        coroutineScope.launch {
 
             val lastMessage = messages.value?.lastOrNull {
                 it.username == username && it.delivered == false
             }
 
-            try {
+            if (lastMessage != null) {
 
-                if (lastMessage != null) {
-
-                    if (messageRepository.isMessageDelivered(lastMessage.messageId)) {
-                        messageRepository.updateDelivered()
-                    }
+                if (messageRepository.isMessageDelivered(lastMessage.messageId)) {
+                    messageRepository.updateDelivered()
                 }
-
-            } catch (e: HttpException) {
-                error.snackbar(e.response().toString())
             }
         }
     }
@@ -164,6 +126,11 @@ internal class SharedViewModel(
         return runBlocking {
             messageRepository.getLastMessage(chatId)
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        coroutineScope.cancel()
     }
 }
 

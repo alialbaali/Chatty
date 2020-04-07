@@ -8,6 +8,10 @@
         <variable
             name="viewModel"
             type="com.apps.chatychaty.viewModel.SharedViewModel" />
+
+        <variable
+            name="imgUrl"
+            type="String" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -42,6 +46,7 @@
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/img"
                         android:layout_width="wrap_content"
+                        app:imageUrl="@{imgUrl}"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_normal"
                         android:background="@color/colorSecondary"
