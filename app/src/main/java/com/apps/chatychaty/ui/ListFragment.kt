@@ -13,15 +13,15 @@ import androidx.lifecycle.whenStarted
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.apps.chatychaty.DURATION
-import com.apps.chatychaty.R
+import com.apps.chatychaty.*
+import com.apps.chatychaty.util.ExceptionHandler
 import com.apps.chatychaty.adapter.ListRVAdapter
 import com.apps.chatychaty.adapter.NavigateToChat
 import com.apps.chatychaty.databinding.FragmentListBinding
-import com.apps.chatychaty.getPref
 import com.apps.chatychaty.model.Chat
 import com.apps.chatychaty.network.Repos
-import com.apps.chatychaty.snackbar
+import com.apps.chatychaty.util.getPref
+import com.apps.chatychaty.util.snackbar
 import com.apps.chatychaty.viewModel.Error
 import com.apps.chatychaty.viewModel.SharedViewModel
 import com.apps.chatychaty.viewModel.SharedViewModelFactory
@@ -31,14 +31,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class ListFragment : Fragment(), NavigateToChat, Error {
 
-    private lateinit var binding: FragmentListBinding
+    private val binding by lazy {
+        FragmentListBinding.inflate(layoutInflater).also {
+            it.lifecycleOwner = this
+        }
+    }
 
-    private lateinit var adapter: ListRVAdapter
+    private val adapter by lazy {
+        ListRVAdapter(this)
+    }
 
     private val args by navArgs<ListFragmentArgs>()
 
@@ -50,11 +54,9 @@ class ListFragment : Fragment(), NavigateToChat, Error {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentListBinding.inflate(inflater, container, false)
+        viewModel.getChats()
 
-        binding.lifecycleOwner = this
-
-        adapter = ListRVAdapter(this)
+        ExceptionHandler.error = this
 
         Glide.with(this)
             .load(activity?.getPref("img_url"))
@@ -80,10 +82,16 @@ class ListFragment : Fragment(), NavigateToChat, Error {
 
         binding.img.setOnClickListener {
 
-            exitTransition =
-                MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.X, true).apply {
+            enterTransition =
+                MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Y, false).apply {
                     duration = DURATION
                 }
+
+            exitTransition =
+                MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Y, true).apply {
+                    duration = DURATION
+                }
+
 
             val name = activity?.getPref("name")!!
             val username = activity?.getPref("username")!!
@@ -99,6 +107,11 @@ class ListFragment : Fragment(), NavigateToChat, Error {
         }
 
         binding.fab.setOnClickListener {
+
+            enterTransition =
+                MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Y, false).apply {
+                    duration = DURATION
+                }
 
             exitTransition =
                 MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Y, true).apply {
@@ -129,6 +142,17 @@ class ListFragment : Fragment(), NavigateToChat, Error {
     }
 
     override fun navigate(chat: Chat) {
+
+        enterTransition =
+            MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.X, false).apply {
+                duration = DURATION
+            }
+
+        exitTransition =
+            MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.X, true).apply {
+                duration = DURATION
+            }
+
         this.findNavController()
             .navigate(
                 ListFragmentDirections.actionListFragmentToChatFragment(
@@ -141,6 +165,17 @@ class ListFragment : Fragment(), NavigateToChat, Error {
     }
 
     override fun navigateToUser(chat: Chat) {
+
+        enterTransition =
+            MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Y, false).apply {
+                duration = DURATION
+            }
+
+        exitTransition =
+            MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Y, true).apply {
+                duration = DURATION
+            }
+
         this.findNavController().navigate(
             ListFragmentDirections.actionListFragmentToProfileFragment(
                 chat.user.name,

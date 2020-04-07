@@ -10,7 +10,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.apps.chatychaty.DURATION
 import com.apps.chatychaty.R
 import com.apps.chatychaty.adapter.SearchAdapter
 import com.apps.chatychaty.databinding.FragmentSearchBinding
@@ -37,9 +36,10 @@ class SearchFragment : Fragment() {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
 
         enterTransition =
-            MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Y, true).apply {
-                duration = DURATION
-            }
+            MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Y, true)
+
+        exitTransition =
+            MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Y, false)
 
         binding.lifecycleOwner = this
 

@@ -17,13 +17,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.apps.chatychaty.DURATION
-import com.apps.chatychaty.R
+import com.apps.chatychaty.*
 import com.apps.chatychaty.adapter.ChatRVAdapter
 import com.apps.chatychaty.databinding.FragmentChatBinding
-import com.apps.chatychaty.getPref
 import com.apps.chatychaty.network.Repos
-import com.apps.chatychaty.snackbar
+import com.apps.chatychaty.util.ExceptionHandler
+import com.apps.chatychaty.util.getPref
+import com.apps.chatychaty.util.snackbar
 import com.apps.chatychaty.viewModel.Error
 import com.apps.chatychaty.viewModel.SharedViewModel
 import com.apps.chatychaty.viewModel.SharedViewModelFactory
@@ -39,7 +39,11 @@ import kotlinx.coroutines.launch
  */
 class ChatFragment : Fragment(), Error {
 
-    private lateinit var binding: FragmentChatBinding
+    private val binding by lazy {
+        FragmentChatBinding.inflate(layoutInflater).also {
+            it.lifecycleOwner = this
+        }
+    }
 
     private val viewModel by viewModels<SharedViewModel> {
         SharedViewModelFactory(Repos.chatRepository, Repos.messageRepository, this)
@@ -47,28 +51,30 @@ class ChatFragment : Fragment(), Error {
 
     private val args by navArgs<ChatFragmentArgs>()
 
-    private lateinit var adapter: ChatRVAdapter
+    private val adapter by lazy { ChatRVAdapter(activity?.getPref("username")!!) }
+
+    private val imm by lazy {
+        activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentChatBinding.inflate(inflater, container, false)
-
-        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        ExceptionHandler.error = this
 
         enterTransition =
-            MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Z, true).apply {
+            MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.X, true).apply {
                 duration = DURATION
             }
 
-        adapter = ChatRVAdapter(activity?.getPref("username")!!)
+        exitTransition =
+            MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.X, false).apply {
+                duration = DURATION
+            }
 
         // Binding
-        binding.let {
-            it.lifecycleOwner = this
-            it.viewModel = viewModel
-        }
+        binding.viewModel = viewModel
 
         binding.tbTv.text = args.name
 
@@ -121,10 +127,10 @@ class ChatFragment : Fragment(), Error {
         binding.img.setOnClickListener {
             imm.hideSoftInputFromWindow(binding.et.windowToken, 0)
 
-            exitTransition =
-                MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.X, true).apply {
-                    duration = DURATION
-                }
+            enterTransition =
+                MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Y, false)
+
+            exitTransition = MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Y, true)
 
             this.findNavController().navigate(
                 ChatFragmentDirections.actionChatFragmentToProfileFragment(
@@ -159,9 +165,9 @@ class ChatFragment : Fragment(), Error {
         }
 
         if (binding.et.text.isBlank()) {
+            TransitionManager.beginDelayedTransition(binding.linearLayout, exitAnimation)
             binding.btnSend.isEnabled = false
             binding.btnSend.visibility = View.GONE
-            TransitionManager.beginDelayedTransition(binding.linearLayout, exitAnimation)
         }
         binding.et.addTextChangedListener {
             if (it?.isNotBlank() == true) {
