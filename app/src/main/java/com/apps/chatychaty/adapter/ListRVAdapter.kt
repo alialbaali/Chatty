@@ -9,7 +9,7 @@ import com.apps.chatychaty.databinding.ListItemChatBinding
 import com.apps.chatychaty.model.Chat
 import com.apps.chatychaty.viewModel.SharedViewModel
 
-internal class ListRVAdapter(
+ class ListRVAdapter(
     private val viewModel: SharedViewModel,
     private val navigateToChat: NavigateToChat
 ) :
@@ -27,7 +27,7 @@ internal class ListRVAdapter(
 }
 
 
-internal class ChatItemViewHolder(
+class ChatItemViewHolder(
     private val binding: ListItemChatBinding,
     private val viewModel: SharedViewModel,
     private val navigateToChat: NavigateToChat
@@ -47,11 +47,7 @@ internal class ChatItemViewHolder(
 
     companion object {
 
-        internal fun create(
-            parent: ViewGroup,
-            viewModel: SharedViewModel,
-            navigateToChat: NavigateToChat
-        ): ChatItemViewHolder {
+        fun create(parent: ViewGroup, viewModel: SharedViewModel, navigateToChat: NavigateToChat): ChatItemViewHolder {
 
             return ChatItemViewHolder(
                 ListItemChatBinding.inflate(

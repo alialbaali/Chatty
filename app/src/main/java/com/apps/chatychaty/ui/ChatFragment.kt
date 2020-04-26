@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -21,23 +20,18 @@ import com.apps.chatychaty.DURATION
 import com.apps.chatychaty.R
 import com.apps.chatychaty.adapter.ChatRVAdapter
 import com.apps.chatychaty.databinding.FragmentChatBinding
-import com.apps.chatychaty.network.Repos
-import com.apps.chatychaty.util.ExceptionHandler
+import com.apps.chatychaty.repo.USERNAME
 import com.apps.chatychaty.util.getPref
 import com.apps.chatychaty.util.snackbar
-import com.apps.chatychaty.viewModel.Error
 import com.apps.chatychaty.viewModel.SharedViewModel
-import com.apps.chatychaty.viewModel.SharedViewModelFactory
 import com.google.android.material.transition.MaterialFade
 import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.android.viewmodel.ext.android.viewModel
 
-/**
- * A simple [Fragment] subclass.
- */
-class ChatFragment : Fragment(), Error {
+class ChatFragment : Fragment() {
 
     private val binding by lazy {
         FragmentChatBinding.inflate(layoutInflater).also {
@@ -45,31 +39,28 @@ class ChatFragment : Fragment(), Error {
         }
     }
 
-    private val viewModel by viewModels<SharedViewModel> {
-        SharedViewModelFactory(Repos.chatRepository, Repos.messageRepository, this)
-    }
+    private val viewModel by viewModel<SharedViewModel>()
 
     private val args by navArgs<ChatFragmentArgs>()
 
-    private val adapter by lazy { ChatRVAdapter(activity?.getPref("username")!!) }
+    private val adapter by lazy { ChatRVAdapter(requireContext().getPref(USERNAME)!!) }
 
     private val imm by lazy {
-        activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        ExceptionHandler.error = this
 
         enterTransition =
-            MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.X, true).apply {
+            MaterialSharedAxis.create(MaterialSharedAxis.X, true).apply {
                 duration = DURATION
             }
 
         exitTransition =
-            MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.X, false).apply {
+            MaterialSharedAxis.create(MaterialSharedAxis.X, false).apply {
                 duration = DURATION
             }
 
@@ -111,7 +102,7 @@ class ChatFragment : Fragment(), Error {
             }
         }
 
-        binding.tb.navigationIcon?.setTint(resources.getColor(R.color.colorOnPrimary_900))
+        binding.tb.navigationIcon?.setTint(resources.getColor(R.color.colorPrimary))
 
         binding.et.requestFocus()
 
@@ -124,9 +115,9 @@ class ChatFragment : Fragment(), Error {
             imm.hideSoftInputFromWindow(binding.et.windowToken, 0)
 
             enterTransition =
-                MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Y, false)
+                MaterialSharedAxis.create(MaterialSharedAxis.Y, false)
 
-            exitTransition = MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Y, true)
+            exitTransition = MaterialSharedAxis.create(MaterialSharedAxis.Y, true)
 
             this.findNavController().navigate(
                 ChatFragmentDirections.actionChatFragmentToProfileFragment(
@@ -152,11 +143,11 @@ class ChatFragment : Fragment(), Error {
                 }
             }
         }
-        val enterAnimation = MaterialFade.create(requireContext(), true).apply {
+        val enterAnimation = MaterialFade.create(true).apply {
             duration = DURATION
         }
 
-        val exitAnimation = MaterialFade.create(requireContext(), false).apply {
+        val exitAnimation = MaterialFade.create(false).apply {
             duration = DURATION
         }
         if (binding.et.text.isBlank()) {
@@ -187,10 +178,11 @@ class ChatFragment : Fragment(), Error {
             )
         }
 
+        viewModel.errors.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                binding.cool.snackbar(it)
+            }
+        })
         return binding.root
-    }
-
-    override fun snackbar(value: String) {
-        binding.cool.snackbar(value)
     }
 }

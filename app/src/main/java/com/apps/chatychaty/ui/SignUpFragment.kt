@@ -1,69 +1,60 @@
 package com.apps.chatychaty.ui
 
-
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.apps.chatychaty.*
+import com.apps.chatychaty.DURATION
+import com.apps.chatychaty.R
 import com.apps.chatychaty.databinding.FragmentSignUpBinding
-import com.apps.chatychaty.network.Repos
-import com.apps.chatychaty.util.getPref
-import com.apps.chatychaty.util.setPref
 import com.apps.chatychaty.util.snackbar
-import com.apps.chatychaty.viewModel.Error
-import com.apps.chatychaty.viewModel.Sign
 import com.apps.chatychaty.viewModel.SignSharedViewModel
-import com.apps.chatychaty.viewModel.SignSharedViewModelFactory
+import com.github.razir.progressbutton.attachTextChangeAnimator
+import com.github.razir.progressbutton.hideProgress
+import com.github.razir.progressbutton.showProgress
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import org.koin.android.viewmodel.ext.android.viewModel
 
-/**
- * A simple [Fragment] subclass.
- */
- class SignUpFragment : Fragment(), Sign, Error {
+class SignUpFragment : Fragment() {
 
-    private lateinit var binding: FragmentSignUpBinding
-
-    private val viewModel by viewModels<SignSharedViewModel> {
-        SignSharedViewModelFactory(Repos.userRepository)
+    private val binding by lazy {
+        FragmentSignUpBinding.inflate(layoutInflater).also {
+            it.lifecycleOwner = this
+            it.viewModel = viewModel
+        }
     }
+
+    private val viewModel by viewModel<SignSharedViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSignUpBinding.inflate(inflater, container, false)
-
-        exitTransition = MaterialFadeThrough.create(requireContext()).apply {
+        exitTransition = MaterialFadeThrough.create().apply {
             duration = DURATION
         }
 
-        enterTransition = MaterialFadeThrough.create(requireContext()).apply {
+        enterTransition = MaterialFadeThrough.create().apply {
             duration = DURATION
-        }
-
-        binding.let {
-
-            it.lifecycleOwner = this
-            it.viewModel = viewModel
-
         }
 
         binding.tvSignIn.setOnClickListener {
-            this.findNavController()
-                .navigate(SignUpFragmentDirections.actionSignUpFragmentToSignInFragment())
+            this.findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentToSignInFragment())
         }
 
         binding.btnSignUp.setOnClickListener {
 
-            exitTransition =
-                MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Z, true).apply {
-                    duration = DURATION
-                }
+            exitTransition = MaterialSharedAxis.create(MaterialSharedAxis.Z, true).apply { duration = DURATION }
 
             val name = binding.etName.text.toString()
             val username = binding.etUsername.text.toString()
@@ -79,73 +70,48 @@ import com.google.android.material.transition.MaterialSharedAxis
                 binding.tilPassword.error = resources.getString(R.string.password_error)
             }
 
-            if (name.isNotBlank() and username.isNotBlank() and password.isNotBlank()) {
+            if (name.isNotBlank() && username.isNotBlank() && password.isNotBlank()) {
                 viewModel.signUp()
+                
+                binding.btnSignUp.showProgress {
+                    this.progressColor = Color.WHITE
+                    this.buttonText = "Signing Up"
+                }
             }
         }
 
-        viewModel.let { viewModel ->
+        viewModel.errors.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                if (it.any { it.contains("Username", true) }) {
+                    binding.tilUsername.error = it.toString()
+                    binding.btnSignUp.hideProgress("Sign Up")
+                } else if (it.any { it.contains("Password", true) }) {
+                    binding.tilPassword.error = it.toString()
+                    binding.btnSignUp.hideProgress("Sign Up")
+                } else {
+                    binding.cool.snackbar(it.toString())
+                    binding.btnSignUp.hideProgress("Sign Up")
+                }
+            }
+        })
 
-            viewModel.error = this
-            viewModel.sign = this
-
+        binding.btnSignUp.attachTextChangeAnimator {
+            this.fadeInMills = 250
+            this.fadeOutMills = 250
         }
 
-//        binding.img.let { img ->
-//            img.setOnClickListener {
-//
-//                val intent = Intent(Intent.ACTION_PICK).apply {
-//                    this.type = "image/*"
-//                    this.putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/jpeg", "image/png"))
-//                }
-//                if (intent.resolveActivity(activity?.packageManager!!) != null) {
-//                    startActivityForResult(intent, 1)
-//                }
-//            }
-//
-//        }
-
+        viewModel.navigate.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                lifecycleScope.launch {
+                    binding.btnSignUp.hideProgress("Signed Up")
+                    delay(1000)
+                    binding.btnSignUp.hideProgress("Signed up")
+                    this@SignUpFragment.findNavController().navigate(SignUpFragmentDirections.actionGlobalListFragment())
+                    viewModel.onNavigate(false)
+                }
+            }
+        })
 
         return binding.root
     }
-
-    override fun snackbar(value: String) {
-       binding.cool.snackbar(value)
-    }
-
-    override fun putPreferences(token: String, name: String, username: String, imgUrl: String?) {
-        this.findNavController().navigate(SignUpFragmentDirections.actionGlobalListFragment())
-
-        activity?.setPref("token", token)
-        activity?.setPref("name", name)
-        activity?.setPref("username", username)
-        activity?.setPref("img_url", imgUrl)
-
-        com.apps.chatychaty.token = activity?.getPref("token")
-    }
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//        if (resultCode == Activity.RESULT_OK) {
-//            if (requestCode == 1) {
-//                val img = data?.data
-//                img?.path
-////                binding.img.setImageURI(img)
-////                val array = arrayOf(MediaStore.Images.Media.DATE_ADDED)
-////                val cursor =
-////                    activity?.contentResolver?.query(img ?: Uri.EMPTY, array, null, null, null)
-////                cursor?.moveToFirst()
-////                val columnIndex = cursor?.getColumnIndex(array[0])
-////                val imgString = cursor?.getString(columnIndex!!)
-////                cursor?.close()
-//
-//                viewModel.img = img?.path ?: ""
-//                snackbar(img?.path ?: "")
-//
-//            }
-//        } else {
-//            snackbar("Error occurred!")
-//        }
-//    }
 }

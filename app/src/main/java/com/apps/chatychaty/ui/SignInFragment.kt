@@ -1,71 +1,62 @@
 package com.apps.chatychaty.ui
 
-
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.apps.chatychaty.DURATION
 import com.apps.chatychaty.R
 import com.apps.chatychaty.databinding.FragmentSignInBinding
-import com.apps.chatychaty.network.Repos
-import com.apps.chatychaty.util.getPref
-import com.apps.chatychaty.util.setPref
 import com.apps.chatychaty.util.snackbar
-import com.apps.chatychaty.viewModel.Error
-import com.apps.chatychaty.viewModel.Sign
 import com.apps.chatychaty.viewModel.SignSharedViewModel
-import com.apps.chatychaty.viewModel.SignSharedViewModelFactory
+import com.github.razir.progressbutton.attachTextChangeAnimator
+import com.github.razir.progressbutton.hideProgress
+import com.github.razir.progressbutton.showDrawable
+import com.github.razir.progressbutton.showProgress
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import org.koin.android.viewmodel.ext.android.viewModel
 
-/**
- * A simple [Fragment] subclass.
- */
-class SignInFragment : Fragment(), Sign, Error {
-    private lateinit var binding: FragmentSignInBinding
+class SignInFragment : Fragment() {
 
-    private val viewModel by viewModels<SignSharedViewModel> {
-        SignSharedViewModelFactory(Repos.userRepository)
+    private val binding by lazy {
+        FragmentSignInBinding.inflate(layoutInflater).also {
+            it.lifecycleOwner = this
+            it.viewModel = viewModel
+        }
     }
+
+    private val viewModel by viewModel<SignSharedViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSignInBinding.inflate(inflater, container, false)
-
-        enterTransition = MaterialFadeThrough.create(requireContext()).apply {
+        enterTransition = MaterialFadeThrough.create().apply {
             duration = DURATION
         }
 
-        exitTransition = MaterialFadeThrough.create(requireContext()).apply {
+        exitTransition = MaterialFadeThrough.create().apply {
             duration = DURATION
         }
-        // Binding
-        binding.let {
-
-            it.lifecycleOwner = this
-
-            it.viewModel = viewModel
-
-        }
-
 
         binding.tvSignUp.setOnClickListener {
-            this.findNavController()
-                .navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
+            this.findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
         }
 
-        exitTransition =
-            MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Z, true).apply {
-                duration = DURATION
-            }
-
         binding.btnSignIn.setOnClickListener {
+
+            exitTransition =
+                MaterialSharedAxis.create(MaterialSharedAxis.Z, true).apply { duration = DURATION }
+
             val username = binding.etUsername.text.toString()
             val password = binding.etPassword.text.toString()
 
@@ -78,32 +69,42 @@ class SignInFragment : Fragment(), Sign, Error {
 
             if (username.isNotBlank() and password.isNotBlank()) {
                 viewModel.signIn()
+                binding.btnSignIn.showProgress {
+                    this.progressColor = Color.WHITE
+                    this.buttonText = "Signing In"
+                }
             }
         }
 
-        // ViewModel
-        viewModel.let { viewModel ->
+        viewModel.errors.observe(viewLifecycleOwner, Observer {
+            if (it.any { it.contains("Username", true) }) {
+                binding.tilUsername.error = it.toString()
+                binding.btnSignIn.hideProgress("Sign In")
+            } else if (it.any { it.contains("Password", true) }) {
+                binding.tilPassword.error = it.toString()
+                binding.btnSignIn.hideProgress("Sign In")
+            } else {
+                binding.cool.snackbar(it.toString())
+                binding.btnSignIn.hideProgress("Sign In")
+            }
+        })
 
-            viewModel.error = this
-            viewModel.sign = this
-
+        binding.btnSignIn.attachTextChangeAnimator {
+            this.fadeInMills = 250
+            this.fadeOutMills = 250
         }
 
+        viewModel.navigate.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                lifecycleScope.launch {
+                    binding.btnSignIn.hideProgress("Signed In")
+                    delay(1000)
+                    this@SignInFragment.findNavController().navigate(SignInFragmentDirections.actionGlobalListFragment())
+                    viewModel.onNavigate(false)
+                }
+            }
+        })
+
         return binding.root
-    }
-
-    override fun snackbar(value: String) {
-        binding.cool.snackbar(value)
-    }
-
-    override fun putPreferences(token: String, name: String, username: String, imgUrl: String?) {
-        this.findNavController().navigate(SignInFragmentDirections.actionGlobalListFragment())
-
-        activity?.setPref("token", token)
-        activity?.setPref("name", name)
-        activity?.setPref("username", username)
-        activity?.setPref("img_url", imgUrl)
-
-        com.apps.chatychaty.token = activity?.getPref("token")
     }
 }

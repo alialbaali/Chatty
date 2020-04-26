@@ -1,5 +1,6 @@
-package com.apps.chatychaty.network
+package com.apps.chatychaty.remote
 
+import com.apps.chatychaty.di.AUTH_HEADER
 import com.apps.chatychaty.model.Response
 import com.apps.chatychaty.model.User
 import okhttp3.MultipartBody
@@ -15,8 +16,8 @@ interface UserClient {
 
     @Multipart
     @POST("v1/Profile/SetPhotoForSelf")
-    suspend fun updatePhoto(@Header("Authorization") token: String, @Part img: MultipartBody.Part)
+    suspend fun updatePhoto(@Header(AUTH_HEADER) token: String, @Part img: MultipartBody.Part)
 
     @PATCH("v1/Profile/UpdateDisplayName")
-    suspend fun updateName(@Header("Authorization") token: String, @Body name: String)
+    suspend fun updateName(@Header(AUTH_HEADER) token: String, @Body name: String)
 }

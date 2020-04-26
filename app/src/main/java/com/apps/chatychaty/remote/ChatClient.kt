@@ -1,4 +1,4 @@
-package com.apps.chatychaty.network
+package com.apps.chatychaty.remote
 
 import com.apps.chatychaty.model.Chat
 import com.apps.chatychaty.model.Response

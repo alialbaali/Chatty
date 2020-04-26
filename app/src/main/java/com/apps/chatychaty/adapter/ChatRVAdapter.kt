@@ -9,13 +9,13 @@ import com.apps.chatychaty.R
 import com.apps.chatychaty.databinding.ListItemReceiverMessageBinding
 import com.apps.chatychaty.databinding.ListItemSenderMessageBinding
 import com.apps.chatychaty.model.Message
+import timber.log.Timber
 
 private const val VIEW_TYPE_Sender_MESSAGE = 1
 private const val VIEW_TYPE_RECEIVER_MESSAGE = 2
 
 // Chat RV Adapter
-internal class ChatRVAdapter(private val senderUsername: String) :
-    ListAdapter<Message, RecyclerView.ViewHolder>(MessageItemDiffCallback()) {
+ class ChatRVAdapter(private val senderUsername: String) : ListAdapter<Message, RecyclerView.ViewHolder>(MessageItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == VIEW_TYPE_Sender_MESSAGE) {

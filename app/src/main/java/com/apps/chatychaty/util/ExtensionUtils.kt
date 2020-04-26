@@ -1,10 +1,10 @@
 package com.apps.chatychaty.util
 
-import android.app.Activity
 import android.content.Context
+import android.content.SharedPreferences
 import android.view.View
 import androidx.core.content.edit
-import com.apps.chatychaty.viewModel.Error
+import com.apps.chatychaty.di.SHARED_PREFERENCES_NAME
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineExceptionHandler
 import retrofit2.HttpException
@@ -15,8 +15,8 @@ fun View.snackbar(value: String) {
         .show()
 }
 
-fun Activity.setPref(key: String, value: String?) {
-    this.getPreferences(Context.MODE_PRIVATE).edit {
+fun Context.setPref(key: String, value: String?) {
+    this.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE).edit {
         if (value != null) {
             this.putString(key, value)
         }
@@ -24,19 +24,18 @@ fun Activity.setPref(key: String, value: String?) {
     }
 }
 
-fun Activity.getPref(key: String): String? {
-    return this.getPreferences(Context.MODE_PRIVATE).getString(key, null)
+fun Context.getPref(key: String): String? {
+    return this.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE).getString(key, null)
 }
 
-internal object ExceptionHandler {
-    lateinit var error: Error
+object ExceptionHandler {
 
     val handler = CoroutineExceptionHandler { _, throwable ->
         if (throwable is UnknownHostException) {
-        error.snackbar("Please connect to the internet")
+//            error.snackbar("Please connect to the internet")
         }
         if (throwable is HttpException) {
-            error.snackbar(throwable.message().toString())
+//            error.snackbar(throwable.message().toString())
 //            val errorResponse =
 //                ErrorConverter.converter.convert(throwable.response()?.errorBody()!!)
 //            error.snackbar()

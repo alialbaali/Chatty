@@ -19,5 +19,7 @@ fun ImageView.setImage(imageUrl: String?) {
 fun ImageView.isMessageDelivered(isDelivered: Boolean?) {
     if (isDelivered == true){
         this.setImageResource(R.drawable.ic_done_24dp)
+    } else {
+        this.setImageResource(R.drawable.ic_loading_24dp)
     }
 }

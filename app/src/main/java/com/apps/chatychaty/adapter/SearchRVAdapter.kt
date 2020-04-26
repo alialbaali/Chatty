@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.apps.chatychaty.databinding.ListItemSearchUserBinding
 import com.apps.chatychaty.model.User
 
-internal class SearchAdapter :
-    ListAdapter<User, SearchAdapter.SearchUserItemViewHolder>(SearchUserItemDiffCallback()) {
+class SearchRVAdapter :
+    ListAdapter<User, SearchRVAdapter.SearchUserItemViewHolder>(SearchUserItemDiffCallback()) {
 
     private lateinit var navigateToChat: NavigateToChat
 
@@ -34,7 +34,7 @@ internal class SearchAdapter :
 
         init {
             binding.root.setOnClickListener {
-//                navigateToChat.navigate(user)
+                //                navigateToChat.navigate(user)
             }
         }
 

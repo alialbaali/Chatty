@@ -1,42 +1,43 @@
 package com.apps.chatychaty.ui
 
+import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.apps.chatychaty.DURATION
 import com.apps.chatychaty.R
-import com.apps.chatychaty.database.AppDatabase
 import com.apps.chatychaty.databinding.FragmentProfileBinding
-import com.apps.chatychaty.network.Repos
+import com.apps.chatychaty.local.AppDatabase
 import com.apps.chatychaty.util.getPref
 import com.apps.chatychaty.util.setPref
-import com.apps.chatychaty.util.snackbar
-import com.apps.chatychaty.viewModel.Error
 import com.apps.chatychaty.viewModel.ProfileViewModel
-import com.apps.chatychaty.viewModel.ProfileViewModelFactory
 import com.google.android.material.transition.MaterialFade
 import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass.
  */
-class ProfileFragment : Fragment(), Error, UpdateName {
+class ProfileFragment : Fragment() {
 
     private val binding by lazy {
         FragmentProfileBinding.inflate(layoutInflater).also {
@@ -44,31 +45,25 @@ class ProfileFragment : Fragment(), Error, UpdateName {
         }
     }
 
-    private val viewModel by viewModels<ProfileViewModel> {
-        ProfileViewModelFactory(Repos.userRepository)
-    }
+    private val viewModel by viewModel<ProfileViewModel>()
 
     private val args by navArgs<ProfileFragmentArgs>()
 
     private val imm by lazy {
-        activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel.error = this
-
-        viewModel.updateName = this
-
         enterTransition =
-            MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Y, true).apply {
+            MaterialSharedAxis.create(MaterialSharedAxis.Y, true).apply {
                 duration = DURATION
             }
 
         exitTransition =
-            MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Y, false).apply {
+            MaterialSharedAxis.create(MaterialSharedAxis.Y, false).apply {
                 duration = DURATION
             }
 
@@ -78,7 +73,7 @@ class ProfileFragment : Fragment(), Error, UpdateName {
 
             this.findNavController().navigateUp()
         }
-        binding.tb.navigationIcon?.setTint(resources.getColor(R.color.colorOnPrimary_900))
+        binding.tb.navigationIcon?.setTint(resources.getColor(R.color.colorPrimary))
 
         binding.name.setText(args.name)
         val username = "@${args.username}"
@@ -94,15 +89,15 @@ class ProfileFragment : Fragment(), Error, UpdateName {
             binding.cl.isVisible = false
         }
 
-        menuEditItem.icon.setTint(resources.getColor(R.color.colorOnPrimary_900))
+        menuEditItem.icon.setTint(resources.getColor(R.color.colorPrimary))
 
-        menuDoneItem.icon.setTint(resources.getColor(R.color.colorOnPrimary_900))
+        menuDoneItem.icon.setTint(resources.getColor(R.color.colorPrimary))
 
-        val enterAnimation = MaterialFade.create(requireContext(), true).apply {
+        val enterAnimation = MaterialFade.create(true).apply {
             duration = DURATION
         }
 
-        val exitAnimation = MaterialFade.create(requireContext(), false).apply {
+        val exitAnimation = MaterialFade.create(false).apply {
             duration = DURATION
         }
 
@@ -127,13 +122,25 @@ class ProfileFragment : Fragment(), Error, UpdateName {
 
             binding.img.let { img ->
                 img.setOnClickListener {
-                    imm.hideSoftInputFromWindow(binding.name.windowToken, 0)
-                    val intent = Intent(Intent.ACTION_PICK).apply {
-                        this.type = "image/*"
-                        this.putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/jpeg", "image/png"))
-                    }
-                    if (intent.resolveActivity(activity?.packageManager!!) != null) {
-                        startActivityForResult(intent, 1)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (activity?.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                            imm.hideSoftInputFromWindow(binding.name.windowToken, 0)
+                            val intent = Intent(
+                                Intent.ACTION_GET_CONTENT,
+                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                            ).apply {
+                                this.type = "image/*"
+                            }
+//                        this.putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/jpeg", "image/png"))
+//                        val intent = Intent(Intent.ACTION_PICK)
+//                        intent.type = "image/*"
+                            if (intent.resolveActivity(activity?.packageManager!!) != null) {
+                                startActivityForResult(intent, 1)
+                            }
+                        } else {
+                            Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_LONG)
+                                .show()
+                        }
                     }
                 }
 
@@ -142,10 +149,6 @@ class ProfileFragment : Fragment(), Error, UpdateName {
 
             true
         }
-
-
-
-
 
         menuDoneItem.setOnMenuItemClickListener {
             TransitionManager.beginDelayedTransition(binding.tb, enterAnimation)
@@ -203,8 +206,68 @@ class ProfileFragment : Fragment(), Error, UpdateName {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK) {
+
             if (requestCode == 1) {
-                val img = data?.data
+//                val uri = data?.data
+//                if (uri != null) {
+
+//                    Timber.i(uri.toString())
+//                    Timber.i(uri.path.toString())
+//                val path = data?.data.path
+//                val file = File(path ?: "")
+//                viewModel.updatePhoto(file)
+
+//                val selectedImage = data?.data!!
+//                val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+                // Get the cursor
+                // Get the cursor
+//                val cursor =
+//                    activity?.contentResolver?.query(
+//                        selectedImage,
+//                        filePathColumn,
+//                        null,
+//                        null,
+//                        null
+//                    )
+                // Move to first row
+                // Move to first row
+//                cursor.moveToFirst()
+                //Get the column index of MediaStore.Images.Media.DATA
+                //Get the column index of MediaStore.Images.Media.DATA
+//                val columnIndex: Int = cursor.getColumnIndex(filePathColumn[0])
+                //Gets the String value in the column
+                //Gets the String value in the column
+//                val imgDecodableString: String = cursor.getString(columnIndex)
+//                cursor?.close()
+
+
+//            }
+                // Set the Image in ImageView after decoding the String
+                // Set the Image in ImageView after decoding the String
+//                imageView.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString))
+
+//                    val file = File(URI.create(uri.path ?: ""))
+//                        viewModel.updatePhoto(file)
+
+//                    viewModel.updatePhoto(file)
+//                    Timber.i(file.toString())
+
+//                    binding.img.setImageURI(uri)
+
+//                val inputStream = activity?.contentResolver?.openInputStream(uri)
+
+//                inputStream?.buffered()?.use {
+//                    val imageData: ByteArray = it.readBytes()
+////                        viewModel.updatePhoto(imageData)
+//                }
+//            }
+
+//                val path = uri?.path
+
+//                val file = File(path ?: "")
+//                viewModel.updatePhoto(file)
+
+//                binding.img.setImageURI(uri)
 //
 //        Timber.i("${img?.path}")
 //                binding.img.setImageURI(img)
@@ -240,8 +303,6 @@ class ProfileFragment : Fragment(), Error, UpdateName {
 //                Timber.i(URI(img!!).toString())
 
             }
-        } else {
-            snackbar("Error occurred!")
         }
     }
 
@@ -302,16 +363,4 @@ class ProfileFragment : Fragment(), Error, UpdateName {
                 }
             }.create().show()
     }
-
-    override fun snackbar(value: String) {
-        binding.cool.snackbar(value)
-    }
-
-    override fun updateName(name: String) {
-        activity?.setPref("name", name)
-    }
-}
-
-internal interface UpdateName {
-    fun updateName(name: String)
 }
