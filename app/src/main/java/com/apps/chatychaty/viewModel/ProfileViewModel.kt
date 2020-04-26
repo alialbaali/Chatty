@@ -2,56 +2,37 @@ package com.apps.chatychaty.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.apps.chatychaty.repo.UserRepository
 import com.apps.chatychaty.token
-import com.apps.chatychaty.ui.UpdateName
-import kotlinx.coroutines.launch
+import com.apps.chatychaty.util.ExceptionHandler
+import kotlinx.coroutines.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import retrofit2.HttpException
 import java.io.File
 
-internal class ProfileViewModel(private val userRepository: UserRepository) : ViewModel() {
+class ProfileViewModel(private val userRepository: UserRepository) : ViewModel() {
 
-    internal lateinit var updateName: UpdateName
+    private val coroutineScope = CoroutineScope(Job() + Dispatchers.Main + ExceptionHandler.handler)
 
-    internal lateinit var error: Error
-
-    var imgPath = ""
-
-    fun updatePhoto() {
-        viewModelScope.launch {
-            val file = File(imgPath)
+    fun updatePhoto(file: File) {
+        coroutineScope.launch {
+    //            val body = imgBytes.toRequestBody("image/*".toMediaTypeOrNull())
             val body = file.asRequestBody("image/*".toMediaTypeOrNull())
-            val mp = MultipartBody.Part.createFormData("img", file.name, body)
+            val mp = MultipartBody.Part.createFormData("img", "Image", body)
             userRepository.updatePhoto(token!!, mp)
         }
     }
 
     fun updateName(name: String) {
-        viewModelScope.launch {
-            try {
-                userRepository.updateName(token!!, name)
-                updateName.updateName(name)
-            } catch (e: HttpException) {
-                error.snackbar(e.response().toString())
-            }
+        coroutineScope.launch {
+            userRepository.updateName(token!!, name)
         }
     }
 
-}
-
-internal class ProfileViewModelFactory(private val userRepository: UserRepository) :
-    ViewModelProvider.Factory {
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ProfileViewModel::class.java)) {
-            return ProfileViewModel(userRepository) as T
-        }
-        throw KotlinNullPointerException("Unknown ViewModel Class")
+    override fun onCleared() {
+        super.onCleared()
+        coroutineScope.cancel()
     }
-
 }

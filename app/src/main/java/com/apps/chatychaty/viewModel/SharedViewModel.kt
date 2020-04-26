@@ -1,6 +1,9 @@
 package com.apps.chatychaty.viewModel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.apps.chatychaty.model.Chat
 import com.apps.chatychaty.model.Message
 import com.apps.chatychaty.repo.ChatRepository
@@ -9,29 +12,30 @@ import com.apps.chatychaty.token
 import com.apps.chatychaty.util.ExceptionHandler
 import kotlinx.coroutines.*
 
-internal class SharedViewModel(
-    private val chatRepository: ChatRepository,
-    private val messageRepository: MessageRepository,
-    private val error: Error
-) :
-    ViewModel() {
+class SharedViewModel(private val chatRepository: ChatRepository, private val messageRepository: MessageRepository) : ViewModel() {
 
-    internal lateinit var chats: LiveData<List<Chat>>
+    lateinit var chats: LiveData<List<Chat>>
 
-    internal lateinit var messages: LiveData<List<Message>>
+    lateinit var messages: LiveData<List<Message>>
+
+    private val _errors = MutableLiveData<String>()
+    val errors: LiveData<String> = _errors
 
     val message = MutableLiveData<Message>()
 
-    private val coroutineScope =
-        CoroutineScope(Job() + Dispatchers.Main + ExceptionHandler.handler)
+    private val coroutineScope = CoroutineScope(Job() + Dispatchers.Main + ExceptionHandler.handler)
 
-    internal fun getChats() {
+    init {
+        getChats()
+    }
+
+    private fun getChats() {
         viewModelScope.launch {
             chats = chatRepository.getChatsDao()
         }
     }
 
-    internal fun getLiveDataMessages(chatId: Int) {
+    fun getLiveDataMessages(chatId: Int) {
         viewModelScope.launch {
 
             messages = messageRepository.getMessagesDao(chatId)
@@ -40,35 +44,27 @@ internal class SharedViewModel(
         }
     }
 
-    internal fun insertChat(username: String) {
+    fun insertChat(username: String) {
         coroutineScope.launch {
-
-            chatRepository.insertChatClient(token!!, username).let { response ->
-
-                if (response.condition) {
-
-                    chatRepository.insertChatDao(Chat(response.chatId!!, response.user!!))
-
-                } else {
-                    error.snackbar(response.error.toString())
-                }
+            val errors = chatRepository.insertChatClient(token!!, username)
+            if (errors != null) {
+                _errors.postValue(errors)
             }
         }
     }
 
-    internal fun insertMessage(chatId: Int) {
+
+    fun insertMessage(chatId: Int) {
         coroutineScope.launch {
 
-            messageRepository.insertMessageClient(token!!, message.value!!).let { message ->
+            messageRepository.insertMessageClient(token!!, message.value!!)
 
-                messageRepository.insertMessageDao(message)
-
-            }
             message.postValue(Message(chatId = chatId))
+
         }
     }
 
-    internal fun checkUpdates() {
+    fun checkUpdates() {
         coroutineScope.launch {
 
             chatRepository.checkUpdates().let {
@@ -85,28 +81,8 @@ internal class SharedViewModel(
         }
     }
 
-    internal fun updateChats() {
-        coroutineScope.launch {
 
-            chatRepository.getChatsClient(token!!).let { chats ->
-
-                chatRepository.updateChatsDao(chats)
-
-            }
-        }
-    }
-
-    internal fun updateMessages() {
-        coroutineScope.launch {
-
-            messageRepository.getMessagesClient(token!!, messageRepository.countDao())
-                .let { messages ->
-                    messageRepository.updateMessagesDao(messages)
-                }
-        }
-    }
-
-    internal fun isMessageDelivered(username: String) {
+    fun isMessageDelivered(username: String) {
         coroutineScope.launch {
 
             val lastMessage = messages.value?.lastOrNull {
@@ -114,10 +90,7 @@ internal class SharedViewModel(
             }
 
             if (lastMessage != null) {
-
-                if (messageRepository.isMessageDelivered(lastMessage.messageId)) {
-                    messageRepository.updateDelivered()
-                }
+                messageRepository.isMessageDelivered(lastMessage.messageId)
             }
         }
     }
@@ -132,20 +105,16 @@ internal class SharedViewModel(
         super.onCleared()
         coroutineScope.cancel()
     }
-}
 
-internal class SharedViewModelFactory(
-    private val chatRepository: ChatRepository,
-    private val messageRepository: MessageRepository,
-    private val error: Error
-) :
-    ViewModelProvider.Factory {
-
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(SharedViewModel::class.java)) {
-            return SharedViewModel(chatRepository, messageRepository, error) as T
+    fun updateMessages() {
+        coroutineScope.launch {
+            messageRepository.getMessagesClient(token!!)
         }
-        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+
+    fun updateChats() {
+        coroutineScope.launch {
+            chatRepository.getChatsClient(token!!)
+        }
     }
 }
