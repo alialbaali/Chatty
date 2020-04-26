@@ -10,7 +10,7 @@
                 android:topLeftRadius="1dp"
                 android:topRightRadius="@dimen/spacing_small" />
 
-            <solid android:color="@color/colorSecondary" />
+            <solid android:color="@color/colorSurface" />
 
         </shape>
     </item>

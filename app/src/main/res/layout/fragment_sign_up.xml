@@ -27,16 +27,22 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="@id/cl"
                 app:layout_constraintRight_toRightOf="@id/cl"
-                app:layout_constraintTop_toTopOf="@id/cl">
+                app:layout_constraintTop_toTopOf="@id/cl" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tb_tv"
-                    style="@style/TextAppearance.Toolbar.Text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_name" />
-
-            </com.google.android.material.appbar.MaterialToolbar>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tb_tv"
+                style="@style/TextAppearance.Toolbar.Text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="@color/colorAccent"
+                android:textSize="36sp"
+                app:fontFamily="@font/roboto_medium"
+                app:layout_constraintBottom_toTopOf="@+id/til_name"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@+id/tb" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_name"

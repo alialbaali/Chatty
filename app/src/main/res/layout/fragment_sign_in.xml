@@ -29,15 +29,23 @@
                 app:layout_constraintRight_toRightOf="@id/cl"
                 app:layout_constraintTop_toTopOf="@id/cl">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tb_tv"
-                    style="@style/TextAppearance.Toolbar.Text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_name" />
-
             </com.google.android.material.appbar.MaterialToolbar>
 
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tb_tv"
+                style="@style/TextAppearance.Toolbar.Text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="@color/colorAccent"
+                android:textSize="36sp"
+                app:fontFamily="@font/roboto_medium"
+                app:layout_constraintBottom_toTopOf="@+id/til_username"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@+id/tb" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_username"
@@ -91,10 +99,10 @@
                 android:id="@+id/forgot_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorOnPrimary_600"
                 android:layout_marginTop="@dimen/spacing_small"
                 android:layout_marginBottom="@dimen/spacing_extra_large"
                 android:text="@string/forgot_your_password"
+                android:textColor="@color/colorOnPrimary"
                 app:fontFamily="@font/roboto"
                 app:layout_constraintBottom_toTopOf="@id/btn_sign_in"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
@@ -112,6 +120,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
                 app:layout_constraintTop_toBottomOf="@+id/forgot_password" />
+
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/tv_sign_up"

@@ -25,8 +25,7 @@
                 android:id="@+id/abl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:elevation="@dimen/elevation_normal"
+                android:background="@color/colorBackground"
                 app:layout_constraintLeft_toLeftOf="@id/cl"
                 app:layout_constraintRight_toRightOf="@id/cl"
                 app:layout_constraintTop_toTopOf="@id/cl">
@@ -41,7 +40,7 @@
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:layout_marginEnd="@dimen/spacing_normal"
-                        android:background="@color/colorSecondary"
+                        android:background="@color/colorSurface"
                         android:contentDescription="@string/user_image"
                         app:imageUrl="@{imgUrl}"
                         app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance" />
@@ -62,7 +61,8 @@
                 android:id="@+id/rv"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:elevation="@dimen/elevation_large"
+                android:layout_marginEnd="@dimen/spacing_small"
+                android:layout_marginStart="@dimen/spacing_small"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +81,7 @@
             android:backgroundTint="@color/colorAccent"
             android:fontFamily="@font/roboto_medium"
             android:text="@string/chat"
-            android:textColor="#F5F5F5"
+            android:textColor="#F0F0F0"
             app:icon="@drawable/ic_edit_24dp"
             app:iconTint="#F5F5F5" />
 

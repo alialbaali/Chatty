@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="imgUrl"
             type="String" />
@@ -27,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="0dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/colorBackground"
                 android:elevation="@dimen/elevation_normal">
 
                 <LinearLayout
@@ -43,9 +44,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        app:imageUrl="@{imgUrl}"
                         android:layout_margin="@dimen/spacing_small"
-                        android:background="@color/colorSecondary"
+                        android:background="@color/colorSurface"
+                        app:imageUrl="@{imgUrl}"
                         app:layout_collapseMode="pin"
                         app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance" />
 
@@ -60,12 +61,12 @@
                             android:id="@+id/name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@color/transparent"
+                            android:background="@android:color/transparent"
                             android:enabled="false"
                             android:hint="@string/name"
                             android:inputType="textPersonName"
                             android:maxLength="32"
-                            android:textColor="@color/colorOnPrimary_800"
+                            android:textColor="@color/colorPrimary"
                             android:textSize="24sp"
                             tools:text="Ali Albaali" />
 
@@ -74,7 +75,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLength="33"
-                            android:textColor="@color/colorOnPrimary_600"
+                            android:textColor="@color/colorOnPrimary"
                             android:textSize="16sp"
                             tools:text="\@alialbaali" />
 

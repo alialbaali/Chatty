@@ -19,7 +19,7 @@
         android:id="@+id/cl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_extra_small"
+        android:layout_margin="@dimen/spacing_small"
         android:background="@drawable/ripple_chat_list_item"
         android:clickable="true"
         android:focusable="true">
@@ -29,9 +29,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_normal"
-            android:background="@color/colorSecondary"
-            app:imageUrl="@{chat.user.imgUrl}"
+            android:background="@color/colorSurface"
             android:contentDescription="@string/user_image"
+            app:imageUrl="@{chat.user.imgUrl}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -48,7 +48,7 @@
             android:maxLength="32"
             android:singleLine="true"
             android:text="@{chat.user.name}"
-            android:textColor="@color/colorOnPrimary_800"
+            android:textColor="@color/colorSecondary"
             android:textSize="@dimen/list_chat_item_name_dimen"
             app:layout_constraintBottom_toTopOf="@id/body"
             app:layout_constraintStart_toEndOf="@+id/img"
@@ -66,26 +66,15 @@
             android:fontFamily="@font/roboto"
             android:maxLength="32"
             android:singleLine="true"
-            android:textColor="@color/colorOnPrimary_600"
-            android:textSize="@dimen/list_chat_item_body_dimen"
             android:text="@{viewModel.getLastMessage(chat.chatId)}"
+            android:textColor="@color/colorOnSecondary"
+            android:textSize="@dimen/list_chat_item_body_dimen"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img"
             app:layout_constraintTop_toBottomOf="@+id/name"
             tools:text="Hello " />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="@dimen/spacing_normal"
-            android:layout_marginTop="@dimen/spacing_normal"
-            android:layout_marginEnd="@dimen/spacing_normal"
-            android:background="@color/colorSecondary"
-            app:layout_constraintBottom_toBottomOf="@id/cl"
-            app:layout_constraintEnd_toEndOf="@id/cl"
-            app:layout_constraintStart_toEndOf="@id/img" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

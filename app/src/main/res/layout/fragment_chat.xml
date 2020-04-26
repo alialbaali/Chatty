@@ -29,7 +29,7 @@
                 android:id="@+id/abl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
+                android:background="@color/colorBackground"
                 android:elevation="@dimen/elevation_normal"
                 app:layout_constraintBottom_toTopOf="@id/rv"
                 app:layout_constraintLeft_toLeftOf="@id/cl"
@@ -46,11 +46,11 @@
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/img"
                         android:layout_width="wrap_content"
-                        app:imageUrl="@{imgUrl}"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_normal"
-                        android:background="@color/colorSecondary"
+                        android:background="@color/colorSurface"
                         android:contentDescription="@string/user_image"
+                        app:imageUrl="@{imgUrl}"
                         app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance" />
 
                     <com.google.android.material.textview.MaterialTextView
@@ -93,22 +93,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:elevation="@dimen/elevation_extra_small"
                     android:layout_margin="@dimen/spacing_extra_small"
                     android:layout_weight="1"
-                    android:textColorHint="@color/colorOnPrimary_600"
-                    android:paddingStart="@dimen/spacing_normal"
-                    android:paddingTop="@dimen/spacing_small"
-                    android:paddingBottom="@dimen/spacing_small"
-                    android:paddingEnd="@dimen/spacing_normal"
                     android:autofillHints="true"
                     android:background="@drawable/message_input_background"
+                    android:elevation="@dimen/elevation_extra_small"
                     android:hint="@string/type_a_message"
                     android:inputType="textLongMessage|textAutoCorrect|textMultiLine|text|textAutoComplete"
                     android:maxLines="3"
+                    android:padding="@dimen/spacing_small"
                     android:text="@={viewModel.message.messageBody}"
                     android:textAllCaps="false"
-                    android:textColor="@color/colorOnPrimary_900" />
+                    android:textColor="@color/colorSecondary"
+                    android:textColorHint="@color/colorOnSecondary" />
 
                 <ImageButton
                     android:id="@+id/btn_send"
@@ -116,13 +113,15 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/spacing_extra_small"
-                    android:alpha="0.5"
                     android:layout_weight="0"
                     android:background="@drawable/message_input_btn_ripple"
+                    android:clickable="true"
                     android:contentDescription="@string/send"
                     android:elevation="@dimen/elevation_extra_small"
-                    android:padding="@dimen/spacing_extra_small"
-                    android:src="@drawable/ic_send_24dp" />
+                    android:focusable="true"
+                    android:padding="@dimen/spacing_small"
+                    android:src="@drawable/ic_send_24dp"
+                    android:tint="#F0F0F0" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

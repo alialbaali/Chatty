@@ -36,7 +36,7 @@
                 android:padding="@dimen/spacing_small"
                 android:text="@{message.messageBody}"
                 android:textAppearance="@style/TextAppearance.Message.Text"
-                android:textColor="#F5F5F5"
+                android:textColor="@color/colorSurface"
                 tools:text="Hello What's up man? How are you doing?">
 
             </com.google.android.material.textview.MaterialTextView>
@@ -51,7 +51,7 @@
                 android:layout_weight="0"
                 android:contentDescription="@string/delivered"
                 android:src="@drawable/ic_loading_24dp"
-                android:tint="#F5F5F5"
+                android:tint="@color/colorSurface"
                 app:isMessageDelivered="@{message.delivered}" />
 
             <com.google.android.material.textview.MaterialTextView

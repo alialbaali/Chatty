@@ -33,7 +33,7 @@
                 android:padding="@dimen/spacing_small"
                 android:text="@{message.messageBody}"
                 android:textAppearance="@style/TextAppearance.Message.Text"
-                android:textColor="@color/colorOnPrimary_900"
+                android:textColor="@color/colorPrimary"
                 app:layout_constraintBottom_toTopOf="@id/time"
                 app:layout_constraintEnd_toEndOf="@id/cl"
                 app:layout_constraintHorizontal_bias="0.0"
