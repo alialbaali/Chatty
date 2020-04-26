@@ -1,51 +1,45 @@
 package com.apps.chatychaty.repo
 
 import androidx.lifecycle.LiveData
-import com.apps.chatychaty.database.ChatDao
+import com.apps.chatychaty.di.AUTH_SCHEME
+import com.apps.chatychaty.local.ChatDao
 import com.apps.chatychaty.model.Chat
 import com.apps.chatychaty.model.Response
-import com.apps.chatychaty.network.AUTH_SCHEME
-import com.apps.chatychaty.network.ChatClient
+import com.apps.chatychaty.remote.ChatClient
 import com.apps.chatychaty.token
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-internal class ChatRepository(private val chatClient: ChatClient, private val chatDao: ChatDao) {
+class ChatRepository(private val chatClient: ChatClient, private val chatDao: ChatDao) {
 
-    internal suspend fun insertChatClient(token: String, username: String): Response {
+    suspend fun insertChatClient(token: String, username: String): String? {
         return withContext(Dispatchers.IO) {
-            chatClient.insertChat(AUTH_SCHEME.plus(token), username)
+            val response = chatClient.insertChat(AUTH_SCHEME.plus(token), username)
+            if (response.condition) {
+                chatDao.insertChat(Chat(response.chatId!!, response.user!!))
+                null
+            } else {
+                response.error
+            }
         }
     }
 
-    internal suspend fun getChatsClient(token: String): List<Chat> {
-        return withContext(Dispatchers.IO) {
-            chatClient.getChats(AUTH_SCHEME.plus(token))
+    suspend fun getChatsClient(token: String) {
+        withContext(Dispatchers.IO) {
+            val chats = chatClient.getChats(AUTH_SCHEME.plus(token))
+            chatDao.updateChats(chats)
         }
     }
 
-    internal suspend fun getChatsDao(): LiveData<List<Chat>> {
+    suspend fun getChatsDao(): LiveData<List<Chat>> {
         return withContext(Dispatchers.Main) {
             chatDao.getChats()
         }
     }
 
-    internal suspend fun insertChatDao(chat: Chat) {
-        withContext(Dispatchers.IO) {
-            chatDao.insertChat(chat)
-        }
-    }
-
-    internal suspend fun updateChatsDao(chats: List<Chat>) {
-        withContext(Dispatchers.IO) {
-            chatDao.updateChats(chats)
-        }
-    }
-
-    internal suspend fun checkUpdates(): Response {
+    suspend fun checkUpdates(): Response {
         return withContext(Dispatchers.IO) {
             chatClient.checkUpdates(AUTH_SCHEME.plus(token))
         }
     }
-
 }
