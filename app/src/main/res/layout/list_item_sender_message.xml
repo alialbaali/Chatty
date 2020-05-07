@@ -7,7 +7,7 @@
 
         <variable
             name="message"
-            type="com.apps.chatychaty.model.Message" />
+            type="com.alialbaali.model.Message" />
 
     </data>
 
@@ -36,7 +36,6 @@
                 android:padding="@dimen/spacing_small"
                 android:text="@{message.messageBody}"
                 android:textAppearance="@style/TextAppearance.Message.Text"
-                android:textColor="@color/colorSurface"
                 tools:text="Hello What's up man? How are you doing?">
 
             </com.google.android.material.textview.MaterialTextView>
@@ -51,7 +50,7 @@
                 android:layout_weight="0"
                 android:contentDescription="@string/delivered"
                 android:src="@drawable/ic_loading_24dp"
-                android:tint="@color/colorSurface"
+                android:tint="@android:color/white"
                 app:isMessageDelivered="@{message.delivered}" />
 
             <com.google.android.material.textview.MaterialTextView

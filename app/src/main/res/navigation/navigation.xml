@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/chatFragment"
-        android:name="com.apps.chatychaty.ui.ChatFragment"
+        android:name="com.alialbaali.chatychaty.ui.ChatFragment"
         android:label="ChatFragment"
         tools:layout="@layout/fragment_chat">
         <action
@@ -35,7 +35,7 @@
         app:startDestination="@id/signUpFragment">
         <fragment
             android:id="@+id/signUpFragment"
-            android:name="com.apps.chatychaty.ui.SignUpFragment"
+            android:name="com.alialbaali.chatychaty.ui.SignUpFragment"
             android:label="SignUpFragment"
             tools:layout="@layout/fragment_sign_up">
             <action
@@ -47,7 +47,7 @@
         </fragment>
         <fragment
             android:id="@+id/signInFragment"
-            android:name="com.apps.chatychaty.ui.SignInFragment"
+            android:name="com.alialbaali.chatychaty.ui.SignInFragment"
             android:label="SignInFragment"
             tools:layout="@layout/fragment_sign_in">
             <action
@@ -65,7 +65,7 @@
     </navigation>
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.apps.chatychaty.ui.ListFragment"
+        android:name="com.alialbaali.chatychaty.ui.ListFragment"
         android:label="ListFragment"
         tools:layout="@layout/fragment_list">
         <action
@@ -85,7 +85,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.apps.chatychaty.ui.ProfileFragment"
+        android:name="com.alialbaali.chatychaty.ui.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
         <action
@@ -124,7 +124,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.apps.chatychaty.ui.SearchFragment"
+        android:name="com.alialbaali.chatychaty.ui.SearchFragment"
         android:label="SearchFragment"
         tools:layout="@layout/fragment_search">
         <action

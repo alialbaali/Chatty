@@ -21,15 +21,15 @@
             android:id="@+id/abl"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:elevation="@dimen/elevation_normal">
+            android:elevation="@dimen/elevation_normal"
+            android:background="@color/colorBackground"
+            app:elevation="0dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/ctb"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="0dp"
-                android:background="@color/colorBackground"
-                android:elevation="@dimen/elevation_normal">
+                android:layout_marginStart="0dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -87,6 +87,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
+                    android:background="@color/colorBackground"
                     app:menu="@menu/menu_profile"
                     app:navigationIcon="@drawable/ic_back_24px" />
 

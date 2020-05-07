@@ -24,6 +24,8 @@
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/abl"
                 android:layout_width="0dp"
+                android:elevation="@dimen/elevation_normal"
+                app:elevation="0dp"
                 android:layout_height="wrap_content"
                 android:background="@color/colorBackground"
                 app:layout_constraintLeft_toLeftOf="@id/cl"
@@ -61,8 +63,8 @@
                 android:id="@+id/rv"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginEnd="@dimen/spacing_small"
                 android:layout_marginStart="@dimen/spacing_small"
+                android:layout_marginEnd="@dimen/spacing_small"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

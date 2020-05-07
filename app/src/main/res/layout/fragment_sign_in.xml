@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.apps.chatychaty.viewModel.SignSharedViewModel" />
+            type="com.alialbaali.chatychaty.viewModel.SignSharedViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -26,6 +26,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="@id/cl"
+                android:background="@color/colorBackground"
                 app:layout_constraintRight_toRightOf="@id/cl"
                 app:layout_constraintTop_toTopOf="@id/cl">
 

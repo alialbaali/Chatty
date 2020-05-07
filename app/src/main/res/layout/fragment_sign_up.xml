@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.apps.chatychaty.viewModel.SignSharedViewModel" />
+            type="com.alialbaali.chatychaty.viewModel.SignSharedViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -24,6 +24,7 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/tb"
                 android:layout_width="0dp"
+                android:background="@color/colorBackground"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="@id/cl"
                 app:layout_constraintRight_toRightOf="@id/cl"

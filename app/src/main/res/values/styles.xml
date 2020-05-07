@@ -3,6 +3,8 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/colorBackground</item>
         <item name="android:statusBarColor">@color/colorBackground</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        <item name="android:navigationBarColor">@color/colorBackground</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:colorControlActivated">@color/colorAccent</item>
         <item name="android:colorControlHighlight">@color/colorAccent</item>
@@ -60,7 +62,7 @@
     <style name="TextAppearance.Message.Text" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textSize">@dimen/message_text_dimen</item>
-        <item name="android:textColor">@color/colorSecondary</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="TextAppearance.Message.Time" parent="TextAppearance.AppCompat">

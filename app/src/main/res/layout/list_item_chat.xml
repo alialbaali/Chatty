@@ -7,11 +7,11 @@
 
         <variable
             name="chat"
-            type="com.apps.chatychaty.model.Chat" />
+            type="com.alialbaali.model.Chat" />
 
         <variable
             name="viewModel"
-            type="com.apps.chatychaty.viewModel.SharedViewModel" />
+            type="com.alialbaali.chatychaty.viewModel.SharedViewModel" />
 
     </data>
 

@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.apps.chatychaty.viewModel.SearchViewModel" />
+            type="com.alialbaali.chatychaty.viewModel.SearchViewModel" />
 
     </data>
 
@@ -36,6 +36,7 @@
                     android:id="@+id/tb"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/colorBackground"
                     app:navigationIcon="@drawable/ic_back_24px">
 
                     <EditText

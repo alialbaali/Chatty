@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.apps.chatychaty.viewModel.SharedViewModel" />
+            type="com.alialbaali.chatychaty.viewModel.SharedViewModel" />
 
         <variable
             name="imgUrl"
@@ -28,19 +28,22 @@
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/abl"
                 android:layout_width="0dp"
+                android:elevation="@dimen/elevation_normal"
+                app:elevation="0dp"
                 android:layout_height="wrap_content"
                 android:background="@color/colorBackground"
-                android:elevation="@dimen/elevation_normal"
-                app:layout_constraintBottom_toTopOf="@id/rv"
                 app:layout_constraintLeft_toLeftOf="@id/cl"
                 app:layout_constraintRight_toRightOf="@id/cl"
-                app:layout_constraintTop_toTopOf="@id/cl"
-                app:layout_constraintVertical_chainStyle="spread_inside">
+                app:layout_constraintTop_toTopOf="@id/cl">
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/tb"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    app:layout_constraintBottom_toTopOf="@id/rv"
+                    app:layout_constraintLeft_toLeftOf="@id/cl"
+                    app:layout_constraintRight_toRightOf="@id/cl"
+                    app:layout_constraintTop_toTopOf="@id/cl"
                     app:navigationIcon="@drawable/ic_back_24px">
 
                     <com.google.android.material.imageview.ShapeableImageView
@@ -79,8 +82,8 @@
                 android:id="@+id/linearLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/spacing_extra_small"
-                android:elevation="@dimen/elevation_normal"
+                android:background="@drawable/message_input_background"
+                android:elevation="@dimen/elevation_extra_large"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="@id/cl"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -96,12 +99,12 @@
                     android:layout_margin="@dimen/spacing_extra_small"
                     android:layout_weight="1"
                     android:autofillHints="true"
-                    android:background="@drawable/message_input_background"
+                    android:background="@android:color/transparent"
                     android:elevation="@dimen/elevation_extra_small"
                     android:hint="@string/type_a_message"
                     android:inputType="textLongMessage|textAutoCorrect|textMultiLine|text|textAutoComplete"
                     android:maxLines="3"
-                    android:padding="@dimen/spacing_small"
+                    android:padding="@dimen/padding_small_normal"
                     android:text="@={viewModel.message.messageBody}"
                     android:textAllCaps="false"
                     android:textColor="@color/colorSecondary"
@@ -112,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/spacing_extra_small"
+                    android:layout_margin="@dimen/spacing_small"
                     android:layout_weight="0"
                     android:background="@drawable/message_input_btn_ripple"
                     android:clickable="true"
