@@ -1,5 +1,4 @@
 import com.alialbaali.buildsrc.App
-import com.alialbaali.buildsrc.Libraries
 import com.alialbaali.buildsrc.Modules
 
 plugins {
@@ -49,8 +48,8 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(project(Modules.REPOSITORY))
+    implementation(project(Modules.DATA))
     implementation(project(Modules.DI))
-    implementation(project(Modules.MODEL))
+    implementation(project(Modules.DOMAIN))
     implementation(project(Modules.RESOURCES))
 }

@@ -5,10 +5,12 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
@@ -27,17 +29,15 @@ import com.alialbaali.chatychaty.databinding.FragmentProfileBinding
 import com.alialbaali.chatychaty.util.getPref
 import com.alialbaali.chatychaty.util.setPref
 import com.alialbaali.chatychaty.viewModel.ProfileViewModel
-import com.alialbaali.chatychaty.ui.ProfileFragmentArgs
-import com.alialbaali.chatychaty.ui.ProfileFragmentDirections
+import com.alialbaali.repository.NAME
 import com.bumptech.glide.Glide
 import com.google.android.material.transition.MaterialFade
 import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
-import java.io.File
-import java.io.FileOutputStream
 
 
 private const val REQUEST_CODE = 0
@@ -57,6 +57,8 @@ class ProfileFragment : Fragment() {
     private val imm by lazy {
         requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
+
+    private val sharedPreferences by inject<SharedPreferences>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -207,34 +209,37 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
+        super.onActivityResult(requestCode, resultCode, intent)
 
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {
             try {
 
-                val uri = data?.data
+                val uri = intent?.data!!
+
                 Glide.with(requireContext())
                     .load(uri)
                     .circleCrop()
                     .into(binding.img)
 
-//                viewModel.updatePhoto(uri!!.toFile())
-                Timber.i("${uri.toString()}")
-                Timber.i("${uri!!.path}")
-//
-                val inputStream = requireActivity().contentResolver.openInputStream(uri!!)
 
-                val tempFile = File.createTempFile("prefix", "suffix")
-                tempFile.deleteOnExit()
-                val out = FileOutputStream(tempFile)
-//                FileUtils.copy(inputStream!!, out)
+                val cr = requireActivity().contentResolver
 
-                viewModel.updatePhoto(tempFile)
-//                inputStream?.buffered()?.use {
-//                    val imageData: ByteArray = it.readBytes()
-//                    viewModel.updatePhoto(imageData)
-//                }
+                var filename: String? = null
+
+                val cursor = cr.query(uri, null, null, null, null)
+                if (cursor != null) {
+                    val columnIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                    cursor.moveToFirst()
+                    filename = cursor.getString(columnIndex)
+                    cursor.close()
+                }
+
+                val inputStream = cr.openInputStream(uri)
+
+                inputStream?.buffered()?.use {
+                    viewModel.updatePhoto(it.readBytes(), filename ?: sharedPreferences.getString(NAME, null).plus(".png"))
+                }
 
             } catch (e: Exception) {
                 Timber.i(e)
