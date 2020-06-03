@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/shape_dialog"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/v_head"
+            android:layout_width="25dp"
+            android:layout_height="3dp"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/spacing_normal"
+            android:background="@drawable/shape_view_head" />
+
+        <TextView
+            android:id="@+id/tv_view_profile"
+            style="@style/DialogItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/account_details_outline"
+            tools:text="View Profile" />
+
+        <TextView
+            android:id="@+id/tv_change_color"
+            style="@style/DialogItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/palette"
+            android:text="@string/change_chat_color" />
+
+        <TextView
+            android:id="@+id/tv_archive_chat"
+            style="@style/DialogItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/archive_arrow_down_outline"
+            android:text="@string/archive_chat" />
+
+        <TextView
+            android:id="@+id/tv_block_user"
+            style="@style/DialogItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/account_cancel_outline"
+            android:text="@string/block_user" />
+
+        <TextView
+            android:id="@+id/tv_delete_chat"
+            style="@style/DialogItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_delete_black_24dp"
+            android:text="@string/delete_chat" />
+
+
+    </LinearLayout>
+</layout>
