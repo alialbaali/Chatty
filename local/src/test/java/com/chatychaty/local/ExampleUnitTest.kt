@@ -1,4 +1,4 @@
-package com.alialbaali.local
+package com.chatychaty.local
 
 import org.junit.Test
 

@@ -1,20 +1,20 @@
-package com.alialbaali.local
+package com.chatychaty.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.alialbaali.model.Chat
-import com.alialbaali.model.Message
+import com.chatychaty.domain.model.Chat
+import com.chatychaty.domain.model.Message
 
 private const val DATABASE_NAME = "ChatyChaty Database"
 private const val DATABASE_VERSION = 1
 
 @Database(entities = [Chat::class, Message::class], version = DATABASE_VERSION, exportSchema = false)
- abstract class AppDatabase : RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
 
-     abstract val chatDao: ChatDao
-     abstract val messageDao: MessageDao
+    abstract val chatDao: ChatDao
+    abstract val messageDao: MessageDao
 
     companion object {
 
