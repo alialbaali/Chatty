@@ -1,4 +1,4 @@
-package com.alialbaali.buildsrc
+package com.chatychaty.buildSrc
 
 object Libraries {
     const val KOTLIN = "stdlib:${Versions.KOTLIN}"
@@ -59,28 +59,30 @@ object Libraries {
 
     const val WORK_MANAGER = "androidx.work:work-runtime-ktx:${Versions.WORK_MANAGER}"
     const val PROGRESS_BUTTON = "com.github.razir.progressbutton:progressbutton:${Versions.PROGRESS_BUTTON}"
+    const val PREFERENCE =  "androidx.preference:preference:${Versions.PREFERENCE}"
 }
 
 private object Versions {
     const val RETROFIT_MOSHI_CONVERTER = "2.7.2"
     const val NAVIGATION_FRAGMENT = "2.2.1"
     const val COORDINATOR_LAYOUT = "1.1.0"
-    const val COROUTINES_ANDROID = "1.3.3"
-    const val CONSTRAINT_LAYOUT = "1.1.3"
+    const val COROUTINES_ANDROID = "1.3.7"
+    const val CONSTRAINT_LAYOUT = "2.0.0-beta6"
     const val VIEW_MODEL_STATE = "2.2.0"
     const val MATERIAL_DESIGN = "1.2.0-alpha06"
     const val RECYCLER_VIEW = "1.1.0"
     const val ROOM_COMPILER = "2.2.5"
     const val ROOM_RUNTIME = "2.2.5"
     const val NAVIGATION = "2.2.1"
-    const val COROUTINES = "1.3.3"
+    const val COROUTINES = "1.3.7"
     const val LIFE_CYCLE = "2.2.0"
     const val VIEW_MODEL = "2.2.0"
     const val LIVE_DATA = "2.2.0"
+    const val PREFERENCE = "1.1.0"
     const val RETROFIT = "2.7.2"
     const val TIMBER = "4.7.1"
     const val KOTLIN = "1.3.72"
-    const val GRADLE = "4.0.0-beta05"
+    const val GRADLE = "4.0.0"
     const val NAVIGATION_SAFE_ARGS = "2.2.2"
     const val OKHTTP = "4.4.0"
     const val MOSHI = "1.9.2"
@@ -105,22 +107,22 @@ private object Versions {
 }
 
 object Modules {
-    const val BUILD_SRC = ":buildsrc"
-    const val REPOSITORY = ":repository"
+    const val BUILD_SRC = ":buildSrc"
+    const val DATA = ":data"
     const val DI = ":di"
     const val RESOURCES = ":resources"
     const val LOCAL = ":local"
     const val REMOTE = ":remote"
-    const val MODEL = ":model"
+    const val DOMAIN = ":domain"
     const val APP = ":app"
 }
 
 object App {
-    const val APP_ID = "com.alialbaali.chatychaty"
+    const val APP_ID = "com.chatychaty"
     const val APP_VERSION_NAME = "0.9"
     const val APP_NAME = "ChatyChaty"
     const val APP_VERSION_CODE = 4
-    const val MIN_SDK = 23
+    const val MIN_SDK = 21
     const val COMPILE_SDK = 29
     const val BUILD_TOOLS = "29.0.3"
     const val TARGET_SDK = COMPILE_SDK
