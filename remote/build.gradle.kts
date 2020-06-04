@@ -1,9 +1,6 @@
-import com.alialbaali.buildsrc.App
-import com.alialbaali.buildsrc.Modules
-import com.alialbaali.buildsrc.Libraries
-
+import com.chatychaty.buildSrc.*
 plugins {
-    val plugins = com.alialbaali.buildsrc.Plugins
+    val plugins = com.chatychaty.buildSrc.Plugins
     id(plugins.ANDROID_LIBRARY)
     kotlin(plugins.KOTLIN_ANDROID)
     id(plugins.KOTLIN_ANDROID_EXTENSIONS)
@@ -40,7 +37,7 @@ android {
 }
 
 dependencies {
-    api(project(Modules.MODEL))
+    api(project(Modules.DATA))
     api(Libraries.RETROFIT)
     api(Libraries.OKHTTP_LOGGER)
     api(Libraries.RETROFIT_MOSHI_CONVERTER)

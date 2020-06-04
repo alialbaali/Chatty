@@ -1,4 +1,4 @@
-package com.alialbaali.remote
+package com.chatychaty.remote
 
 import org.junit.Test
 
