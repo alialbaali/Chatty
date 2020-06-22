@@ -13,12 +13,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class PasswordDialogFragment : BaseBottomSheetDialogFragment() {
 
-    private val binding by lazy {
-        FragmentDialogPasswordBinding.inflate(layoutInflater).also {
-            it.lifecycleOwner = this
-            it.viewModel = viewModel
-        }
-    }
+    private lateinit var binding: FragmentDialogPasswordBinding
 
     private val viewModel by viewModel<ProfileViewModel>()
 
@@ -28,9 +23,14 @@ class PasswordDialogFragment : BaseBottomSheetDialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        binding.etCurrentPassword.requestFocus()
-        imm.showSoftInput(binding.etCurrentPassword, InputMethodManager.SHOW_IMPLICIT)
+        binding = FragmentDialogPasswordBinding.inflate(layoutInflater).apply {
+            lifecycleOwner = this@PasswordDialogFragment
+            viewModel = this@PasswordDialogFragment.viewModel
+        }
 
+        binding.etCurrentPassword.requestFocus()
+
+        imm.showSoftInput(binding.etCurrentPassword, InputMethodManager.SHOW_IMPLICIT)
 
         binding.btnConfirm.setOnClickListener {
 
@@ -43,8 +43,12 @@ class PasswordDialogFragment : BaseBottomSheetDialogFragment() {
                 binding.tilNewPasswordConfirm.error = "Passwords don't match"
 
             } else {
+
                 imm.hideSoftInputFromWindow(binding.etCurrentPassword.windowToken, InputMethodManager.HIDE_IMPLICIT_ONLY)
+
                 dismiss()
+
+                viewModel.changePassword()
 
                 it.toast("TODO")
 

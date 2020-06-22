@@ -112,45 +112,55 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_edit_info"
+                        android:id="@+id/tv_block_user"
                         style="@style/DialogItem"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/account_edit_outline"
-                        android:text="@string/edit_info" />
-
+                        android:drawableStart="@drawable/account_cancel_outline"
+                        android:text="@string/block_user" />
 
                     <TextView
-                        android:id="@+id/tv_change_password"
+                        android:id="@+id/tv_change_color"
                         style="@style/DialogItem"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/form_textbox_password"
-                        android:text="@string/change_password" />
+                        android:drawableStart="@drawable/palette"
+                        android:text="@string/change_chat_color" />
 
-                    <TextView
-                        android:id="@+id/tv_sign_out"
+                    <RadioButton
+                        android:id="@+id/tv_archive_chat"
                         style="@style/DialogItem"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/logout_variant"
-                        android:text="@string/sign_out" />
+                        android:button="@null"
+                        android:drawableStart="@drawable/archive_arrow_down_outline"
+                        android:text="@string/archive_chat" />
 
-                    <TextView
-                        android:id="@+id/tv_submit_feedback"
+                    <RadioButton
+                        android:id="@+id/tv_mute"
                         style="@style/DialogItem"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/alert_octagon"
-                        android:text="Submit feedback" />
+                        android:button="@null"
+                        android:drawableStart="@drawable/volume_off"
+                        android:text="@string/mute" />
+
+                    <RadioButton
+                        android:id="@+id/tv_pin"
+                        style="@style/DialogItem"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:drawableStart="@drawable/pin_outline"
+                        android:text="@string/pin" />
 
                     <TextView
-                        android:id="@+id/tv_delete_account"
+                        android:id="@+id/tv_delete_chat"
                         style="@style/DialogItem"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_delete_black_24dp"
-                        android:text="@string/delete_account" />
+                        android:text="@string/delete_chat" />
 
                 </LinearLayout>
             </ScrollView>

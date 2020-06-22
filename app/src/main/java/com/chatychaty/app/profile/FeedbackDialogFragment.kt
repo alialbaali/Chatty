@@ -12,11 +12,15 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class FeedbackDialogFragment : BaseBottomSheetDialogFragment() {
 
-    private val binding by lazy { FragmentDialogFeedbackBinding.inflate(layoutInflater) }
+    private lateinit var binding: FragmentDialogFeedbackBinding
 
     private val viewModel by viewModel<ProfileViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        binding = FragmentDialogFeedbackBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = this@FeedbackDialogFragment
+        }
 
         binding.btnSubmit.setOnClickListener {
             dismiss()
