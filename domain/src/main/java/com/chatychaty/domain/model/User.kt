@@ -3,7 +3,6 @@ package com.chatychaty.domain.model
 import com.squareup.moshi.Json
 
 data class User(
-    val id: Long = 0L,
 
     @Json(name = "displayName")
     var name: String = "",

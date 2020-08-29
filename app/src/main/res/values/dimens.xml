@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="radius">7dp</dimen>
-    <dimen name="tb_tv_dimen">25sp</dimen>
+    <dimen name="tb_tv_dimen">26sp</dimen>
     <dimen name="tiet_text_dimen">18sp</dimen>
     <dimen name="btn_text_dimen">20sp</dimen>
     <dimen name="tv_dimen">18sp</dimen>
@@ -36,5 +36,7 @@
     <dimen name="elevation_normal">4dp</dimen>
     <dimen name="elevation_large">8dp</dimen>
     <dimen name="elevation_extra_large">16dp</dimen>
+    <dimen name="list_item_spacing">16dp</dimen>
+    <dimen name="list_item_spacing_half">8dp</dimen>
 
 </resources>

@@ -39,6 +39,14 @@
             android:text="@string/archived_chats" />
 
         <TextView
+            android:id="@+id/tv_theme"
+            style="@style/DialogItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/brightness_6"
+            android:text="@string/app_theme" />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+
+        <TextView
             android:id="@+id/tv_invite_others"
             style="@style/DialogItem"
             android:layout_width="match_parent"

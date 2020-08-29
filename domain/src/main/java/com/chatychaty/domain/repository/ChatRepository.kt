@@ -14,9 +14,9 @@ interface ChatRepository {
 
     suspend fun getChats(): Result<Flow<List<Chat>>>
 
-    suspend fun getRemoteChats()
+    suspend fun getRemoteChats(): Result<List<Chat>>
 
-    suspend fun checkUpdates(): Pair<Boolean, Boolean>
+    suspend fun checkUpdates(): Result<Triple<Boolean, Boolean, Boolean>>
 
     suspend fun deleteChats()
 

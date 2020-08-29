@@ -5,10 +5,10 @@
         <shape android:shape="rectangle">
 
             <corners
-                android:bottomLeftRadius="@dimen/spacing_small"
-                android:bottomRightRadius="@dimen/spacing_small"
-                android:topLeftRadius="@dimen/spacing_small"
-                android:topRightRadius="1dp" />
+                android:bottomLeftRadius="@dimen/spacing_normal"
+                android:bottomRightRadius="@dimen/spacing_extra_small"
+                android:topLeftRadius="@dimen/spacing_normal"
+                android:topRightRadius="@dimen/spacing_normal" />
 
             <solid android:color="@color/colorAccent" />
 

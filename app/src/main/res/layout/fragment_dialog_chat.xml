@@ -38,11 +38,12 @@
             android:drawableStart="@drawable/palette"
             android:text="@string/change_chat_color" />
 
-        <TextView
+        <RadioButton
             android:id="@+id/tv_archive_chat"
             style="@style/DialogItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:button="@null"
             android:drawableStart="@drawable/archive_arrow_down_outline"
             android:text="@string/archive_chat" />
 
@@ -53,6 +54,24 @@
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/account_cancel_outline"
             android:text="@string/block_user" />
+
+        <RadioButton
+            android:id="@+id/tv_mute"
+            style="@style/DialogItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableStart="@drawable/volume_off"
+            android:text="@string/mute" />
+
+        <RadioButton
+            android:id="@+id/tv_pin"
+            style="@style/DialogItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableStart="@drawable/pin_outline"
+            android:text="@string/pin" />
 
         <TextView
             android:id="@+id/tv_delete_chat"

@@ -39,6 +39,7 @@ object Libraries {
 
     const val RETROFIT_MOSHI_CONVERTER = "com.squareup.retrofit2:converter-moshi:${Versions.RETROFIT_MOSHI_CONVERTER}"
 
+
     const val MOSHI = "com.squareup.moshi:moshi-kotlin:${Versions.MOSHI}"
 
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.COROUTINES}"
@@ -47,6 +48,8 @@ object Libraries {
     const val OKHTTP_LOGGER = "com.squareup.okhttp3:logging-interceptor:${Versions.OKHTTP}"
 
     const val KOIN = "org.koin:koin-android-viewmodel:${Versions.KOIN}"
+
+    const val SCARLET = "com.tinder.scarlet:scarlet:${Versions.SCARLET}"
 
     const val KOTLIN_GRADLE = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.KOTLIN}"
     const val GRADLE = "com.android.tools.build:gradle:${Versions.GRADLE}"
@@ -58,18 +61,17 @@ object Libraries {
     const val DATA_BINDING_COMPILER = "com.android.databinding:compiler:${Versions.DATA_BINDING_COMPILER}"
 
     const val WORK_MANAGER = "androidx.work:work-runtime-ktx:${Versions.WORK_MANAGER}"
-    const val PROGRESS_BUTTON = "com.github.razir.progressbutton:progressbutton:${Versions.PROGRESS_BUTTON}"
-    const val PREFERENCE =  "androidx.preference:preference:${Versions.PREFERENCE}"
 }
 
 private object Versions {
+    const val SCARLET = "0.1.10"
     const val RETROFIT_MOSHI_CONVERTER = "2.7.2"
     const val NAVIGATION_FRAGMENT = "2.2.1"
     const val COORDINATOR_LAYOUT = "1.1.0"
     const val COROUTINES_ANDROID = "1.3.7"
-    const val CONSTRAINT_LAYOUT = "2.0.0-beta6"
+    const val CONSTRAINT_LAYOUT = "2.0.0-beta8"
     const val VIEW_MODEL_STATE = "2.2.0"
-    const val MATERIAL_DESIGN = "1.2.0-alpha06"
+    const val MATERIAL_DESIGN = "1.2.0-beta01"
     const val RECYCLER_VIEW = "1.1.0"
     const val ROOM_COMPILER = "2.2.5"
     const val ROOM_RUNTIME = "2.2.5"
@@ -78,7 +80,6 @@ private object Versions {
     const val LIFE_CYCLE = "2.2.0"
     const val VIEW_MODEL = "2.2.0"
     const val LIVE_DATA = "2.2.0"
-    const val PREFERENCE = "1.1.0"
     const val RETROFIT = "2.7.2"
     const val TIMBER = "4.7.1"
     const val KOTLIN = "1.3.72"
@@ -92,7 +93,6 @@ private object Versions {
     const val GLIDE = "4.11.0"
     const val DATA_BINDING_COMPILER = "3.1.4"
     const val WORK_MANAGER = "2.3.4"
-    const val PROGRESS_BUTTON = "2.1.0"
 
     object Test {
         const val TEST_JUNIT = "1.1.1"
@@ -119,9 +119,9 @@ object Modules {
 
 object App {
     const val APP_ID = "com.chatychaty"
-    const val APP_VERSION_NAME = "0.9"
+    const val APP_VERSION_NAME = "1.0.0"
     const val APP_NAME = "ChatyChaty"
-    const val APP_VERSION_CODE = 4
+    const val APP_VERSION_CODE = 5
     const val MIN_SDK = 21
     const val COMPILE_SDK = 29
     const val BUILD_TOOLS = "29.0.3"

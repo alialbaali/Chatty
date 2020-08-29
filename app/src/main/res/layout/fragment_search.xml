@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.alialbaali.chatychaty.viewModel.SearchViewModel" />
+            type="com.chatychaty.app.search.SearchViewModel" />
 
     </data>
 
@@ -20,7 +20,7 @@
             android:id="@+id/cl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.SearchFragment">
+            tools:context=".app.search.SearchFragment">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/abl"
@@ -37,7 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/colorBackground"
-                    app:navigationIcon="@drawable/ic_back_24px">
+                    app:navigationIcon="@drawable/ic_arrow_back_black_24dp">
 
                     <EditText
                         android:id="@+id/et"
@@ -67,7 +67,7 @@
                 app:layout_constraintEnd_toEndOf="@id/cl"
                 app:layout_constraintStart_toStartOf="@id/cl"
                 app:layout_constraintTop_toBottomOf="@id/abl"
-                tools:listitem="@layout/list_item_search_user" />
+                tools:listitem="@layout/item_search_user" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

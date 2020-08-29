@@ -1,18 +1,17 @@
 package com.chatychaty.data.repository
 
-import android.content.SharedPreferences
-import androidx.lifecycle.asLiveData
+import com.chatychaty.data.retrieveErrors
 import com.chatychaty.data.source.local.ChatLocalDataSource
 import com.chatychaty.data.source.local.UserLocalDataSource
 import com.chatychaty.data.source.remote.ChatRemoteDataSource
-import com.chatychaty.data.util.ExceptionHandler
-import com.chatychaty.data.util.tryCatching
+import com.chatychaty.data.tryCatching
 import com.chatychaty.domain.model.Chat
 import com.chatychaty.domain.repository.AUTH_SCHEME
 import com.chatychaty.domain.repository.ChatRepository
-import com.chatychaty.domain.repository.TOKEN
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 
 class
 ChatRepositoryImpl(
@@ -20,58 +19,68 @@ ChatRepositoryImpl(
     private val chatLocalDataSource: ChatLocalDataSource,
     private val userLocalDataSource: UserLocalDataSource,
     override val dispatcher: CoroutineDispatcher = Dispatchers.IO
-) :
-    ChatRepository{
+) : ChatRepository {
 
     override val token: String
         get() = AUTH_SCHEME.plus(userLocalDataSource.getUserToken())
 
+    override suspend fun createChat(username: String): Result<Chat> = withContext(Dispatchers.IO) {
 
-    override suspend fun createChat(username: String): Result<Chat> {
-        return withContext(Dispatchers.IO) {
+        tryCatching {
+            chatRemoteDataSource.createChat(token, username)
+        }.mapCatching { response ->
 
-            val response = chatRemoteDataSource.createChat(token, username)
-
-            if (response.condition) {
-                val chat = Chat(response.chatId!!, response.user!!)
-
+            if (response.success) {
+                val chat = response.data!!
                 chatLocalDataSource.createChat(chat)
-
                 Result.success(chat)
+            } else Result.failure(Throwable(response.retrieveErrors()))
 
-            } else {
-                Result.failure(Throwable(response.error))
-            }
+        }.getOrElse {
+            Result.failure(it)
         }
+
     }
 
-    override suspend fun getChats(): Result<Flow<List<Chat>>> {
-//        return withContext(Dispatchers.IO) {
-//            getRemoteChats()
-        return tryCatching {
-            chatLocalDataSource.getChats()
+    override suspend fun getChats(): Result<Flow<List<Chat>>> = Result.success(chatLocalDataSource.getChats())
+
+    override suspend fun getRemoteChats() = withContext(Dispatchers.IO) {
+
+        tryCatching {
+            chatRemoteDataSource.getChats(token)
+        }.mapCatching { response ->
+
+            if (response.success) {
+                val chats = response.data!!
+                chatLocalDataSource.updateChats(chats)
+                Result.success(chats)
+            } else Result.failure(Throwable(response.retrieveErrors()))
+
+        }.getOrElse {
+            Result.failure(it)
         }
-//           return chatLocalDataSource.getChats()
-//        }
+
     }
 
-    override suspend fun getRemoteChats() {
-        withContext(Dispatchers.IO) {
-            val chats = chatRemoteDataSource.getChats(token)
-            chatLocalDataSource.updateChats(chats)
-        }
-    }
+    override suspend fun checkUpdates(): Result<Triple<Boolean, Boolean, Boolean>> = withContext(Dispatchers.IO) {
 
-    override suspend fun checkUpdates(): Pair<Boolean, Boolean> {
-        return withContext(Dispatchers.IO) {
-            val response = chatRemoteDataSource.checkUpdates(token)
-            Pair(response.chatUpdate, response.messageUpdate)
+        tryCatching {
+            chatRemoteDataSource.checkUpdates(token)
+        }.mapCatching { response ->
+
+            if (response.success) {
+                val updateResponse = response.data!!
+                Result.success(Triple(updateResponse.chatUpdate, updateResponse.messageUpdate, updateResponse.deliverUpdate))
+            } else Result.failure(Throwable(response.retrieveErrors()))
+
+        }.getOrElse {
+            Result.failure(it)
         }
+
     }
 
     override suspend fun deleteChats() = chatLocalDataSource.deleteChats()
 
-    override fun getChatById(chatId: Int): Result<Flow<Chat>> {
-       return Result.success(chatLocalDataSource.getChatById(chatId))
-    }
+    override fun getChatById(chatId: Int): Result<Flow<Chat>> = Result.success(chatLocalDataSource.getChatById(chatId))
+
 }

@@ -1,2 +1,2 @@
-include(":app", ":resources", ":di", ":local", ":repository", ":remote", ":model")
+include(":app", ":di", ":local", ":data", ":remote", ":domain")
 rootProject.name = "ChatyChaty"

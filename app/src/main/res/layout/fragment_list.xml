@@ -8,6 +8,11 @@
         <variable
             name="imgUrl"
             type="String" />
+
+        <variable
+            name="viewModel"
+            type="com.chatychaty.app.SharedViewModel" />
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -15,77 +20,113 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl"
+        <!--        <LinearLayout-->
+        <!--            android:id="@+id/ll"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:orientation="vertical"-->
+        <!--            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">-->
+
+        <!--            <com.google.android.material.textfield.TextInputLayout-->
+        <!--                android:id="@+id/til_search"-->
+        <!--                style="@style/Style.TextInputLayout"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginStart="@dimen/spacing_normal"-->
+        <!--                android:layout_marginTop="@dimen/spacing_normal"-->
+        <!--                android:layout_marginEnd="@dimen/spacing_normal"-->
+        <!--                android:hint="@string/search">-->
+
+        <!--                <com.google.android.material.textfield.TextInputEditText-->
+        <!--                    android:id="@+id/et_search"-->
+        <!--                    style="@style/TextAppearance.TextInputEditText"-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:text="@={viewModel.searchTerm}"-->
+        <!--                    android:inputType="text|textPersonName|textCapWords|textAutoComplete" />-->
+
+        <!--            </com.google.android.material.textfield.TextInputLayout>-->
+
+        <!--            <androidx.recyclerview.widget.RecyclerView-->
+        <!--                android:id="@+id/rv_pinned"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:orientation="horizontal"-->
+        <!--                tools:itemCount="1"-->
+        <!--                tools:listitem="@layout/item_chat_pinned" />-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".ui.ListFragment">
+            android:layout_height="wrap_content"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            tools:itemCount="4"
+            tools:listitem="@layout/item_chat" />
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/abl"
-                android:layout_width="0dp"
-                android:elevation="@dimen/elevation_normal"
-                app:elevation="0dp"
-                android:layout_height="wrap_content"
-                android:background="@color/colorBackground"
-                app:layout_constraintLeft_toLeftOf="@id/cl"
-                app:layout_constraintRight_toRightOf="@id/cl"
-                app:layout_constraintTop_toTopOf="@id/cl">
+        <!--        </LinearLayout>-->
 
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/tb"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/abl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBackground"
+            app:elevation="0dp">
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/img"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:layout_marginEnd="@dimen/spacing_normal"
-                        android:background="@color/colorSurface"
-                        android:contentDescription="@string/user_image"
-                        app:imageUrl="@{imgUrl}"
-                        app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tb"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorBackground">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tb_tv"
-                        style="@style/TextAppearance.Toolbar.Text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="start"
-                        android:text="@string/chats"
-                        app:fontFamily="@font/roboto_medium" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_app_name"
+                    style="@style/TextAppearance.Toolbar.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/chats"
+                    android:textColor="@color/colorAccent"
+                    app:fontFamily="@font/roboto_medium" />
 
-                </com.google.android.material.appbar.MaterialToolbar>
-            </com.google.android.material.appbar.AppBarLayout>
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/img"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/spacing_normal"
+                    android:background="@color/colorSurface"
+                    android:contentDescription="@string/user_image"
+                    app:imageUrl="@{imgUrl}"
+                    app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance"
+                    tools:src="@drawable/ic_person_24dp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/spacing_small"
-                android:layout_marginEnd="@dimen/spacing_small"
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/abl"
-                tools:listitem="@layout/list_item_chat" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:backgroundTint="@color/colorBackground"
+            app:fabAlignmentMode="end"
+            app:fabAnimationMode="slide"
+            app:fabCradleRoundedCornerRadius="@dimen/spacing_normal"
+            app:hideOnScroll="true"
+            app:menu="@menu/menu_bab_list"
+            app:navigationIcon="@drawable/ic_menu_black_24dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/spacing_normal"
             android:backgroundTint="@color/colorAccent"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/chat"
-            android:textColor="#F0F0F0"
-            app:icon="@drawable/ic_edit_24dp"
-            app:iconTint="#F5F5F5" />
+            android:src="@drawable/ic_edit_24dp"
+            app:borderWidth="0dp"
+            app:layout_anchor="@id/bab" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

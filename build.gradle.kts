@@ -4,10 +4,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath(com.alialbaali.buildsrc.Libraries.GRADLE)
-        classpath(com.alialbaali.buildsrc.Libraries.KOTLIN_GRADLE)
-        classpath(com.alialbaali.buildsrc.Libraries.NAVIGATION_SAFE_ARGS)
-        "classpath"("com.android.tools.build:gradle:4.0.0-beta05")
+        classpath(com.chatychaty.buildSrc.Libraries.GRADLE)
+        classpath(com.chatychaty.buildSrc.Libraries.KOTLIN_GRADLE)
+        classpath(com.chatychaty.buildSrc.Libraries.NAVIGATION_SAFE_ARGS)
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle.kts files
     }
@@ -17,6 +16,12 @@ allprojects {
     repositories {
         google()
         jcenter()
+    }
+
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
+        kotlinOptions {
+            freeCompilerArgs = listOf("-Xallow-result-return-type")
+        }
     }
 }
 

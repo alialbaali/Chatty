@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chatychaty.domain.interactor.user.UserUseCase
 import com.chatychaty.domain.model.User
-import kotlinx.coroutines.*
+import kotlinx.coroutines.launch
 
 class SignSharedViewModel(private val userUseCase: UserUseCase) : ViewModel() {
 

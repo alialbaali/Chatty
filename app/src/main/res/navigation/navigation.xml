@@ -7,131 +7,235 @@
 
     <fragment
         android:id="@+id/chatFragment"
-        android:name="com.alialbaali.chatychaty.ui.ChatFragment"
+        android:name="com.chatychaty.app.chat.ChatFragment"
         android:label="ChatFragment"
         tools:layout="@layout/fragment_chat">
         <action
-            android:id="@+id/action_chatFragment_to_listFragment"
-            app:destination="@id/listFragment" />
-        <action
             android:id="@+id/action_chatFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_down"
+            app:popEnterAnim="@anim/slide_in_down"
+            app:popExitAnim="@anim/slide_out_up" />
         <argument
             android:name="chatId"
             app:argType="integer" />
-        <argument
-            android:name="name"
-            app:argType="string" />
-        <argument
-            android:name="username"
-            app:argType="string" />
-        <argument
-            android:name="img_url"
-            app:argType="string"
-            app:nullable="true" />
+        <action
+            android:id="@+id/action_chatFragment_to_chatDialogFragment"
+            app:destination="@id/chatDialogFragment" />
+        <action
+            android:id="@+id/action_chatFragment_to_messageDialogFragment"
+            app:destination="@id/messageDialogFragment" />
     </fragment>
     <navigation
         android:id="@+id/signGraph"
         app:startDestination="@id/signUpFragment">
         <fragment
             android:id="@+id/signUpFragment"
-            android:name="com.alialbaali.chatychaty.ui.SignUpFragment"
+            android:name="com.chatychaty.app.login.SignUpFragment"
             android:label="SignUpFragment"
             tools:layout="@layout/fragment_sign_up">
             <action
                 android:id="@+id/action_signUpFragment_to_signInFragment"
                 app:destination="@id/signInFragment"
+                app:enterAnim="@anim/fragment_fade_enter"
+                app:exitAnim="@anim/fragment_fade_exit"
                 app:launchSingleTop="true"
+                app:popEnterAnim="@anim/fragment_fade_enter"
+                app:popExitAnim="@anim/fragment_fade_exit"
                 app:popUpTo="@id/signInFragment"
                 app:popUpToInclusive="false" />
+            <action
+                android:id="@+id/action_signUpFragment_to_progressDialog2"
+                app:destination="@id/progressDialog2" />
         </fragment>
         <fragment
             android:id="@+id/signInFragment"
-            android:name="com.alialbaali.chatychaty.ui.SignInFragment"
+            android:name="com.chatychaty.app.login.SignInFragment"
             android:label="SignInFragment"
             tools:layout="@layout/fragment_sign_in">
             <action
                 android:id="@+id/action_signInFragment_to_signUpFragment"
                 app:destination="@id/signUpFragment"
+                app:enterAnim="@anim/fragment_fade_enter"
+                app:exitAnim="@anim/fragment_fade_exit"
                 app:launchSingleTop="true"
+                app:popEnterAnim="@anim/fragment_fade_enter"
+                app:popExitAnim="@anim/fragment_fade_exit"
                 app:popUpTo="@id/signUpFragment"
                 app:popUpToInclusive="false" />
+            <action
+                android:id="@+id/action_signInFragment_to_progressDialog2"
+                app:destination="@id/progressDialog2" />
         </fragment>
         <action
             android:id="@+id/action_global_listFragment"
             app:destination="@id/listFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
             app:popUpTo="@id/signUpFragment"
             app:popUpToInclusive="true" />
+        <dialog
+            android:id="@+id/progressDialog2"
+            android:name="com.chatychaty.app.login.ProgressDialog"
+            android:label="ProgressDialog" />
     </navigation>
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.alialbaali.chatychaty.ui.ListFragment"
+        android:name="com.chatychaty.app.list.ListFragment"
         android:label="ListFragment"
         tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/action_listFragment_to_chatFragment"
-            app:destination="@id/chatFragment" />
+            app:destination="@id/chatFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_listFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_down"
+            app:popEnterAnim="@anim/slide_in_down"
+            app:popExitAnim="@anim/slide_out_up" />
         <action
             android:id="@+id/action_listFragment_to_searchFragment"
             app:destination="@id/searchFragment"
-            app:launchSingleTop="false" />
-        <argument
-            android:name="username"
-            android:defaultValue=" "
-            app:argType="string" />
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_down"
+            app:launchSingleTop="false"
+            app:popEnterAnim="@anim/slide_in_down"
+            app:popExitAnim="@anim/slide_out_up" />
+        <action
+            android:id="@+id/action_listFragment_to_listDialogFragment"
+            app:destination="@id/listDialogFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_chatDialogFragment"
+            app:destination="@id/chatDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.alialbaali.chatychaty.ui.ProfileFragment"
+        android:name="com.chatychaty.app.user.UserFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile">
-        <action
-            android:id="@+id/action_profileFragment_to_listFragment"
-            app:destination="@id/listFragment" />
-        <argument
-            android:name="name"
-            android:defaultValue=" "
-            app:argType="string" />
-        <argument
-            android:name="username"
-            android:defaultValue=" "
-            app:argType="string" />
-        <argument
-            android:name="img_url"
-            app:argType="string"
-            app:nullable="true" />
+        tools:layout="@layout/fragment_user">
         <argument
             android:name="chat_id"
-            app:argType="integer"/>
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_profileFragment_to_editInfoDialogFragment"
+            app:destination="@id/editInfoDialogFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_themeDialogFragment"
+            app:destination="@id/themeDialogFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_feedbackDialogFragment"
+            app:destination="@id/feedbackDialogFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_confirmationDialogFragment"
+            app:destination="@id/confirmationDialogFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_passwordDialogFragment"
+            app:destination="@id/passwordDialogFragment" />
         <action
             android:id="@+id/action_profileFragment_to_signGraph"
             app:destination="@id/signGraph"
             app:launchSingleTop="true"
             app:popUpTo="@id/listFragment"
             app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_profileFragment_to_listFragment2"
-            app:destination="@id/listFragment" />
-        <action
-            android:id="@+id/action_profileFragment_to_listFragment3"
-            app:destination="@id/listFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/listFragment"
-            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.alialbaali.chatychaty.ui.SearchFragment"
+        android:name="com.chatychaty.app.search.SearchFragment"
         android:label="SearchFragment"
-        tools:layout="@layout/fragment_search">
+        tools:layout="@layout/fragment_search" />
+    <dialog
+        android:id="@+id/passwordDialogFragment"
+        android:name="com.chatychaty.app.user.PasswordDialogFragment"
+        android:label="PasswordDialogFragment"
+        tools:layout="@layout/fragment_dialog_password" />
+    <dialog
+        android:id="@+id/listDialogFragment"
+        android:name="com.chatychaty.app.list.ListDialogFragment"
+        android:label="ListDialogFragment"
+        tools:layout="@layout/fragment_dialog_list" >
         <action
-            android:id="@+id/action_searchFragment_to_listFragment"
-            app:destination="@id/listFragment"
+            android:id="@+id/action_listDialogFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_down"
+            app:popEnterAnim="@anim/slide_in_down"
+            app:popExitAnim="@anim/slide_out_up"
+            />
+        <action
+            android:id="@+id/action_listDialogFragment_to_themeDialogFragment"
+            app:destination="@id/themeDialogFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/editInfoDialogFragment"
+        android:name="com.chatychaty.app.user.EditInfoDialogFragment"
+        android:label="EditInfoDialogFragment"
+        tools:layout="@layout/fragment_dialog_info_edit" >
+        <action
+            android:id="@+id/action_profileDialogFragment_to_signGraph"
+            app:destination="@id/signGraph"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
             app:launchSingleTop="true"
             app:popUpTo="@id/listFragment"
-            app:popUpToInclusive="false" />
-    </fragment>
+            app:popUpToInclusive="true" />
+    </dialog>
+    <dialog
+        android:id="@+id/chatDialogFragment"
+        android:name="com.chatychaty.app.chat.ChatDialogFragment"
+        android:label="ChatDialogFragment"
+        tools:layout="@layout/fragment_dialog_chat" >
+        <argument
+            android:name="chatId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_chatDialogFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_down"
+            app:popEnterAnim="@anim/slide_in_down"
+            app:popExitAnim="@anim/slide_out_up"
+            />
+    </dialog>
+    <dialog
+        android:id="@+id/themeDialogFragment"
+        tools:layout="@layout/fragment_dialog_theme"
+        android:name="com.chatychaty.app.user.ThemeDialogFragment"
+        android:label="ThemeDialogFragment" />
+    <dialog
+        android:id="@+id/messageDialogFragment"
+        tools:layout="@layout/fragment_dialog_message"
+        android:name="com.chatychaty.app.chat.MessageDialogFragment"
+        android:label="MessageDialogFragment" >
+        <argument
+            android:name="chatId"
+            app:argType="integer" />
+        <argument
+            android:name="messageId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_messageDialogFragment_to_chatsDialogFragment"
+            app:destination="@id/chatsDialogFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/feedbackDialogFragment"
+        android:name="com.chatychaty.app.user.FeedbackDialogFragment"
+        android:label="FeedbackDialogFragment" />
+    <dialog
+        android:id="@+id/confirmationDialogFragment"
+        android:name="com.chatychaty.app.ConfirmationDialogFragment"
+        android:label="ConfirmationDialogFragment" />
+    <dialog
+        android:id="@+id/chatsDialogFragment"
+        android:name="com.chatychaty.app.chat.ChatsDialogFragment"
+        android:label="ChatsDialogFragment" >
+        <action
+            android:id="@+id/action_chatsDialogFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </dialog>
 </navigation>

@@ -28,7 +28,13 @@ class ListDialogFragment : BaseBottomSheetDialogFragment() {
         }
 
         binding.tvViewProfile.setOnClickListener {
+            dismiss()
             findNavController().navigate(ListDialogFragmentDirections.actionListDialogFragmentToProfileFragment(0))
+        }
+
+        binding.tvTheme.setOnClickListener {
+            dismiss()
+            findNavController().navigate(ListDialogFragmentDirections.actionListDialogFragmentToThemeDialogFragment())
         }
 
         return binding.root

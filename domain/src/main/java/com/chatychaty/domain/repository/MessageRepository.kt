@@ -8,13 +8,13 @@ interface MessageRepository {
 
     val token: String?
 
-    suspend fun createMessage(message: Message)
+    suspend fun createMessage(message: Message): Result<Message>
 
-    suspend fun getRemoteMessages()
+    suspend fun getRemoteMessages(): Result<List<Message>>
 
-    suspend fun getMessages(chatId: Int): Result<Flow<List<Message>>>
+    suspend fun getMessages(chatId: Int): Flow<Result<List<Message>>>
 
-    suspend fun isMessageDelivered(messageId: Int)
+    suspend fun isMessageDelivered(messageId: Int): Result<Unit>
 
     suspend fun getLastMessage(chatId: Int): Result<Flow<String>>
 

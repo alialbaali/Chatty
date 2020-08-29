@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.alialbaali.chatychaty.viewModel.SignSharedViewModel" />
+            type="com.chatychaty.app.login.SignSharedViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -19,48 +19,36 @@
             android:id="@+id/cl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.SignInFragment">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/tb"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="@id/cl"
-                android:background="@color/colorBackground"
-                app:layout_constraintRight_toRightOf="@id/cl"
-                app:layout_constraintTop_toTopOf="@id/cl">
-
-            </com.google.android.material.appbar.MaterialToolbar>
-
+            tools:context=".app.login.SignInFragment">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tb_tv"
+                android:id="@+id/tv_app_name"
                 style="@style/TextAppearance.Toolbar.Text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_extra_large"
                 android:gravity="center"
                 android:text="@string/app_name"
                 android:textColor="@color/colorAccent"
                 android:textSize="36sp"
                 app:fontFamily="@font/roboto_medium"
-                app:layout_constraintBottom_toTopOf="@+id/til_username"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
-                app:layout_constraintTop_toBottomOf="@+id/tb" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_username"
                 style="@style/Style.TextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_small"
-                android:layout_marginBottom="@dimen/spacing_small"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:layout_marginBottom="@dimen/spacing_normal"
                 android:hint="@string/username"
                 app:endIconMode="clear_text"
                 app:layout_constraintBottom_toTopOf="@id/til_password"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintStart_toStartOf="@+id/start_guideline"
-                app:layout_constraintTop_toBottomOf="@id/tb"
+                app:layout_constraintTop_toBottomOf="@id/tv_app_name"
                 app:layout_constraintVertical_chainStyle="packed">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -78,11 +66,11 @@
                 style="@style/Style.TextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_small"
-                android:layout_marginBottom="@dimen/spacing_small"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:layout_marginBottom="@dimen/spacing_large"
                 android:hint="@string/password"
                 app:endIconMode="password_toggle"
-                app:layout_constraintBottom_toTopOf="@+id/forgot_password"
+                app:layout_constraintBottom_toTopOf="@id/btn_sign_in"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
                 app:layout_constraintTop_toBottomOf="@+id/til_username">
@@ -91,36 +79,24 @@
                     android:id="@+id/et_password"
                     style="@style/TextAppearance.TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:inputType="textPassword"
                     android:text="@={viewModel.currentUser.password}" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/forgot_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_small"
-                android:layout_marginBottom="@dimen/spacing_extra_large"
-                android:text="@string/forgot_your_password"
-                android:textColor="@color/colorOnPrimary"
-                app:fontFamily="@font/roboto"
-                app:layout_constraintBottom_toTopOf="@id/btn_sign_in"
-                app:layout_constraintEnd_toEndOf="@id/end_guideline"
-                app:layout_constraintTop_toBottomOf="@id/til_password" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_sign_in"
                 style="@style/Style.Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_large"
                 android:padding="@dimen/spacing_normal"
                 android:text="@string/sign_in"
                 app:layout_constraintBottom_toTopOf="@+id/tv_sign_up"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
-                app:layout_constraintTop_toBottomOf="@+id/forgot_password" />
+                app:layout_constraintTop_toBottomOf="@+id/til_password" />
 
 
             <com.google.android.material.button.MaterialButton

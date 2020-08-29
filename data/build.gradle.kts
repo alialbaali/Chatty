@@ -40,5 +40,6 @@ android {
 dependencies {
     api(Libraries.CORE)
     api(project(Modules.DOMAIN))
+    api(Libraries.RETROFIT)
     implementation(Libraries.OKHTTP_LOGGER)
 }
