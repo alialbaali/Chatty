@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="com.chatychaty.app.SharedViewModel" />
+            type="com.chatychaty.app.chat.ChatListViewModel" />
 
     </data>
 
@@ -20,57 +20,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--        <LinearLayout-->
-        <!--            android:id="@+id/ll"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent"-->
-        <!--            android:orientation="vertical"-->
-        <!--            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">-->
-
-        <!--            <com.google.android.material.textfield.TextInputLayout-->
-        <!--                android:id="@+id/til_search"-->
-        <!--                style="@style/Style.TextInputLayout"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_marginStart="@dimen/spacing_normal"-->
-        <!--                android:layout_marginTop="@dimen/spacing_normal"-->
-        <!--                android:layout_marginEnd="@dimen/spacing_normal"-->
-        <!--                android:hint="@string/search">-->
-
-        <!--                <com.google.android.material.textfield.TextInputEditText-->
-        <!--                    android:id="@+id/et_search"-->
-        <!--                    style="@style/TextAppearance.TextInputEditText"-->
-        <!--                    android:layout_width="match_parent"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:text="@={viewModel.searchTerm}"-->
-        <!--                    android:inputType="text|textPersonName|textCapWords|textAutoComplete" />-->
-
-        <!--            </com.google.android.material.textfield.TextInputLayout>-->
-
-        <!--            <androidx.recyclerview.widget.RecyclerView-->
-        <!--                android:id="@+id/rv_pinned"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:orientation="horizontal"-->
-        <!--                tools:itemCount="1"-->
-        <!--                tools:listitem="@layout/item_chat_pinned" />-->
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            tools:itemCount="4"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:itemCount="10"
             tools:listitem="@layout/item_chat" />
-
-        <!--        </LinearLayout>-->
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/abl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
             android:background="@color/colorBackground"
-            app:elevation="0dp">
+            android:elevation="@dimen/elevation_normal"
+            app:liftOnScroll="true">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/tb"
@@ -89,7 +54,7 @@
                     app:fontFamily="@font/roboto_medium" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/img"
+                    android:id="@+id/iv_image"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="end"
@@ -101,8 +66,27 @@
                     tools:src="@drawable/ic_person_24dp" />
 
             </androidx.appcompat.widget.Toolbar>
-        </com.google.android.material.appbar.AppBarLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_search"
+                style="@style/Style.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:hint="@string/search_chat"
+                android:padding="@dimen/spacing_normal"
+                android:visibility="gone">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_search"
+                    style="@style/TextAppearance.TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:text="@={viewModel.searchTerm}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bab"
@@ -123,10 +107,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_normal"
             android:backgroundTint="@color/colorAccent"
+            android:contentDescription="@string/search_chat"
             android:fontFamily="@font/roboto_medium"
             android:src="@drawable/ic_edit_24dp"
             app:borderWidth="0dp"
-            app:layout_anchor="@id/bab" />
+            app:layout_anchor="@id/bab"
+            app:tint="#FFFFFF" />
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
