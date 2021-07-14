@@ -1,34 +1,31 @@
-import com.chatychaty.buildSrc.*
 plugins {
-    val plugins = com.chatychaty.buildSrc.Plugins
-    id(plugins.ANDROID_LIBRARY)
-    kotlin(plugins.KOTLIN_ANDROID)
-    id(plugins.KOTLIN_ANDROID_EXTENSIONS)
+    id(Plugins.ANDROID_LIBRARY)
+    kotlin(Plugins.KOTLIN_ANDROID)
 }
 
 android {
-    compileSdkVersion(App.COMPILE_SDK)
-    buildToolsVersion(App.BUILD_TOOLS)
+    buildToolsVersion = App.BUILD_TOOLS
+    compileSdk = App.COMPILE_SDK
     defaultConfig {
-        minSdkVersion(App.MIN_SDK)
-        targetSdkVersion(App.TARGET_SDK)
-        versionCode = App.APP_VERSION_CODE
-        versionName = App.APP_VERSION_NAME
-
+        minSdk = App.MIN_SDK
+        targetSdk = App.TARGET_SDK
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            signingConfig = signingConfigs.getByName("debug")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     kotlinOptions {
@@ -37,8 +34,9 @@ android {
 }
 
 dependencies {
-    api(project(Modules.DATA))
     api(Libraries.OKHTTP_LOGGER)
     api(Libraries.RETROFIT_MOSHI_CONVERTER)
-    api(Libraries.SCARLET)
+    implementation("com.microsoft.signalr:signalr:5.0.7")
+    implementation("com.google.code.gson:gson:2.8.7")
+    implementation("org.slf4j:slf4j-jdk14:1.7.25")
 }
