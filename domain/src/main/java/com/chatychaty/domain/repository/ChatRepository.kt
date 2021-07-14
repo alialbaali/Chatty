@@ -8,17 +8,29 @@ interface ChatRepository {
 
     val dispatcher: CoroutineDispatcher
 
-    val token: String?
+    fun getChats(): Flow<List<Chat>>
+
+    fun getArchivedChats(): Flow<List<Chat>>
+
+    fun getChatById(chatId: String): Flow<Chat>
 
     suspend fun createChat(username: String): Result<Chat>
 
-    suspend fun getChats(): Result<Flow<List<Chat>>>
+    suspend fun archiveChat(chatId: String)
 
-    suspend fun getRemoteChats(): Result<List<Chat>>
+    suspend fun unarchiveChat(chatId: String)
 
-    suspend fun checkUpdates(): Result<Triple<Boolean, Boolean, Boolean>>
+    suspend fun pinChat(chatId: String)
+
+    suspend fun unpinChat(chatId: String)
+
+    suspend fun muteChat(chatId: String)
+
+    suspend fun unmuteChat(chatId: String)
+
+    suspend fun refreshChats()
+
+    suspend fun syncChats()
 
     suspend fun deleteChats()
-
-    fun getChatById(chatId: Int): Result<Flow<Chat>>
 }

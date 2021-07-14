@@ -1,22 +1,35 @@
 package com.chatychaty.domain.repository
 
 import com.chatychaty.domain.model.Message
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 
 
 interface MessageRepository {
 
-    val token: String?
+    val dispatcher: CoroutineDispatcher
+
+    suspend fun connectHub()
+
+    fun getMessages(chatId: String): Flow<List<Message>>
+
+    fun getMessageById(messageId: String): Flow<Message>
+
+    fun getNewMessages(): Flow<List<Message>>
+
+    fun getLastMessages(): Flow<List<Message>>
 
     suspend fun createMessage(message: Message): Result<Message>
 
-    suspend fun getRemoteMessages(): Result<List<Message>>
+    suspend fun isMessageDelivered(messageId: String): Result<Boolean>
 
-    suspend fun getMessages(chatId: Int): Flow<Result<List<Message>>>
+    suspend fun updateNewMessages()
 
-    suspend fun isMessageDelivered(messageId: Int): Result<Unit>
+    suspend fun refreshMessages()
 
-    suspend fun getLastMessage(chatId: Int): Result<Flow<String>>
+    suspend fun syncMessages()
 
     suspend fun deleteMessages()
+
+    suspend fun disconnectHub()
 }
