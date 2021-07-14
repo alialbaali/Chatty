@@ -1,26 +1,49 @@
 package com.chatychaty.local
 
-import androidx.room.*
-import com.chatychaty.data.source.local.ChatLocalDataSource
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.chatychaty.domain.model.Chat
 import kotlinx.coroutines.flow.Flow
 
 
 @Dao
-interface ChatDao : ChatLocalDataSource {
+interface ChatDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    override fun createChat(chat: Chat)
+    @Query("SELECT * FROM chats WHERE is_archived = 0")
+    fun getChats(): Flow<List<Chat>>
+
+    @Query("SELECT * FROM chats WHERE is_archived = 1")
+    fun getArchivedChats(): Flow<List<Chat>>
 
     @Query("SELECT * FROM chats WHERE chat_id = :chatId")
-    override fun getChatById(chatId: Int): Flow<Chat>
-
-    @Query("SELECT * FROM chats ORDER BY chat_id DESC")
-    override fun getChats(): Flow<List<Chat>>
+    fun getChatById(chatId: String): Flow<Chat>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    override fun updateChats(chats: List<Chat>)
+    suspend fun insertChat(chat: Chat)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateChats(chats: List<Chat>)
+
+    @Query("UPDATE chats SET is_archived = 1 WHERE chat_id = :chatId")
+    suspend fun archiveChat(chatId: String)
+
+    @Query("UPDATE chats SET is_archived = 0 WHERE chat_id = :chatId")
+    suspend fun unarchiveChat(chatId: String)
+
+    @Query("UPDATE chats SET is_pinned = 1 WHERE chat_id = :chatId")
+    suspend fun pinChat(chatId: String)
+
+    @Query("UPDATE chats SET is_pinned = 0 WHERE chat_id = :chatId")
+    suspend fun unpinChat(chatId: String)
+
+    @Query("UPDATE chats SET is_muted = 1 WHERE chat_id = :chatId")
+    suspend fun muteChat(chatId: String)
+
+    @Query("UPDATE chats SET is_muted = 0 WHERE chat_id = :chatId")
+    suspend fun unmuteChat(chatId: String)
 
     @Query("DELETE FROM chats")
-    override fun deleteChats()
+    suspend fun deleteChats()
 }

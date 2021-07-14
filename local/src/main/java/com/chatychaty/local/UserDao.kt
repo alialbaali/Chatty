@@ -1,50 +1,23 @@
 package com.chatychaty.local
 
-import android.content.SharedPreferences
-import androidx.core.content.edit
-import com.chatychaty.data.source.local.UserLocalDataSource
+import com.chatychaty.domain.model.Theme
 import com.chatychaty.domain.model.User
-import com.chatychaty.domain.repository.*
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 
-class UserDao(private val sp: SharedPreferences) : UserLocalDataSource {
+interface UserDao {
 
-    override fun getUser(): Flow<User> {
-        val name = sp.getString(NAME, String()) as String
-        val username = sp.getString(USERNAME, String()) as String
-        val imgUrl = sp.getString(IMAGE_URL, null)
-        val user = User(name = name, username = username, imgUrl = imgUrl)
-        return flowOf(user)
-    }
+    val isUserSignedIn: Flow<Boolean>
 
-    override fun getUserToken(): String {
-        return sp.getString(TOKEN, String()) as String
-    }
+    fun getUser(): Flow<User?>
 
-    override suspend fun createUser(user: User, token: String) {
-        sp.edit {
-            this.putString(TOKEN, token)
-            this.putString(NAME, user.name)
-            this.putString(USERNAME, user.username)
-            this.putString(IMAGE_URL, user.imgUrl)
-            apply()
-        }
-    }
+    suspend fun createOrUpdateUser(user: User, token: String?)
 
-    override suspend fun setUserValue(key: String, value: String) {
-        sp.edit().putString(key, value).apply()
-    }
+    fun getUserToken(): Flow<String>
 
-    override suspend fun deleteUser() {
-        sp.edit().clear().apply()
-    }
+    fun getTheme(): Flow<Theme>
 
-    override suspend fun getThemeValue(): String {
-        return sp.getString(THEME, null) ?: SYSTEM_DEFAULT
-    }
+    suspend fun updateTheme(value: Theme)
 
-    override suspend fun setThemeValue(value: String) {
-        sp.edit().putString(THEME, value).apply()
-    }
+    suspend fun deleteUser()
+
 }
