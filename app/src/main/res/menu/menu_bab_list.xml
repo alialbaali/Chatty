@@ -3,22 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/order"
-        android:contentDescription="@string/order"
-        android:enabled="true"
-        android:icon="@drawable/sort"
-        android:title="@string/order"
-        android:visible="true"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/search"
         android:contentDescription="@string/search"
         android:enabled="true"
-        android:icon="@drawable/ic_search_24px"
+        android:icon="@drawable/ic_round_search_24"
         android:title="@string/search"
         android:visible="true"
         app:showAsAction="ifRoom" />
-
 
 </menu>
