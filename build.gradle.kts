@@ -1,30 +1,22 @@
 buildscript {
     repositories {
+        mavenCentral()
         google()
-        jcenter()
     }
     dependencies {
-        classpath(com.chatychaty.buildSrc.Libraries.GRADLE)
-        classpath(com.chatychaty.buildSrc.Libraries.KOTLIN_GRADLE)
-        classpath(com.chatychaty.buildSrc.Libraries.NAVIGATION_SAFE_ARGS)
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle.kts files
+        classpath(Libraries.ANDROID_GRADLE)
+        classpath(Libraries.KOTLIN_GRADLE)
+        classpath(Libraries.NAVIGATION_SAFE_ARGS_GRADLE)
     }
 }
 
 allprojects {
     repositories {
+        mavenCentral()
         google()
-        jcenter()
-    }
-
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
-        kotlinOptions {
-            freeCompilerArgs = listOf("-Xallow-result-return-type")
-        }
     }
 }
 
-tasks.register("clean", Delete::class.java) {
+tasks.register("delete", Delete::class.java) {
     delete(rootProject.buildDir)
 }

@@ -1,25 +1,22 @@
-import com.chatychaty.buildSrc.*
 plugins {
-    id("java-library")
+    `java-library`
     kotlin("jvm")
 }
 
-dependencies {
-    implementation(kotlin(Libraries.KOTLIN))
+repositories {
+    mavenCentral()
+    google()
+}
 
-    testImplementation(Libraries.JUNIT)
+dependencies {
+    api(Libraries.ROOM_COMMON)
+    api(Libraries.MOSHI)
+    api(Libraries.COROUTINES)
+    api("org.jetbrains.kotlinx:kotlinx-datetime:0.2.1")
+    api(Libraries.TIMBER)
 }
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
-}
-
-dependencies {
-    api(kotlin(Libraries.KOTLIN))
-    api(Libraries.ROOM)
-    api(Libraries.MOSHI)
-    api(Libraries.KOIN)
-    api(Libraries.LIVE_DATA)
-    api(Libraries.TIMBER)
 }
