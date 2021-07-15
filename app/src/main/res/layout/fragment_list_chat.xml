@@ -20,11 +20,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_placeholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/spacing_normal"
+            android:gravity="center"
+            android:text="@string/empty_chats"
+            android:textSize="@dimen/size_huge"
+            android:visibility="gone"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             tools:itemCount="10"
             tools:listitem="@layout/item_chat" />
 
@@ -37,39 +49,22 @@
             android:elevation="@dimen/elevation_normal"
             app:liftOnScroll="true">
 
-            <androidx.appcompat.widget.Toolbar
+            <Toolbar
                 android:id="@+id/tb"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorBackground">
+                android:layout_height="match_parent">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_app_name"
-                    style="@style/TextAppearance.Toolbar.Text"
+                <TextView
+                    android:id="@+id/tv_title"
+                    style="@style/ToolbarText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/chats"
-                    android:textColor="@color/colorAccent"
-                    app:fontFamily="@font/roboto_medium" />
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/iv_image"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="@dimen/spacing_normal"
-                    android:background="@color/colorSurface"
-                    android:contentDescription="@string/user_image"
-                    app:imageUrl="@{imgUrl}"
-                    app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance"
-                    tools:src="@drawable/ic_person_24dp" />
-
-            </androidx.appcompat.widget.Toolbar>
+                    android:text="@string/chats" />
+            </Toolbar>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_search"
-                style="@style/Style.TextInputLayout"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
@@ -79,7 +74,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_search"
-                    style="@style/TextAppearance.TextInputEditText"
+                    style="@style/TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -99,7 +94,7 @@
             app:fabCradleRoundedCornerRadius="@dimen/spacing_normal"
             app:hideOnScroll="true"
             app:menu="@menu/menu_bab_list"
-            app:navigationIcon="@drawable/ic_menu_black_24dp" />
+            app:navigationIcon="@drawable/ic_round_menu_24" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -109,7 +104,7 @@
             android:backgroundTint="@color/colorAccent"
             android:contentDescription="@string/search_chat"
             android:fontFamily="@font/roboto_medium"
-            android:src="@drawable/ic_edit_24dp"
+            android:src="@drawable/ic_round_edit_24"
             app:borderWidth="0dp"
             app:layout_anchor="@id/bab"
             app:tint="#FFFFFF" />

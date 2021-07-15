@@ -9,86 +9,134 @@
             name="chat"
             type="com.chatychaty.domain.model.Chat" />
 
-        <variable
-            name="viewModel"
-            type="com.chatychaty.app.SharedViewModel" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/ripple_chat_list_item">
+        android:background="@drawable/ripple_item">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/img"
+
+        <FrameLayout
+            android:id="@+id/fl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_normal"
-            android:background="@color/colorSurface"
-            android:contentDescription="@string/user_image"
-            app:imageUrl="@{chat.user.imgUrl}"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_marginEnd="@dimen/spacing_small"
+            android:layout_marginBottom="@dimen/spacing_normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance"
-            tools:src="@drawable/ic_person_24dp" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorSurface"
+                android:contentDescription="@{chat.name}"
+                app:imageUrl="@{chat.imageUrl}"
+                app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance"
+                tools:src="@drawable/ic_round_person_24" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_mute"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="top|end"
+                android:src="@drawable/ic_round_volume_off_24"
+                android:visibility="invisible" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_new_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:background="@drawable/shape_new_message"
+                android:visibility="invisible" />
+        </FrameLayout>
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/tv_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_normal"
             android:layout_marginTop="@dimen/spacing_extra_small"
-            android:layout_marginEnd="@dimen/spacing_normal"
-            android:layout_marginBottom="1dp"
+            android:layout_marginEnd="@dimen/spacing_small"
+            android:ellipsize="end"
             android:fontFamily="@font/roboto_medium"
-            android:maxLength="32"
-            android:singleLine="true"
-            android:text="@{chat.user.name}"
+            android:maxLines="1"
+            android:text="@{chat.name}"
             android:textColor="@color/colorSecondary"
             android:textSize="@dimen/list_chat_item_name_dimen"
-            app:layout_constraintBottom_toTopOf="@id/body"
-            app:layout_constraintEnd_toStartOf="@+id/iv_order"
-            app:layout_constraintStart_toEndOf="@+id/img"
+            app:layout_constraintBottom_toTopOf="@id/tv_body"
+            app:layout_constraintEnd_toStartOf="@id/tv_time"
+            app:layout_constraintStart_toEndOf="@+id/fl"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Ali" />
 
         <TextView
-            android:id="@+id/body"
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_extra_small"
+            android:layout_marginTop="@dimen/spacing_extra_small"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:layout_marginBottom="1dp"
+            android:textColor="@color/colorOnPrimary"
+            app:layout_constraintBottom_toTopOf="@id/tv_body"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_pin"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="3:30 PM" />
+
+        <ImageView
+            android:id="@+id/iv_pin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_small"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:src="@drawable/ic_round_pin_24"
+            app:layout_constraintBottom_toTopOf="@id/tv_body"
+            app:layout_constraintEnd_toStartOf="@id/tv_time"
+            app:layout_constraintStart_toEndOf="@id/tv_name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_normal"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="@dimen/spacing_normal"
+            android:layout_marginEnd="@dimen/spacing_small"
             android:layout_marginBottom="@dimen/spacing_extra_small"
+            android:ellipsize="end"
             android:fontFamily="@font/roboto"
-            android:maxLength="32"
-            android:singleLine="true"
-            android:text="@{viewModel.getLastMessage(chat.chatId)}"
+            android:maxLines="1"
             android:textColor="@color/colorOnSecondary"
             android:textSize="@dimen/list_chat_item_body_dimen"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/iv_order"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/img"
-            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:layout_constraintEnd_toStartOf="@id/iv_status"
+            app:layout_constraintStart_toEndOf="@+id/fl"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name"
             tools:text="Hello " />
 
         <ImageView
-            android:id="@+id/iv_order"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_small"
-            android:contentDescription="@string/order"
-            android:padding="@dimen/spacing_small"
-            android:src="@drawable/ic_drag_indicator_black_24dp"
-            android:visibility="invisible"
+            android:id="@+id/iv_status"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="@dimen/spacing_small"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:layout_marginBottom="@dimen/spacing_extra_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
+            app:layout_constraintStart_toEndOf="@id/tv_body"
+            app:layout_constraintTop_toBottomOf="@id/tv_name"
+            app:tint="@color/colorAccent"
+            tools:src="@drawable/ic_round_done_24" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
