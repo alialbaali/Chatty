@@ -9,60 +9,78 @@
             name="viewModel"
             type="com.chatychaty.app.user.UserViewModel" />
 
+        <variable
+            name="imageUrl"
+            type="String" />
+
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/cool"
+    <LinearLayout
+        android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".note.ui.NotebookFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/abl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorBackground"
-            android:elevation="0dp"
-            app:elevation="0dp">
+            android:background="@color/colorBackground">
 
             <Toolbar
                 android:id="@+id/tb"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:navigationIcon="@drawable/ic_arrow_back_black_24dp">
+                android:navigationIcon="@drawable/ic_round_arrow_back_24">
 
                 <TextView
-                    android:id="@+id/tb_tv"
-                    style="@style/TextAppearance.Toolbar.Text"
+                    android:id="@+id/tv_title"
+                    style="@style/ToolbarText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/profile"
-                    android:textColor="@color/colorAccent"
-                    app:fontFamily="@font/roboto_medium" />
+                    android:text="@string/profile" />
             </Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.constraintlayout.motion.widget.MotionLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_normal"
+            android:background="@drawable/shape_section"
             app:layoutDescription="@xml/fragment_user_xml_cl_scene"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/img"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_margin="@dimen/spacing_normal"
-                app:imageUrl="@{viewModel.user.imgUrl}"
-                app:layout_collapseMode="pin"
+            <FrameLayout
+                android:id="@+id/fl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/ic_person_24dp" />
+                app:layout_constraintTop_toTopOf="parent">
 
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_image"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:imageUrl="@{imageUrl}"
+                    app:layout_collapseMode="pin"
+                    tools:src="@drawable/ic_round_person_24" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="@dimen/spacing_extra_small"
+                    android:src="@drawable/ic_round_edit_24"
+                    app:backgroundTint="@color/colorAccent"
+                    app:elevation="@dimen/elevation_small"
+                    app:fabSize="mini"
+                    app:tint="@android:color/white" />
+
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/name"
@@ -74,12 +92,11 @@
                 android:enabled="false"
                 android:hint="@string/name"
                 android:maxLength="32"
-                android:text="@{viewModel.user.name}"
                 android:textColor="@color/colorPrimary"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@+id/username"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/img"
+                app:layout_constraintStart_toEndOf="@+id/fl"
                 tools:text="Ali Albaali" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -88,76 +105,75 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/spacing_normal"
                 android:maxLength="32"
-                android:text="@{viewModel.user.username}"
                 android:textColor="@color/colorOnPrimary"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/img"
+                app:layout_constraintBottom_toBottomOf="@+id/fl"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/img"
+                app:layout_constraintStart_toEndOf="@+id/fl"
                 tools:text="\@chatychaty" />
 
-            <androidx.core.widget.NestedScrollView
-                android:id="@+id/sv"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/spacing_normal"
-                android:fillViewport="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img">
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <LinearLayout
-                    android:id="@+id/ll"
+        <ScrollView
+            android:id="@+id/sv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_normal"
+            android:background="@drawable/shape_section"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fl"
+            app:layout_constraintVertical_bias="0">
+
+            <LinearLayout
+                android:id="@+id/ll_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_change_name"
+                    style="@style/SettingsItem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:text="@string/change_name"
+                    app:drawableStartCompat="@drawable/ic_round_account_edit_24" />
 
-                    <TextView
-                        android:id="@+id/tv_edit_info"
-                        style="@style/DialogItem"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/account_edit_outline"
-                        android:text="@string/edit_info" />
+                <TextView
+                    android:id="@+id/tv_change_password"
+                    style="@style/SettingsItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_password"
+                    app:drawableStartCompat="@drawable/ic_round_password_24" />
 
+                <TextView
+                    android:id="@+id/tv_sign_out"
+                    style="@style/SettingsItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sign_out"
+                    app:drawableStartCompat="@drawable/ic_round_logout_24" />
 
-                    <TextView
-                        android:id="@+id/tv_change_password"
-                        style="@style/DialogItem"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/form_textbox_password"
-                        android:text="@string/change_password" />
+                <TextView
+                    android:id="@+id/tv_submit_feedback"
+                    style="@style/SettingsItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/submit_feedback"
+                    app:drawableStartCompat="@drawable/ic_round_report_24" />
 
-                    <TextView
-                        android:id="@+id/tv_sign_out"
-                        style="@style/DialogItem"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/logout_variant"
-                        android:text="@string/sign_out" />
+                <TextView
+                    android:id="@+id/tv_delete_account"
+                    style="@style/SettingsItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/delete_account"
+                    app:drawableStartCompat="@drawable/ic_round_delete_24" />
 
-                    <TextView
-                        android:id="@+id/tv_submit_feedback"
-                        style="@style/DialogItem"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/alert_octagon"
-                        android:text="Submit feedback" />
-
-                    <TextView
-                        android:id="@+id/tv_delete_account"
-                        style="@style/DialogItem"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_delete_black_24dp"
-                        android:text="@string/delete_account" />
-
-                </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
-
-        </androidx.constraintlayout.motion.widget.MotionLayout>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 </layout>

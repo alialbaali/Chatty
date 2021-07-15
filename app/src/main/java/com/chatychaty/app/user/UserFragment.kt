@@ -1,16 +1,33 @@
 package com.chatychaty.app.user
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.chatychaty.app.ConfirmationDialogFragment
+import com.bumptech.glide.Glide
 import com.chatychaty.app.R
 import com.chatychaty.app.databinding.FragmentUserBinding
-import com.chatychaty.app.util.toast
-import org.koin.android.viewmodel.ext.android.viewModel
+import com.chatychaty.app.util.PermissionDialogFragment
+import com.chatychaty.app.util.ProgressDialogFragment
+import com.chatychaty.app.util.UiState
+import com.chatychaty.app.util.snackbar
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
+private const val JPEG = "image/jpeg"
+private const val PNG = "image/png"
 
 class UserFragment : Fragment() {
 
@@ -18,81 +35,168 @@ class UserFragment : Fragment() {
 
     private val viewModel by viewModel<UserViewModel>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    private lateinit var progressDialogFragment: ProgressDialogFragment
 
-        binding = FragmentUserBinding.inflate(inflater, container, false).apply {
-            lifecycleOwner = this@UserFragment
-            viewModel = this@UserFragment.viewModel
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+
+    private lateinit var storageLauncher: ActivityResultLauncher<Intent>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted)
+                selectImage()
+            else
+                binding.root.snackbar(getString(R.string.permission_not_granted))
+        }
+        storageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            it.data?.data?.let { uri ->
+                uploadImage(uri)
+            }
+        }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+
+        binding = FragmentUserBinding.inflate(inflater, container, false).also {
+            it.lifecycleOwner = this
+            it.viewModel = viewModel
         }
 
-        viewModel.getUser()
-
-        binding.tb.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
-
-        binding.tvEditInfo.setOnClickListener {
-            findNavController().navigate(UserFragmentDirections.actionProfileFragmentToEditInfoDialogFragment())
-        }
-
-        binding.tvChangePassword.setOnClickListener {
-            findNavController().navigate(UserFragmentDirections.actionProfileFragmentToPasswordDialogFragment())
-        }
-
-        binding.tvSubmitFeedback.setOnClickListener {
-            findNavController().navigate(UserFragmentDirections.actionProfileFragmentToFeedbackDialogFragment())
-        }
-
-        binding.tvSignOut.setOnClickListener {
-            showSignOutDialog()
-        }
-
-        binding.tvDeleteAccount.setOnClickListener {
-            showDeleteDialog()
-        }
+        collectState()
+        setupListeners()
 
         return binding.root
     }
 
-    private fun showSignOutDialog() {
-
-        ConfirmationDialogFragment { dialogBinding, dialogFragment ->
-
-            dialogBinding.tvTitle.text = resources.getString(R.string.sign_out_desc)
-
-            dialogBinding.btnConfirm.text = resources.getString(R.string.sign_out)
-
-            dialogBinding.btnConfirm.setOnClickListener {
-                findNavController().navigate(UserFragmentDirections.actionProfileFragmentToSignGraph())
-                dialogFragment.dismiss()
-                viewModel.signOut()
-            }
-
-        }.show(parentFragmentManager, null)
+    private fun selectImage() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
+            putExtra(Intent.EXTRA_MIME_TYPES, arrayOf(JPEG, PNG))
+        }
+        storageLauncher.launch(intent)
     }
 
-    private fun showDeleteDialog() {
+    private fun showPermissionRequiredDialog() {
+        PermissionDialogFragment()
+            .show(parentFragmentManager, null)
+        requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+    }
 
-        ConfirmationDialogFragment { dialogBinding, dialogFragment ->
+    private fun collectState() {
+        viewModel.user
+            .onEach { state ->
+                when (state) {
+                    is UiState.Empty -> {
 
-            dialogBinding.tvTitle.text = resources.getString(R.string.delete_account_desc)
+                    }
+                    is UiState.Failure -> {
 
-            dialogBinding.tvSubtitle.text = resources.getString(R.string.action_can_be_undone)
+                    }
+                    is UiState.Loading -> {
 
-            dialogBinding.btnConfirm.text = resources.getString(R.string.delete_account)
+                    }
+                    is UiState.Success -> {
+                        val user = state.value
+                        binding.name.text = user.name
+                        binding.username.text = user.username
+                        binding.imageUrl = user.imageUrl
+                    }
+                }
+            }
+            .launchIn(lifecycleScope)
 
-            dialogBinding.btnConfirm.textSize = 14F
+        viewModel.state
+            .onEach { state ->
+                when (state) {
+                    is UiState.Empty -> {
 
-            dialogBinding.btnConfirm.setBackgroundColor(resources.getColor(android.R.color.holo_red_light))
+                    }
+                    is UiState.Failure -> {
+                        binding.fab.isEnabled = true
+                        progressDialogFragment.dismiss()
+                        binding.root.snackbar("${state.exception.message}")
+                    }
+                    is UiState.Loading -> {
+                        binding.fab.isEnabled = false
+                        progressDialogFragment = ProgressDialogFragment()
+                        progressDialogFragment.show(parentFragmentManager, null)
+                    }
+                    is UiState.Success -> {
+                        binding.fab.isEnabled = true
+                        progressDialogFragment.dismiss()
+                        binding.root.snackbar("Image has been updated successfully")
+                    }
+                }
+            }
+            .launchIn(lifecycleScope)
+    }
 
-            dialogBinding.btnConfirm.setOnClickListener {
-                dialogFragment.dismiss()
-                it.toast("TODO")
+    private fun setupListeners() {
+        binding.tb.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        binding.tvChangeName.setOnClickListener {
+            findNavController().navigate(UserFragmentDirections.actionUserFragmentToNameDialogFragment())
+        }
+
+        binding.tvChangePassword.setOnClickListener {
+            findNavController().navigate(UserFragmentDirections.actionUserFragmentToPasswordDialogFragment())
+        }
+
+        binding.tvSubmitFeedback.setOnClickListener {
+            findNavController().navigate(UserFragmentDirections.actionUserFragmentToFeedbackDialogFragment())
+        }
+
+        binding.tvSignOut.setOnClickListener {
+            signOut()
+        }
+
+        binding.tvDeleteAccount.setOnClickListener {
+            signOut()
+        }
+        binding.fab.setOnClickListener {
+            when {
+                requireActivity().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED -> selectImage()
+                shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE) -> showPermissionRequiredDialog()
+                else -> requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
+        }
+    }
+
+    private fun uploadImage(uri: Uri) {
+        try {
+
+            Glide.with(this)
+                .load(uri)
+                .circleCrop()
+                .into(binding.ivImage)
+
+            val contentResolver = requireActivity().contentResolver
+            val cursor = contentResolver.query(uri, null, null, null, null)
+            val filename: String = if (cursor != null) {
+                val columnIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                cursor.moveToFirst()
+                cursor.getString(columnIndex).also {
+                    cursor.close()
+                }
+            } else {
+                "image"
             }
 
-        }.show(parentFragmentManager, null)
+            val inputStream = contentResolver.openInputStream(uri)
+            inputStream?.buffered()?.use {
+                val byteArray = it.readBytes()
+                viewModel.updateImage(byteArray, filename)
+            }
+        } catch (e: Exception) {
+            binding.root.snackbar(e.message ?: "Error happened")
+        }
     }
+
+    private fun signOut() {
+        findNavController().navigate(UserFragmentDirections.actionUserFragmentToSignGraph())
+        viewModel.signOut()
+    }
+
 }
