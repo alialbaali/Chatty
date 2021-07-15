@@ -29,7 +29,11 @@ class ChatListDialogFragment : BaseBottomSheetDialogFragment() {
             dismiss()
             val intent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
-                putExtra(Intent.EXTRA_TEXT, getString(R.string.invite_text))
+                putExtra(
+                    Intent.EXTRA_TEXT, """
+                    ${getString(R.string.invite_text)}: https://github.com/alialbaali/ChatyChaty/releases
+                """.trimIndent()
+                )
             }
 
             val chooser = Intent.createChooser(intent, getString(R.string.invite_others))
