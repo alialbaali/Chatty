@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.lifecycleScope
-import com.chatychaty.app.databinding.FragmentDialogPasswordBinding
+import com.chatychaty.app.R
+import com.chatychaty.app.databinding.FragmentDialogNameBinding
 import com.chatychaty.app.util.BaseBottomSheetDialogFragment
 import com.chatychaty.app.util.ProgressDialogFragment
 import com.chatychaty.app.util.UiState
@@ -16,31 +17,28 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PasswordDialogFragment : BaseBottomSheetDialogFragment() {
+class NameDialogFragment : BaseBottomSheetDialogFragment() {
 
-    private lateinit var binding: FragmentDialogPasswordBinding
+    private lateinit var binding: FragmentDialogNameBinding
 
     private val viewModel by viewModel<UserViewModel>()
 
-    private val imm by lazy {
-        requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    }
+    private val imm by lazy { requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
 
     private lateinit var progressDialogFragment: ProgressDialogFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
-        binding = FragmentDialogPasswordBinding.inflate(layoutInflater).also {
+        binding = FragmentDialogNameBinding.inflate(inflater, container, false).also {
             it.lifecycleOwner = this
             it.viewModel = viewModel
         }
 
-        binding.etCurrentPassword.requestFocus()
+        binding.etName.requestFocus()
+        imm.showSoftInput(binding.etName, InputMethodManager.SHOW_IMPLICIT)
 
-        imm.showSoftInput(binding.etCurrentPassword, InputMethodManager.SHOW_IMPLICIT)
-
-        setupListeners()
         collectState()
+        setupListeners()
 
         return binding.root
     }
@@ -50,11 +48,11 @@ class PasswordDialogFragment : BaseBottomSheetDialogFragment() {
             .onEach { state ->
                 when (state) {
                     is UiState.Empty -> {
+
                     }
                     is UiState.Failure -> {
                         progressDialogFragment.dismiss()
                         dismiss()
-                        requireParentFragment().requireView().snackbar("Password failed updating successfully")
                     }
                     is UiState.Loading -> {
                         progressDialogFragment = ProgressDialogFragment()
@@ -63,7 +61,9 @@ class PasswordDialogFragment : BaseBottomSheetDialogFragment() {
                     is UiState.Success -> {
                         progressDialogFragment.dismiss()
                         dismiss()
-                        requireParentFragment().requireView().snackbar("Password has changed successfully!")
+                        requireParentFragment()
+                            .requireView()
+                            .snackbar("Name has changed successfully")
                     }
                 }
             }
@@ -72,17 +72,12 @@ class PasswordDialogFragment : BaseBottomSheetDialogFragment() {
 
     private fun setupListeners() {
         binding.btnConfirm.setOnClickListener {
+            if (binding.etName.text.isNullOrBlank())
+                binding.tilName.error = getString(R.string.name_empty)
+            else
+                viewModel.updateName()
 
-            val newPassword = binding.etNewPassword.text.toString()
-            val newPasswordConfirm = binding.etNewPasswordConfirm.text.toString()
-
-            if (newPassword != newPasswordConfirm) {
-                binding.tilNewPassword.error = "Passwords don't match"
-                binding.tilNewPasswordConfirm.error = "Passwords don't match"
-            } else {
-                imm.hideSoftInputFromWindow(binding.etCurrentPassword.windowToken, InputMethodManager.HIDE_IMPLICIT_ONLY)
-                viewModel.updatePassword()
-            }
         }
+
     }
 }

@@ -3,6 +3,10 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.chatychaty.app.user.UserViewModel" />
+
     </data>
 
     <LinearLayout
@@ -38,7 +42,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_feedback"
-            style="@style/Style.TextInputLayout"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_normal"
@@ -47,20 +51,20 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_feedback"
-                style="@style/TextAppearance.TextInputEditText"
+                style="@style/TextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="text|textMultiLine|textCapSentences"
                 android:maxLines="10"
                 android:scrollbars="vertical"
-                android:singleLine="false" />
-            <!--            android:text="@={viewModel.currentUser.name}"-->
+                android:singleLine="false"
+                android:text="@={viewModel.feedbackText}" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_submit"
-            style="@style/Style.Button"
+            style="@style/Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_normal"

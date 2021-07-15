@@ -5,47 +5,64 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.Observer
-import com.chatychaty.app.BaseBottomSheetDialogFragment
+import androidx.lifecycle.lifecycleScope
 import com.chatychaty.app.databinding.FragmentDialogThemeBinding
-import com.chatychaty.domain.repository.DARK_THEME
-import com.chatychaty.domain.repository.SYSTEM_DEFAULT
-import com.chatychaty.domain.repository.LIGHT_THEME
-import org.koin.android.viewmodel.ext.android.viewModel
+import com.chatychaty.app.util.BaseBottomSheetDialogFragment
+import com.chatychaty.app.util.UiState
+import com.chatychaty.domain.model.Theme
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ThemeDialogFragment : BaseBottomSheetDialogFragment() {
 
-    private val binding by lazy { FragmentDialogThemeBinding.inflate(layoutInflater) }
+    private lateinit var binding: FragmentDialogThemeBinding
 
     private val viewModel by viewModel<UserViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        viewModel.theme.observe(viewLifecycleOwner, Observer { theme ->
+        binding = FragmentDialogThemeBinding.inflate(inflater, container, false).also {
+            it.lifecycleOwner = this
+        }
 
-            when (theme ?: SYSTEM_DEFAULT) {
-                SYSTEM_DEFAULT -> binding.rbSystemDefault.isChecked = true
-                LIGHT_THEME -> binding.rbLightTheme.isChecked = true
-                DARK_THEME -> binding.rbDarkTheme.isChecked = true
-            }
+        viewModel.theme
+            .onEach { state ->
+                when (state) {
+                    is UiState.Empty -> {
 
-        })
+                    }
+                    is UiState.Failure -> {
+
+                    }
+                    is UiState.Loading -> {
+
+                    }
+                    is UiState.Success -> {
+                        when (state.value) {
+                            Theme.SYSTEM -> binding.rbSystemDefault.isChecked = true
+                            Theme.LIGHT -> binding.rbLightTheme.isChecked = true
+                            Theme.DARK -> binding.rbDarkTheme.isChecked = true
+                        }
+                    }
+                }
+            }.launchIn(lifecycleScope)
 
         binding.rbLightTheme.setOnClickListener {
             dismiss()
-            viewModel.setThemeValue(LIGHT_THEME)
+            viewModel.updateTheme(Theme.LIGHT)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
         binding.rbDarkTheme.setOnClickListener {
             dismiss()
-            viewModel.setThemeValue(DARK_THEME)
+            viewModel.updateTheme(Theme.DARK)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
 
         binding.rbSystemDefault.setOnClickListener {
             dismiss()
-            viewModel.setThemeValue(SYSTEM_DEFAULT)
+            viewModel.updateTheme(Theme.SYSTEM)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         }
 
