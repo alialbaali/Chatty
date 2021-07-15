@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.8">
+      <module name="ChatyChaty.app" target="11" />
+      <module name="ChatyChaty.buildSrc" target="11" />
+      <module name="ChatyChaty.data" target="11" />
+      <module name="ChatyChaty.di" target="11" />
+      <module name="ChatyChaty.local" target="11" />
+      <module name="ChatyChaty.remote" target="11" />
       <module name="domain" target="1.7" />
       <module name="local" target="1.7" />
     </bytecodeTargetLevel>

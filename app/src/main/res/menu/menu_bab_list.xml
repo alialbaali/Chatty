@@ -3,11 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/archived_chats"
+        android:contentDescription="@string/archived_chats"
+        android:enabled="true"
+        android:icon="@drawable/ic_round_inventory_24"
+        android:title="@string/archived_chats"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/search"
-        android:contentDescription="@string/search"
+        android:contentDescription="@string/search_chats"
         android:enabled="true"
         android:icon="@drawable/ic_round_search_24"
-        android:title="@string/search"
+        android:title="@string/search_chats"
         android:visible="true"
         app:showAsAction="ifRoom" />
 

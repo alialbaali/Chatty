@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorBackground">#121212</color>
+    <color name="colorBackground">#000000</color>
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorOnPrimary">#BDBDBD</color>
 
-    <color name="colorSurface">#1E1E1E</color>
+    <color name="colorSurface">#121212</color>
     <color name="colorSecondary">#F0F0F0</color>
     <color name="colorOnSecondary">#858585</color>
 
-    <color name="colorAccent">#6A1B9A</color>
+    <color name="colorAccent">#5A189A</color>
 
 </resources>

@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Margin & Padding -->
+    <dimen name="spacing_extra_small">4dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_normal">16dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_extra_large">36dp</dimen>
+
+    <!-- Elevation -->
+    <dimen name="elevation_none">0dp</dimen>
+    <dimen name="elevation_extra_small">1dp</dimen>
+    <dimen name="elevation_small">2dp</dimen>
+    <dimen name="elevation_normal">4dp</dimen>
+    <dimen name="elevation_large">8dp</dimen>
+    <dimen name="elevation_extra_large">16dp</dimen>
+
+    <!-- Text Size -->
+    <dimen name="size_extra_tiny">12sp</dimen>
+    <dimen name="size_tiny">14sp</dimen>
+    <dimen name="size_extra_small">16sp</dimen>
+    <dimen name="size_small">18sp</dimen>
+    <dimen name="size_normal">20sp</dimen>
+    <dimen name="size_large">22sp</dimen>
+    <dimen name="size_extra_large">24sp</dimen>
+    <dimen name="size_huge">26sp</dimen>
+    <dimen name="size_extra_huge">28sp</dimen>
+    <dimen name="size_giant">30sp</dimen>
+
     <dimen name="radius">7dp</dimen>
-    <dimen name="tb_tv_dimen">26sp</dimen>
+    <dimen name="tb_tv_dimen">30sp</dimen>
     <dimen name="tiet_text_dimen">18sp</dimen>
     <dimen name="btn_text_dimen">20sp</dimen>
     <dimen name="tv_dimen">18sp</dimen>
@@ -16,27 +44,11 @@
     <dimen name="settings_tv_dimen">20sp</dimen>
     <dimen name="settings_Item_tv_dimen">16sp</dimen>
 
-    <!-- Margin -->
-    <dimen name="spacing_extra_small">4dp</dimen>
-    <dimen name="spacing_small">8dp</dimen>
-    <dimen name="spacing_normal">16dp</dimen>
-    <dimen name="spacing_large">24dp</dimen>
-    <dimen name="spacing_extra_large">36dp</dimen>
-    <dimen name="padding_small_normal">12dp</dimen>
-
-    <!-- Padding -->
     <dimen name="abl_height_dimen">100dp</dimen>
-    <dimen name="message_end_margin">150dp</dimen>
     <dimen name="list_chat_item_body_dimen">16sp</dimen>
     <dimen name="list_chat_item_name_dimen">20sp</dimen>
-    <dimen name="elevation">25dp</dimen>
-
-    <dimen name="elevation_extra_small">1dp</dimen>
-    <dimen name="elevation_small">2dp</dimen>
-    <dimen name="elevation_normal">4dp</dimen>
-    <dimen name="elevation_large">8dp</dimen>
-    <dimen name="elevation_extra_large">16dp</dimen>
     <dimen name="list_item_spacing">16dp</dimen>
     <dimen name="list_item_spacing_half">8dp</dimen>
+
 
 </resources>
