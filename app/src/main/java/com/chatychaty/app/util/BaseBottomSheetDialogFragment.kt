@@ -1,5 +1,6 @@
-package com.chatychaty.app
+package com.chatychaty.app.util
 
+import com.chatychaty.app.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 open class BaseBottomSheetDialogFragment : BottomSheetDialogFragment() {

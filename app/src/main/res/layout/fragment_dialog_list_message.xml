@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_round_account_info_24"
-            tools:text="View Profile" />
+            tools:text="View profile" />
 
         <TextView
             android:id="@+id/tv_change_color"
@@ -39,28 +39,12 @@
             android:text="@string/change_chat_color" />
 
         <TextView
-            android:id="@+id/tv_archive_chat"
+            android:id="@+id/tv_search_messages"
             style="@style/DialogItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_round_archive_24"
-            android:text="@string/archive_chat" />
-
-        <TextView
-            android:id="@+id/tv_mute"
-            style="@style/DialogItem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_round_volume_off_24"
-            android:text="@string/mute" />
-
-        <TextView
-            android:id="@+id/tv_pin"
-            style="@style/DialogItem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_round_pin_24"
-            android:text="@string/pin" />
+            android:drawableStart="@drawable/ic_round_search_24"
+            android:text="@string/search_messages" />
 
         <TextView
             android:id="@+id/tv_delete_chat"

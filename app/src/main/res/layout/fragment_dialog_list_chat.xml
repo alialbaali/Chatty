@@ -22,20 +22,36 @@
             android:background="@drawable/shape_view_head" />
 
         <TextView
-            android:id="@+id/tv_copy"
+            android:id="@+id/tv_settings"
             style="@style/DialogItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_round_content_copy_24"
-            android:text="@android:string/copy" />
+            android:drawableStart="@drawable/ic_round_settings_24"
+            android:text="@string/settings" />
 
         <TextView
-            android:id="@+id/tv_share"
+            android:id="@+id/tv_archived_chats"
             style="@style/DialogItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_round_share_24"
-            android:text="@string/share" />
+            android:drawableStart="@drawable/ic_round_inventory_24"
+            android:text="@string/archived_chats" />
+
+        <TextView
+            android:id="@+id/tv_theme"
+            style="@style/DialogItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_round_brightness_medium_24"
+            android:text="@string/change_theme" />
+
+        <TextView
+            android:id="@+id/tv_invite_others"
+            style="@style/DialogItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_round_invite_people"
+            android:text="@string/invite_others" />
 
     </LinearLayout>
 </layout>

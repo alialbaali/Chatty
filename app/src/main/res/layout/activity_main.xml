@@ -3,15 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-    </data>
-
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.chatychaty.app.MainActivity">
-
+        tools:context="com.chatychaty.app.main.MainActivity">
 
         <fragment
             android:id="@+id/nav_host_fragment_container"
