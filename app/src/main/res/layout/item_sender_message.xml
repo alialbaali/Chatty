@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -17,53 +16,40 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/cl"
+            android:id="@+id/ll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginStart="@dimen/message_end_margin"
+            android:layout_marginStart="@dimen/spacing_extra_large"
             android:layout_marginTop="@dimen/spacing_extra_small"
             android:layout_marginEnd="@dimen/spacing_small"
             android:layout_marginBottom="@dimen/spacing_extra_small"
-            android:background="@drawable/list_item_sender_message_background"
-            android:elevation="@dimen/elevation_small">
+            android:background="@drawable/shape_item_sender_message"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_small">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/body"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="@dimen/padding_small_normal"
-                android:text="@{message.messageBody}"
-                android:textAppearance="@style/TextAppearance.Message.Text"
-                tools:text="Hello What's up man? How are you doing?">
-
-            </com.google.android.material.textview.MaterialTextView>
-
-            <ImageView
-                android:id="@+id/delivered"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_gravity="bottom|end"
-                android:layout_marginEnd="@dimen/spacing_small"
-                android:layout_marginBottom="@dimen/spacing_small"
-                android:layout_weight="0"
-                android:contentDescription="@string/delivered"
-                android:src="@drawable/ic_loading_24dp"
-                android:tint="@android:color/white"
-                app:isMessageDelivered="@{message.delivered}" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/time"
+                android:id="@+id/tv_body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/spacing_small"
-                android:paddingTop="@dimen/spacing_extra_small"
-                android:paddingEnd="@dimen/spacing_small"
-                android:paddingBottom="@dimen/spacing_small"
-                android:textAppearance="@style/TextAppearance.Message.Time"
-                android:visibility="gone"
-                tools:text="6:30 AM" />
+                android:padding="@dimen/spacing_extra_small"
+                android:text="@{message.body}"
+                android:textAppearance="@style/MessageText"
+                tools:text="Hello What's up man? How are you doing? adsfadfadssdfasdfasasdf" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:drawableEnd="@drawable/ic_round_schedule_24"
+                android:drawablePadding="@dimen/spacing_small"
+                android:drawableTint="@android:color/white"
+                android:padding="@dimen/spacing_extra_small"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                tools:text="Now" />
+
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

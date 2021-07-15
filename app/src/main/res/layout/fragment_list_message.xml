@@ -19,6 +19,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_placeholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/spacing_normal"
+            android:gravity="center"
+            android:text="@string/empty_messages"
+            android:textSize="@dimen/size_huge"
+            android:visibility="gone"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
@@ -42,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorBackground"
-                app:navigationIcon="@drawable/ic_arrow_back_black_24dp">
+                app:navigationIcon="@drawable/ic_round_arrow_back_24">
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_image"
@@ -54,26 +66,20 @@
                     android:contentDescription="@string/user_image"
                     app:imageUrl="@{imgUrl}"
                     app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance"
-                    tools:src="@drawable/ic_person_24dp" />
+                    tools:src="@drawable/ic_round_person_24" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_app_name"
-                    style="@style/TextAppearance.Toolbar.Text"
+                    style="@style/ToolbarText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:maxLength="15"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    android:textColor="@color/colorAccent"
-                    app:fontFamily="@font/roboto_medium"
                     tools:text="@string/name" />
 
             </androidx.appcompat.widget.Toolbar>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_search"
-                style="@style/Style.TextInputLayout"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
@@ -83,7 +89,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_search"
-                    style="@style/TextAppearance.TextInputEditText"
+                    style="@style/TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -93,11 +99,11 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
-            android:id="@+id/linear_layout"
+            android:id="@+id/ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@drawable/message_input_background"
+            android:background="@drawable/shape_input_message"
             android:elevation="@dimen/elevation_extra_large"
             android:orientation="horizontal">
 
@@ -105,19 +111,18 @@
                 android:id="@+id/ib_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ripple_chat_list_item"
+                android:background="@drawable/ripple_item"
                 android:padding="@dimen/spacing_normal"
-                android:src="@drawable/ic_menu_black_24dp" />
+                android:src="@drawable/ic_round_menu_24" />
 
             <EditText
                 android:id="@+id/et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/spacing_extra_small"
                 android:layout_weight="1"
                 android:autofillHints="true"
-                android:background="@drawable/message_input_shape"
+                android:background="@drawable/shape_edit_text_message"
                 android:hint="@string/type_a_message"
                 android:inputType="textLongMessage|textAutoCorrect|textMultiLine|text|textAutoComplete"
                 android:maxLines="3"
@@ -134,13 +139,13 @@
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/spacing_small"
                 android:layout_weight="0"
-                android:background="@drawable/message_input_btn_ripple"
+                android:background="@drawable/ripple_button_input_message"
                 android:clickable="true"
                 android:contentDescription="@string/send"
                 android:elevation="@dimen/elevation_extra_small"
                 android:focusable="true"
                 android:padding="@dimen/spacing_small"
-                android:src="@drawable/ic_send_24dp"
+                android:src="@drawable/ic_round_send_24"
                 app:tint="#F0F0F0" />
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

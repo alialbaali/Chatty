@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="message"
             type="com.chatychaty.domain.model.Message" />
@@ -14,49 +14,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:elevation="@dimen/elevation_small"
-            android:id="@+id/cl"
+        <LinearLayout
+            android:id="@+id/ll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginStart="@dimen/spacing_small"
             android:layout_marginTop="@dimen/spacing_extra_small"
-            android:layout_marginEnd="@dimen/message_end_margin"
+            android:layout_marginEnd="@dimen/spacing_extra_large"
             android:layout_marginBottom="@dimen/spacing_extra_small"
-            android:background="@drawable/list_item_receiver_message_background">
+            android:background="@drawable/shape_item_receiver_message"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_small">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/body"
+                android:id="@+id/tv_body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/padding_small_normal"
-                android:text="@{message.messageBody}"
-                android:textAppearance="@style/TextAppearance.Message.Text"
+                android:padding="@dimen/spacing_extra_small"
+                android:text="@{message.body}"
+                android:textAppearance="@style/MessageText"
                 android:textColor="@color/colorPrimary"
-                app:layout_constraintBottom_toTopOf="@id/time"
-                app:layout_constraintEnd_toEndOf="@id/cl"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@id/cl"
-                app:layout_constraintTop_toTopOf="@id/cl"
                 tools:text="Hello What's up man? How are you doing? " />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/time"
+                android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/spacing_small"
-                android:paddingTop="@dimen/spacing_extra_small"
-                android:paddingEnd="@dimen/spacing_small"
-                android:paddingBottom="@dimen/spacing_small"
-                android:textAppearance="@style/TextAppearance.Message.Time"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@id/cl"
-                app:layout_constraintEnd_toEndOf="@id/cl"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@id/cl"
-                app:layout_constraintTop_toBottomOf="@id/body"
-                tools:text="6:30 AM" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_gravity="end"
+                android:padding="@dimen/spacing_extra_small"
+                android:textColor="@color/colorOnPrimary"
+                android:textSize="12sp"
+                tools:text="Now" />
+
+        </LinearLayout>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

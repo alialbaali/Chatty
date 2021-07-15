@@ -1,64 +1,60 @@
-package com.chatychaty.app.chat
+package com.chatychaty.app.message
 
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.chatychaty.app.R
 import com.chatychaty.app.databinding.ItemReceiverMessageBinding
 import com.chatychaty.app.databinding.ItemSenderMessageBinding
+import com.chatychaty.app.util.getDisplayTime
+import com.chatychaty.app.util.statusDrawable
 import com.chatychaty.domain.model.Message
 
-private const val VIEW_TYPE_Sender_MESSAGE = 1
-private const val VIEW_TYPE_RECEIVER_MESSAGE = 2
+private const val SENDER_VIEW_TYPE = 1
+private const val RECEIVER_VIEW_TYPE = 2
 
-// Chat RV Adapter
-class MessageRVAdapter(private val senderUsername: String, private val listener: MessageItemListener) :
-    ListAdapter<Message, RecyclerView.ViewHolder>(MessageItemDiffCallback()) {
+class MessageListAdapter(
+    private val receiverUsername: String,
+    private val listener: MessageItemListener
+) : ListAdapter<Message, RecyclerView.ViewHolder>(MessageItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == VIEW_TYPE_Sender_MESSAGE) {
+        return if (viewType == SENDER_VIEW_TYPE)
             SenderMessageItemViewHolder.create(parent, listener)
-        } else {
+        else
             ReceiverMessageItemViewHolder.create(parent, listener)
-        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder.itemViewType == VIEW_TYPE_Sender_MESSAGE) {
+        if (holder.itemViewType == SENDER_VIEW_TYPE) {
             holder as SenderMessageItemViewHolder
-
             val message = getItem(position)
             holder.message = message
             holder.bind(message)
-
         } else {
-
             holder as ReceiverMessageItemViewHolder
             val message = getItem(position)
             holder.message = message
             holder.bind(message)
-
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (this.currentList[position].username == senderUsername) {
-            VIEW_TYPE_Sender_MESSAGE
-        } else {
-            VIEW_TYPE_RECEIVER_MESSAGE
-        }
+        return if (this.currentList[position].username == receiverUsername)
+            RECEIVER_VIEW_TYPE
+        else
+            SENDER_VIEW_TYPE
     }
 
-    // Sender Message ViewHolder
-    class SenderMessageItemViewHolder(private val binding: ItemSenderMessageBinding, private val listener: MessageItemListener) :
-        RecyclerView.ViewHolder(binding.root) {
+    class SenderMessageItemViewHolder(
+        private val binding: ItemSenderMessageBinding,
+        private val listener: MessageItemListener
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         lateinit var message: Message
-
 
         init {
             binding.root.setOnTouchListener { v, event ->
@@ -92,17 +88,17 @@ class MessageRVAdapter(private val senderUsername: String, private val listener:
         fun bind(message: Message) {
             binding.message = message
             binding.executePendingBindings()
-//            binding.time.text = DateFormat.getTimeInstance(DateFormat.SHORT).format(Date()).toString()
-
-//            binding.root.animation = AnimationUtils.loadAnimation(binding.root.context, R.anim.rv_sender_animation)
-//            TODO("Add Time in hours and mins")
+            binding.tvTime.setCompoundDrawablesWithIntrinsicBounds(0, 0, message.statusDrawable, 0)
+            val is24HourFormat = DateFormat.is24HourFormat(binding.root.context)
+            binding.tvTime.text = message.getDisplayTime(is24HourFormat)
         }
 
     }
 
-    // Receiver Message ViewHolder
-    class ReceiverMessageItemViewHolder(private val binding: ItemReceiverMessageBinding, private val listener: MessageItemListener) :
-        RecyclerView.ViewHolder(binding.root) {
+    class ReceiverMessageItemViewHolder(
+        private val binding: ItemReceiverMessageBinding,
+        private val listener: MessageItemListener
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         lateinit var message: Message
 
@@ -138,26 +134,18 @@ class MessageRVAdapter(private val senderUsername: String, private val listener:
         fun bind(message: Message) {
             binding.message = message
             binding.executePendingBindings()
-//            binding.root.animation = AnimationUtils.loadAnimation(binding.root.context, R.anim.rv_receiver_animation)
-
-//            binding.time.text = Calendar.getInstance().time.toString()
-//            TODO("Add Time in hours and mins")
+            val is24HourFormat = DateFormat.is24HourFormat(binding.root.context).also(::println)
+            binding.tvTime.text = message.getDisplayTime(is24HourFormat)
         }
 
     }
 
-    private class MessageItemDiffCallback() : DiffUtil.ItemCallback<Message>() {
-
-        override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean = oldItem.messageId == newItem.messageId
-
+    private class MessageItemDiffCallback : DiffUtil.ItemCallback<Message>() {
+        override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean = oldItem.id == newItem.id
         override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean = oldItem == newItem
-
     }
-}
 
-
-interface MessageItemListener {
-
-    fun onTouch(message: Message)
-
+    fun interface MessageItemListener {
+        fun onTouch(message: Message)
+    }
 }
