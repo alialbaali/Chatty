@@ -5,31 +5,38 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.chatychaty.app.R
 import com.chatychaty.app.databinding.FragmentSignInBinding
+import com.chatychaty.app.util.ProgressDialogFragment
+import com.chatychaty.app.util.UiState
 import com.chatychaty.app.util.snackbar
-import org.koin.android.viewmodel.ext.android.viewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SignInFragment : Fragment() {
 
     private lateinit var binding: FragmentSignInBinding
 
-    private val viewModel by viewModel<SignSharedViewModel>()
+    private val viewModel by sharedViewModel<SignSharedViewModel>()
 
-    private lateinit var progressDialog: ProgressDialog
+    private lateinit var progressDialogFragment: ProgressDialogFragment
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        binding = FragmentSignInBinding.inflate(layoutInflater, container, false).apply {
-            lifecycleOwner = this@SignInFragment
-            viewModel = this@SignInFragment.viewModel
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentSignInBinding.inflate(inflater, container, false).also {
+            it.lifecycleOwner = this
+            it.viewModel = viewModel
         }
 
+        setupListeners()
+        collectState()
+
+        return binding.root
+    }
+
+    private fun setupListeners() {
 
         binding.tvSignUp.setOnClickListener {
             findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
@@ -37,41 +44,39 @@ class SignInFragment : Fragment() {
 
         binding.btnSignIn.setOnClickListener {
 
-            progressDialog = ProgressDialog().also {
-                it.show(parentFragmentManager, null)
-            }
-
-            val username = binding.etUsername.text.toString()
-            val password = binding.etPassword.text.toString()
+            val username = viewModel.username.value
+            val password = viewModel.password.value
 
             if (username.isBlank()) binding.tilUsername.error = resources.getString(R.string.username_error)
 
             if (password.isBlank()) binding.tilPassword.error = resources.getString(R.string.password_error_empty)
 
-            if (username.isNotBlank() and password.isNotBlank()) viewModel.signIn()
-
+            if (username.isNotBlank() and password.isNotBlank())
+                viewModel.signIn()
         }
-
-        viewModel.errors.observe(viewLifecycleOwner, Observer {
-
-            progressDialog.dismiss()
-
-            when {
-                it.contains("Username", true) -> binding.tilUsername.error = it.toString()
-                it.contains("Password", true) -> binding.tilPassword.error = it.toString()
-                else -> binding.cool.snackbar(it.toString())
-            }
-
-        })
-
-        viewModel.navigate.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                progressDialog.dismiss()
-                findNavController().navigate(SignInFragmentDirections.actionGlobalListFragment())
-                viewModel.onNavigate(false)
-            }
-        })
-
-        return binding.root
     }
+
+    private fun collectState() {
+        viewModel.state
+            .onEach { state ->
+                when (state) {
+                    is UiState.Failure -> {
+                        progressDialogFragment.dismiss()
+                        binding.root.snackbar(state.exception.message.toString())
+                    }
+                    is UiState.Loading -> {
+                        progressDialogFragment = ProgressDialogFragment()
+                        progressDialogFragment.show(parentFragmentManager, null)
+                    }
+                    is UiState.Success -> {
+                        progressDialogFragment.dismiss()
+                    }
+                    is UiState.Empty -> {
+
+                    }
+                }
+            }
+            .launchIn(lifecycleScope)
+    }
+
 }

@@ -1,54 +1,46 @@
 package com.chatychaty.app.login
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.chatychaty.domain.interactor.user.UserUseCase
+import com.chatychaty.app.util.UiState
+import com.chatychaty.app.util.asUiState
 import com.chatychaty.domain.model.User
+import com.chatychaty.domain.repository.UserRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class SignSharedViewModel(private val userUseCase: UserUseCase) : ViewModel() {
+class SignSharedViewModel(private val userRepository: UserRepository) : ViewModel() {
 
-    val currentUser = MutableLiveData<User>()
+    val username = MutableStateFlow("")
+    val name = MutableStateFlow("")
+    val password = MutableStateFlow("")
 
-    private val _navigate = MutableLiveData<Boolean>()
-    val navigate: LiveData<Boolean> = _navigate
-
-    private val _errors = MutableLiveData<String>()
-    val errors: LiveData<String> = _errors
-
-    init {
-        viewModelScope.launch {
-            currentUser.postValue(User())
-        }
-        _navigate.value = false
-    }
+    private val mutableState = MutableStateFlow<UiState<User>>(UiState.Empty)
+    val state get() = mutableState.asStateFlow()
 
     fun signUp() {
         viewModelScope.launch {
-            val result = userUseCase.signUp(currentUser.value!!).exceptionOrNull()
+            mutableState.value = UiState.Loading
 
-            if (result == null)
-                onNavigate(true)
-            else
-                _errors.postValue(result.message)
+            val user = createUser()
+
+            mutableState.value = userRepository.signUp(user)
+                .asUiState()
         }
     }
 
     fun signIn() {
         viewModelScope.launch {
-            val result = userUseCase.signIn(currentUser.value!!).exceptionOrNull()
+            mutableState.value = UiState.Loading
 
-            if (result == null)
-                onNavigate(true)
-            else
-                _errors.postValue(result.message)
+            val user = createUser()
+
+            mutableState.value = userRepository.signIn(user)
+                .asUiState()
         }
     }
 
-    fun onNavigate(value: Boolean) {
-        _navigate.value = value
-    }
+    private fun createUser() = User(name.value, username.value, password.value, null)
 
 }

@@ -5,44 +5,47 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.chatychaty.app.R
 import com.chatychaty.app.databinding.FragmentSignUpBinding
+import com.chatychaty.app.util.ProgressDialogFragment
+import com.chatychaty.app.util.UiState
 import com.chatychaty.app.util.snackbar
-import org.koin.android.viewmodel.ext.android.viewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SignUpFragment : Fragment() {
 
     private lateinit var binding: FragmentSignUpBinding
 
-    private val viewModel by viewModel<SignSharedViewModel>()
+    private val viewModel by sharedViewModel<SignSharedViewModel>()
 
-    private lateinit var progressDialog: ProgressDialog
+    private lateinit var progressDialogFragment: ProgressDialogFragment
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        binding = FragmentSignUpBinding.inflate(layoutInflater, container, false).apply {
-            lifecycleOwner = this@SignUpFragment
-            viewModel = this@SignUpFragment.viewModel
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentSignUpBinding.inflate(inflater, container, false).also {
+            it.lifecycleOwner = this
+            it.viewModel = viewModel
         }
 
+        setupListeners()
+        collectState()
+
+        return binding.root
+    }
+
+    private fun setupListeners() {
         binding.tvSignIn.setOnClickListener {
-            this.findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentToSignInFragment())
+            findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentToSignInFragment())
         }
 
         binding.btnSignUp.setOnClickListener {
 
-            progressDialog = ProgressDialog().also {
-                it.show(parentFragmentManager, null)
-            }
-
-            val name = binding.etName.text.toString()
-            val username = binding.etUsername.text.toString()
-            val password = binding.etPassword.text.toString()
+            val name = viewModel.name.value
+            val username = viewModel.name.value
+            val password = viewModel.name.value
 
             if (name.isBlank()) binding.tilName.error = resources.getString(R.string.name_error)
 
@@ -50,30 +53,32 @@ class SignUpFragment : Fragment() {
 
             if (password.isBlank()) binding.tilPassword.error = resources.getString(R.string.password_error)
 
-            if (name.isNotBlank() && username.isNotBlank() && password.isNotBlank()) viewModel.signUp()
+            if (name.isNotBlank() && username.isNotBlank() && password.isNotBlank())
+                viewModel.signUp()
 
         }
+    }
 
-        viewModel.errors.observe(viewLifecycleOwner, Observer {
+    private fun collectState() {
+        viewModel.state
+            .onEach { state ->
+                when (state) {
+                    is UiState.Failure -> {
+                        progressDialogFragment.dismiss()
+                        binding.root.snackbar(state.exception.message.toString())
+                    }
+                    is UiState.Loading -> {
+                        progressDialogFragment = ProgressDialogFragment()
+                        progressDialogFragment.show(parentFragmentManager, null)
+                    }
+                    is UiState.Success -> {
+                        progressDialogFragment.dismiss()
+                    }
+                    is UiState.Empty -> {
 
-            progressDialog.dismiss()
-
-            when {
-                it.contains("Username", true) -> binding.tilUsername.error = it.toString()
-                it.contains("Password", true) -> binding.tilPassword.error = it.toString()
-                else -> binding.cool.snackbar(it.toString())
+                    }
+                }
             }
-        })
-
-
-        viewModel.navigate.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                progressDialog.dismiss()
-                findNavController().navigate(SignUpFragmentDirections.actionGlobalListFragment())
-                viewModel.onNavigate(false)
-            }
-        })
-
-        return binding.root
+            .launchIn(lifecycleScope)
     }
 }

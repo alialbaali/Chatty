@@ -23,7 +23,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_app_name"
-                style="@style/TextAppearance.Toolbar.Text"
+                style="@style/ToolbarText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -38,7 +38,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_name"
-                style="@style/Style.TextInputLayout"
+                style="@style/TextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_extra_large"
@@ -56,17 +56,17 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_name"
-                    style="@style/TextAppearance.TextInputEditText"
+                    style="@style/TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text|textPersonName|textCapWords|textAutoComplete"
-                    android:text="@={viewModel.currentUser.name}" />
+                    android:text="@={viewModel.name}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_username"
-                style="@style/Style.TextInputLayout"
+                style="@style/TextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_small"
@@ -83,17 +83,17 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_username"
-                    style="@style/TextAppearance.TextInputEditText"
+                    style="@style/TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:text="@={viewModel.currentUser.username}" />
+                    android:text="@={viewModel.username}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_password"
-                style="@style/Style.TextInputLayout"
+                style="@style/TextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_small"
@@ -108,16 +108,16 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_password"
-                    style="@style/TextAppearance.TextInputEditText"
+                    style="@style/TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:text="@={viewModel.currentUser.password}" />
+                    android:text="@={viewModel.password}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_sign_up"
-                style="@style/Style.Button"
+                style="@style/Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_normal"
@@ -131,7 +131,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/tv_sign_in"
-                style="@style/Style.Sign.Button"
+                style="@style/SignButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_normal"
