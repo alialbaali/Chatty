@@ -38,7 +38,7 @@ class MessageItemDialogFragment : BaseBottomSheetDialogFragment() {
         binding.tvCopy.setOnClickListener {
             dismiss()
 
-            (viewModel.selectedMessage.value as UiState.Success).also { message ->
+            (viewModel.message.value as UiState.Success).also { message ->
                 val label = message.value.username
                 val text = message.value.body
                 val clipData = ClipData.newPlainText(label, text)
@@ -59,7 +59,7 @@ class MessageItemDialogFragment : BaseBottomSheetDialogFragment() {
             dismiss()
             val intent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
-                (viewModel.selectedMessage.value as UiState.Success).also { message ->
+                (viewModel.message.value as UiState.Success).also { message ->
                     putExtra(
                         Intent.EXTRA_TEXT,
                         """

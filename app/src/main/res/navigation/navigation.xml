@@ -270,5 +270,8 @@
             app:exitAnim="@anim/slide_out_down"
             app:popEnterAnim="@anim/slide_in_down"
             app:popExitAnim="@anim/slide_out_up" />
+        <argument
+            android:name="listener"
+            app:argType="com.chatychaty.app.message.MessageListDialogFragment$SearchMessagesListener" />
     </dialog>
 </navigation>

@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import java.io.Serializable
 
 class MessageListDialogFragment : BaseBottomSheetDialogFragment() {
 
@@ -78,7 +79,7 @@ class MessageListDialogFragment : BaseBottomSheetDialogFragment() {
 
         binding.tvSearchMessages.setOnClickListener {
             dismiss()
-            viewModel.enableSearch()
+            args.listener.enableSearch()
         }
 
         binding.tvDeleteChat.setOnClickListener {
@@ -88,6 +89,10 @@ class MessageListDialogFragment : BaseBottomSheetDialogFragment() {
                 .snackbar("TODO", anchorView = anchorView)
         }
 
+    }
+
+    fun interface SearchMessagesListener : Serializable {
+        fun enableSearch()
     }
 
 }

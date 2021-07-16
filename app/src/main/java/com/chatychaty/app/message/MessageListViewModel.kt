@@ -26,9 +26,6 @@ class MessageListViewModel(
 
     val messageBody = MutableStateFlow("")
 
-    private val mutableIsSearchEnabled = MutableStateFlow(false)
-    val isSearchEnabled get() = mutableIsSearchEnabled
-
     init {
         chatRepository.getChatById(chatId)
             .onEach { mutableChat.value = UiState.Success(it) }
@@ -82,10 +79,6 @@ class MessageListViewModel(
         viewModelScope.launch {
             chatRepository.unmuteChat((mutableChat.value as UiState.Success).value.chatId)
         }
-    }
-
-    fun enableSearch() {
-        mutableIsSearchEnabled.value = true
     }
 
 }

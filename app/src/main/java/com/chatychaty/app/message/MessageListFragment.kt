@@ -34,6 +34,15 @@ class MessageListFragment : Fragment() {
 
     private val notificationManager by lazy { requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager }
 
+    private val searchMessagesListener by lazy {
+        MessageListDialogFragment.SearchMessagesListener {
+            if (binding.tilSearch.visibility == View.VISIBLE)
+                disableSearch()
+            else
+                enableSearch()
+        }
+    }
+
     private val messageItemListener by lazy {
         MessageListAdapter.MessageItemListener { message ->
             findNavController().navigate(
@@ -80,7 +89,7 @@ class MessageListFragment : Fragment() {
         }
 
         binding.ibMenu.setOnClickListener {
-            findNavController().navigate(MessageListFragmentDirections.actionMessageListFragmentToMessageListDialogFragment(args.chatId))
+            findNavController().navigate(MessageListFragmentDirections.actionMessageListFragmentToMessageListDialogFragment(args.chatId, searchMessagesListener))
         }
 
         binding.tb.setNavigationOnClickListener {
@@ -155,14 +164,6 @@ class MessageListFragment : Fragment() {
             .onEach { binding.btnSend.isEnabled = it.isNotBlank() }
             .launchIn(lifecycleScope)
 
-        viewModel.isSearchEnabled
-            .onEach {
-                if (binding.etSearch.visibility == View.VISIBLE)
-                    disableSearch()
-                else
-                    enableSearch()
-            }
-            .launchIn(lifecycleScope)
     }
 
     private fun enableSearch() {
