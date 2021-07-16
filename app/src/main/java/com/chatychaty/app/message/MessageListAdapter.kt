@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.chatychaty.app.databinding.ItemReceiverMessageBinding
-import com.chatychaty.app.databinding.ItemSenderMessageBinding
+import com.chatychaty.app.databinding.ItemMessageReceiverBinding
+import com.chatychaty.app.databinding.ItemMessageSenderBinding
 import com.chatychaty.app.util.getDisplayTime
 import com.chatychaty.app.util.statusDrawable
 import com.chatychaty.domain.model.Message
@@ -50,7 +50,7 @@ class MessageListAdapter(
     }
 
     class SenderMessageItemViewHolder(
-        private val binding: ItemSenderMessageBinding,
+        private val binding: ItemMessageSenderBinding,
         private val listener: MessageItemListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -80,7 +80,7 @@ class MessageListAdapter(
         companion object {
             fun create(parent: ViewGroup, listener: MessageItemListener): SenderMessageItemViewHolder {
                 val inflater = LayoutInflater.from(parent.context)
-                val binding = ItemSenderMessageBinding.inflate(inflater, parent, false)
+                val binding = ItemMessageSenderBinding.inflate(inflater, parent, false)
                 return SenderMessageItemViewHolder(binding, listener)
             }
         }
@@ -96,7 +96,7 @@ class MessageListAdapter(
     }
 
     class ReceiverMessageItemViewHolder(
-        private val binding: ItemReceiverMessageBinding,
+        private val binding: ItemMessageReceiverBinding,
         private val listener: MessageItemListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -126,7 +126,7 @@ class MessageListAdapter(
         companion object {
             fun create(parent: ViewGroup, listener: MessageItemListener): ReceiverMessageItemViewHolder {
                 val inflater = LayoutInflater.from(parent.context)
-                val binding = ItemReceiverMessageBinding.inflate(inflater, parent, false)
+                val binding = ItemMessageReceiverBinding.inflate(inflater, parent, false)
                 return ReceiverMessageItemViewHolder(binding, listener)
             }
         }

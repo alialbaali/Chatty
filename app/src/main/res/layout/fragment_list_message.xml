@@ -38,7 +38,7 @@
             android:layout_marginBottom="58dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:itemCount="12"
-            tools:listitem="@layout/item_sender_message" />
+            tools:listitem="@layout/item_message_sender" />
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/abl"
