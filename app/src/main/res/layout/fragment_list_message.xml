@@ -103,7 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@drawable/shape_input_message"
+            android:background="@color/colorBackground"
             android:elevation="@dimen/elevation_extra_large"
             android:orientation="horizontal">
 
@@ -111,13 +111,16 @@
                 android:id="@+id/ib_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/spacing_small"
                 android:background="@drawable/ripple_item"
-                android:padding="@dimen/spacing_normal"
+                android:padding="@dimen/spacing_small"
+                android:contentDescription="@string/menu"
                 android:src="@drawable/ic_round_menu_24" />
 
             <EditText
                 android:id="@+id/et"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
@@ -138,16 +141,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/spacing_small"
-                android:layout_weight="0"
                 android:background="@drawable/ripple_button_input_message"
-                android:clickable="true"
                 android:contentDescription="@string/send"
-                android:elevation="@dimen/elevation_extra_small"
-                android:focusable="true"
                 android:padding="@dimen/spacing_small"
                 android:src="@drawable/ic_round_send_24"
-                app:tint="#F0F0F0" />
+                app:tint="@color/selector_button_message" />
         </LinearLayout>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>
