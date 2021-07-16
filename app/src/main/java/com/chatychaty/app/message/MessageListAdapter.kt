@@ -2,7 +2,6 @@ package com.chatychaty.app.message
 
 import android.text.format.DateFormat
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -57,25 +56,10 @@ class MessageListAdapter(
         lateinit var message: Message
 
         init {
-            binding.root.setOnTouchListener { v, event ->
-
-                when (event.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        v.performClick()
-                        v.performHapticFeedback(250)
-                        true
-                    }
-                    MotionEvent.ACTION_UP -> {
-                        listener.onTouch(message)
-                        true
-                    }
-                    else -> {
-                        false
-                    }
-                }
+            binding.root.setOnClickListener {
+                listener.onClick(message)
             }
         }
-
 
         companion object {
             fun create(parent: ViewGroup, listener: MessageItemListener): SenderMessageItemViewHolder {
@@ -103,26 +87,11 @@ class MessageListAdapter(
         lateinit var message: Message
 
         init {
-            binding.root.setOnTouchListener { v, event ->
-
-                when (event.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        v.performClick()
-                        v.performHapticFeedback(250)
-                        true
-                    }
-                    MotionEvent.ACTION_UP -> {
-                        listener.onTouch(message)
-                        true
-                    }
-                    else -> {
-                        false
-                    }
-                }
+            binding.root.setOnClickListener {
+                listener.onClick(message)
             }
         }
-
-
+        
         companion object {
             fun create(parent: ViewGroup, listener: MessageItemListener): ReceiverMessageItemViewHolder {
                 val inflater = LayoutInflater.from(parent.context)
@@ -146,6 +115,6 @@ class MessageListAdapter(
     }
 
     fun interface MessageItemListener {
-        fun onTouch(message: Message)
+        fun onClick(message: Message)
     }
 }

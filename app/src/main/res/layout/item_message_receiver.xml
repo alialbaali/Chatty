@@ -12,7 +12,10 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/cool"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_item"
+        android:clickable="true"
+        android:focusable="true">
 
         <LinearLayout
             android:id="@+id/ll"
@@ -42,6 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:gravity="center"
                 android:padding="@dimen/spacing_extra_small"
                 android:textColor="@color/colorOnPrimary"
                 android:textSize="12sp"
