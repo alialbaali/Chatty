@@ -1,5 +1,6 @@
 package com.chatychaty.app.profile
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -37,6 +38,7 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     private fun collectState() {
         viewModel.chat
             .onEach { state ->
@@ -52,8 +54,8 @@ class ProfileFragment : Fragment() {
                     is UiState.Success -> {
                         val chat = state.value
 
-                        binding.name.text = chat.name
-                        binding.username.text = chat.username
+                        binding.tvName.text = chat.name
+                        binding.tvUsername.text = "@${chat.username}"
                         binding.imageUrl = chat.imageUrl
                     }
                 }

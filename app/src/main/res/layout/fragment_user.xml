@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorBackground"
-            android:elevation="@dimen/elevation_none">
+            app:elevation="@dimen/elevation_none">
 
             <Toolbar
                 android:id="@+id/tb"
@@ -84,33 +84,40 @@
             </FrameLayout>
 
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/tv_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_normal"
                 android:layout_marginEnd="@dimen/spacing_normal"
                 android:background="@android:color/transparent"
-                android:enabled="false"
+                android:ellipsize="end"
+                android:fontFamily="@font/roboto_medium"
                 android:hint="@string/name"
-                android:maxLength="32"
+                android:maxLines="1"
                 android:textColor="@color/colorPrimary"
                 android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/username"
+                app:layout_constraintBottom_toTopOf="@+id/tv_username"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/fl"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
                 tools:text="Ali Albaali" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/username"
+            <TextView
+                android:id="@+id/tv_username"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/spacing_normal"
-                android:maxLength="32"
+                android:layout_marginStart="@dimen/spacing_normal"
+                android:layout_marginEnd="@dimen/spacing_normal"
+                android:ellipsize="end"
+                android:fontFamily="@font/roboto_medium"
+                android:maxLines="1"
                 android:textColor="@color/colorOnPrimary"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/fl"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/fl"
+                app:layout_constraintTop_toBottomOf="@id/tv_name"
                 tools:text="\@chatychaty" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

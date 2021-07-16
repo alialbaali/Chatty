@@ -1,6 +1,7 @@
 package com.chatychaty.app.user
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -82,6 +83,7 @@ class UserFragment : Fragment() {
         requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun collectState() {
         viewModel.user
             .onEach { state ->
@@ -96,10 +98,10 @@ class UserFragment : Fragment() {
 
                     }
                     is UiState.Success -> {
-                        val user = state.value
-                        binding.name.text = user.name
-                        binding.username.text = user.username
-                        binding.imageUrl = user.imageUrl
+                        val chat = state.value
+                        binding.tvName.text = chat.name
+                        binding.tvUsername.text = "@${chat.username}"
+                        binding.imageUrl = chat.imageUrl
                     }
                 }
             }
