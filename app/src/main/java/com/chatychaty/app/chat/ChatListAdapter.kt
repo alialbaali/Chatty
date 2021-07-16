@@ -5,6 +5,7 @@ import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -72,7 +73,13 @@ class ChatListAdapter(private val chatItemListener: ChatItemListener) : ListAdap
                 binding.tvTime.text = pair.second.getDisplayTime(is24HourFormat)
             }
             if (pair.second.isNew) {
-                binding.ivNewMessage.isVisible = true
+                binding.ivStatus.setImageResource(R.drawable.shape_new_message)
+                binding.ivStatus.updateLayoutParams {
+                    val scale = binding.root.resources.displayMetrics.density
+                    val size = (12 * scale + 0.5F).toInt()
+                    width = size
+                    height = size
+                }
                 binding.tvBody.setTextColor(binding.root.context.getColor(R.color.colorPrimary))
                 binding.tvBody.typeface = Typeface.DEFAULT_BOLD
             }

@@ -69,7 +69,7 @@
                     tools:src="@drawable/ic_round_person_24" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_app_name"
+                    android:id="@+id/tv_name"
                     style="@style/ToolbarText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

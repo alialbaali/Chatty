@@ -7,7 +7,7 @@
         <item name="android:navigationBarColor">@color/colorBackground</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:colorControlActivated">@color/colorAccent</item>
-        <item name="android:colorControlHighlight">@color/colorAccent</item>
+        <item name="android:colorControlHighlight">@color/colorOnSecondary</item>
         <item name="android:colorControlNormal">@color/colorAccent</item>
         <item name="android:textColorHighlight">@color/colorOnSecondary</item>
         <item name="android:colorPrimary">@color/colorAccent</item>
@@ -109,7 +109,7 @@
     <style name="DialogThemeRadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:buttonTint">@color/colorAccent</item>
+        <item name="android:buttonTint">@color/colorPrimary</item>
         <item name="android:padding">@dimen/spacing_normal</item>
     </style>
 

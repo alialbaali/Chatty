@@ -4,6 +4,6 @@
     <corners android:radius="@dimen/spacing_extra_large" />
     <solid android:color="@color/colorAccent" />
     <size
-        android:width="15dp"
-        android:height="15dp" />
+        android:width="24dp"
+        android:height="24dp" />
 </shape>

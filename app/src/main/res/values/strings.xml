@@ -43,7 +43,7 @@
     <string name="block_user">Block user</string>
     <string name="new_password">New Password</string>
     <string name="current_password">Current Password</string>
-    <string name="popup_menu">Popup menu</string>
+    <string name="menu">Menu</string>
     <string name="order">Order</string>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -98,4 +98,5 @@
     <string name="chat_is_muted">Chat has been muted!</string>
     <string name="reply">Reply</string>
     <string name="no_messages">No messages</string>
+    <string name="message_status">Message status</string>
 </resources>

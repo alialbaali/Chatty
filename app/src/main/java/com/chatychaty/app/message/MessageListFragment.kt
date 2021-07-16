@@ -67,29 +67,23 @@ class MessageListFragment : Fragment() {
         setupListeners()
 
         notificationManager.cancelNotification(args.chatId)
-        binding.et.requestFocus()
 
         return binding.root
     }
 
     private fun setupListeners() {
-        binding.ivImage.setOnClickListener {
+        binding.tb.setOnClickListener {
             imm.hideSoftInputFromWindow(binding.et.windowToken, 0)
             findNavController().navigate(MessageListFragmentDirections.actionMessageListFragmentToProfileFragment(args.chatId))
         }
 
-        binding.et.setOnClickListener {
-
-            binding.et.requestFocus()
-
-            imm.toggleSoftInput(
-                InputMethodManager.SHOW_FORCED,
-                InputMethodManager.HIDE_IMPLICIT_ONLY
-            )
-        }
-
         binding.ibMenu.setOnClickListener {
-            findNavController().navigate(MessageListFragmentDirections.actionMessageListFragmentToMessageListDialogFragment(args.chatId, searchMessagesListener))
+            findNavController().navigate(
+                MessageListFragmentDirections.actionMessageListFragmentToMessageListDialogFragment(
+                    args.chatId,
+                    searchMessagesListener
+                )
+            )
         }
 
         binding.tb.setNavigationOnClickListener {
@@ -125,7 +119,7 @@ class MessageListFragment : Fragment() {
                         binding.rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                             .apply { stackFromEnd = true }
                         binding.imgUrl = chat.imageUrl
-                        binding.tvAppName.text = chat.name
+                        binding.tvName.text = chat.name
                     }
                 }
             }
