@@ -26,6 +26,11 @@
         <action
             android:id="@+id/action_messageListFragment_to_messageListDialogFragment"
             app:destination="@id/messageListDialogFragment" />
+        <argument
+            android:name="body"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <navigation
         android:id="@+id/signGraph"
@@ -112,7 +117,7 @@
             app:enterAnim="@anim/slide_in_up"
             app:exitAnim="@anim/slide_out_down"
             app:popEnterAnim="@anim/slide_in_down"
-            app:popExitAnim="@anim/slide_out_up"/>
+            app:popExitAnim="@anim/slide_out_up" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -274,4 +279,18 @@
             android:name="listener"
             app:argType="com.chatychaty.app.message.MessageListDialogFragment$SearchMessagesListener" />
     </dialog>
+    <fragment
+        android:id="@+id/shareFragment"
+        android:name="com.chatychaty.app.util.ShareFragment"
+        android:label="ShareFragment"
+        tools:layout="@layout/fragment_share">
+        <action
+            android:id="@+id/action_shareFragment_to_messageListFragment"
+            app:destination="@id/messageListFragment" />
+        <argument
+            android:name="body"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>

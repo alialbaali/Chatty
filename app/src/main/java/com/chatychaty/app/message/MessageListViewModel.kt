@@ -33,8 +33,11 @@ class MessageListViewModel(
 
         messageRepository.getMessages(chatId)
             .map { it.sortedBy { message -> message.sentDate } }
-            .onEach { mutableMessages.value = UiState.Success(it) }
-            .onEach { messageRepository.updateNewMessages() }
+            .onEach {
+                mutableMessages.value = UiState.Success(it)
+                if (chat.value is UiState.Success)
+                    messageRepository.updateNewMessages((chat.value as UiState.Success).value.chatId)
+            }
             .launchIn(viewModelScope)
     }
 

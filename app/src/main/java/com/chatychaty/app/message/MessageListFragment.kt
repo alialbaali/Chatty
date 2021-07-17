@@ -16,7 +16,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chatychaty.app.databinding.FragmentListMessageBinding
 import com.chatychaty.app.util.UiState
-import com.chatychaty.app.util.cancelNotification
+import com.chatychaty.app.notification.cancelNotification
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -65,10 +65,20 @@ class MessageListFragment : Fragment() {
 
         collectState()
         setupListeners()
+        handleIntentContent()
 
         notificationManager.cancelNotification(args.chatId)
 
         return binding.root
+    }
+
+    private fun handleIntentContent() {
+        if (!args.body.isNullOrBlank()) {
+            viewModel.messageBody.value = args.body.toString()
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+            binding.et.requestFocus()
+//            findNavController().popBackStack(R.id.chatListFragment, true)
+        }
     }
 
     private fun setupListeners() {
