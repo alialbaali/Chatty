@@ -15,8 +15,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chatychaty.app.databinding.FragmentListMessageBinding
-import com.chatychaty.app.util.UiState
 import com.chatychaty.app.notification.cancelNotification
+import com.chatychaty.app.util.UiState
+import com.chatychaty.app.util.snackbar
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -113,9 +114,7 @@ class MessageListFragment : Fragment() {
         viewModel.chat
             .onEach { state ->
                 when (state) {
-                    is UiState.Empty -> {
 
-                    }
                     is UiState.Failure -> {
 
                     }
@@ -138,16 +137,16 @@ class MessageListFragment : Fragment() {
         viewModel.messages
             .onEach { state ->
                 when (state) {
-                    is UiState.Empty -> {
-                    }
                     is UiState.Failure -> {
+                        binding.pb.visibility = View.GONE
+                        binding.root.snackbar("Failed to messages.")
                     }
                     is UiState.Loading -> {
-
+                        binding.pb.visibility = View.VISIBLE
                     }
                     is UiState.Success -> {
+                        binding.pb.visibility = View.GONE
                         val messages = state.value
-
                         if (messages.isEmpty()) {
                             binding.tvPlaceholder.visibility = View.VISIBLE
                             binding.rv.visibility = View.GONE
@@ -156,7 +155,7 @@ class MessageListFragment : Fragment() {
                                 adapter.submitList(messages)
                             binding.tvPlaceholder.visibility = View.GONE
                             binding.rv.visibility = View.VISIBLE
-                            binding.rv.smoothScrollToPosition(state.value.size.minus(1))
+                            binding.rv.smoothScrollToPosition(messages.size.minus(1))
                         }
 
                     }

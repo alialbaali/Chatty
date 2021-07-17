@@ -82,9 +82,6 @@ class ChatItemDialogFragment : BaseBottomSheetDialogFragment() {
                         binding.tvMute.setCompoundDrawablesWithIntrinsicBounds(muteDrawable, null, null, null)
                         binding.tvMute.text = getString(if (chat.isMuted) R.string.unmute else R.string.mute)
                     }
-                    UiState.Empty -> {
-
-                    }
                 }
             }
             .launchIn(lifecycleScope)

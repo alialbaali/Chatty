@@ -12,11 +12,10 @@ import kotlinx.coroutines.flow.onEach
 
 class MessageItemViewModel(private val messageRepository: MessageRepository) : ViewModel() {
 
-    private val mutableMessage = MutableStateFlow<UiState<Message>>(UiState.Empty)
+    private val mutableMessage = MutableStateFlow<UiState<Message>>(UiState.Loading)
     val message get() = mutableMessage.asStateFlow()
 
     fun selectMessage(messageId: String) {
-        mutableMessage.value = UiState.Loading
         messageRepository.getMessageById(messageId)
             .onEach { mutableMessage.value = UiState.Success(it) }
             .launchIn(viewModelScope)

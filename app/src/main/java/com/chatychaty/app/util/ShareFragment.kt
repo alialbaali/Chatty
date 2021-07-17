@@ -58,9 +58,6 @@ class ShareFragment : Fragment() {
         viewModel.chatMessages
             .onEach { state ->
                 when (state) {
-                    is UiState.Empty -> {
-                        adapter.submitList(emptyList())
-                    }
                     is UiState.Failure -> {
                         binding.root.snackbar("Failed to load chats")
                     }

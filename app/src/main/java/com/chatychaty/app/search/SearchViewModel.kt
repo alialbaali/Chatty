@@ -12,14 +12,11 @@ class SearchViewModel(private val chatRepository: ChatRepository) : ViewModel() 
 
     val username = MutableStateFlow("")
 
-    private val mutableState = MutableStateFlow<UiState<String>>(UiState.Empty)
+    private val mutableState = MutableStateFlow<UiState<String>>(UiState.Loading)
     val state get() = mutableState.asStateFlow()
 
     fun createChat() {
         viewModelScope.launch {
-
-            mutableState.value = UiState.Loading
-
             chatRepository.createChat(username.value)
                 .fold(
                     onSuccess = {

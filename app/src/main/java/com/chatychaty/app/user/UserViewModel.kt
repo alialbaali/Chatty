@@ -27,7 +27,7 @@ class UserViewModel(
     private val mutableTheme = MutableStateFlow<UiState<Theme>>(UiState.Loading)
     val theme get() = mutableTheme.asStateFlow()
 
-    private val mutableState = MutableStateFlow<UiState<Unit>>(UiState.Empty)
+    private val mutableState = MutableStateFlow<UiState<Unit>>(UiState.Loading)
     val state get() = mutableState.asStateFlow()
 
     val name = MutableStateFlow("")
@@ -54,7 +54,6 @@ class UserViewModel(
 
     fun updateImage(byteArray: ByteArray, fileName: String) {
         viewModelScope.launch {
-            mutableState.value = UiState.Loading
             mutableState.value = userRepository.updateImage(byteArray, fileName)
                 .asUiState()
         }
@@ -62,7 +61,6 @@ class UserViewModel(
 
     fun updateName() {
         viewModelScope.launch {
-            mutableState.value = UiState.Loading
             mutableState.value = userRepository.updateName(name.value)
                 .asUiState()
         }
@@ -70,7 +68,6 @@ class UserViewModel(
 
     fun updatePassword() {
         viewModelScope.launch {
-            mutableState.value = UiState.Loading
             mutableState.value = userRepository.updatePassword(currentPassword.value, newPassword.value)
                 .asUiState()
         }

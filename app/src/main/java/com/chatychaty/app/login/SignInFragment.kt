@@ -9,7 +9,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.chatychaty.app.R
 import com.chatychaty.app.databinding.FragmentSignInBinding
-import com.chatychaty.app.util.ProgressDialogFragment
 import com.chatychaty.app.util.UiState
 import com.chatychaty.app.util.snackbar
 import kotlinx.coroutines.flow.launchIn
@@ -21,8 +20,6 @@ class SignInFragment : Fragment() {
     private lateinit var binding: FragmentSignInBinding
 
     private val viewModel by sharedViewModel<SignSharedViewModel>()
-
-    private lateinit var progressDialogFragment: ProgressDialogFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSignInBinding.inflate(inflater, container, false).also {
@@ -51,8 +48,10 @@ class SignInFragment : Fragment() {
 
             if (password.isBlank()) binding.tilPassword.error = resources.getString(R.string.password_error_empty)
 
-            if (username.isNotBlank() and password.isNotBlank())
+            if (username.isNotBlank() and password.isNotBlank()) {
                 viewModel.signIn()
+                findNavController().navigate(SignInFragmentDirections.actionGlobalProgressDialogFragment())
+            }
         }
     }
 
@@ -61,18 +60,12 @@ class SignInFragment : Fragment() {
             .onEach { state ->
                 when (state) {
                     is UiState.Failure -> {
-                        progressDialogFragment.dismiss()
+                        findNavController().navigateUp()
                         binding.root.snackbar(state.exception.message.toString())
                     }
                     is UiState.Loading -> {
-                        progressDialogFragment = ProgressDialogFragment()
-                        progressDialogFragment.show(parentFragmentManager, null)
                     }
                     is UiState.Success -> {
-                        progressDialogFragment.dismiss()
-                    }
-                    is UiState.Empty -> {
-
                     }
                 }
             }

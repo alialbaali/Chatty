@@ -75,8 +75,5 @@ The app is a part of my [Portfolio](https://alialbaali.com) projects. It showcas
 ./gradlew
 ```
 
-## Tests
-Tests will be added soon!
-
 ## License
 ChatyChaty is distributed under the terms of the Apache License (Version 2.0). See [License](LICENSE.md) for details.

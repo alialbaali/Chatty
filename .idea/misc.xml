@@ -56,6 +56,7 @@
         <entry key="app/src/main/res/drawable/ic_round_pin_24.xml" value="0.13223684210526315" />
         <entry key="app/src/main/res/drawable/ic_round_pin_off_24.xml" value="0.13223684210526315" />
         <entry key="app/src/main/res/drawable/ic_round_report_24.xml" value="0.22664473684210526" />
+        <entry key="app/src/main/res/drawable/ic_round_schedule_24.xml" value="0.22631578947368422" />
         <entry key="app/src/main/res/drawable/ic_round_search_24.xml" value="0.12894736842105264" />
         <entry key="app/src/main/res/drawable/ic_round_send_24.xml" value="0.22664473684210526" />
         <entry key="app/src/main/res/drawable/ic_round_settings_24.xml" value="0.12894736842105264" />
@@ -73,14 +74,22 @@
         <entry key="app/src/main/res/drawable/palette.xml" value="0.22664473684210526" />
         <entry key="app/src/main/res/drawable/pin_off_outline.xml" value="0.2241042345276873" />
         <entry key="app/src/main/res/drawable/pin_outline.xml" value="0.2241042345276873" />
+        <entry key="app/src/main/res/drawable/ripple_button_input_message.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/ripple_chat_list_item.xml" value="0.22664473684210526" />
         <entry key="app/src/main/res/drawable/ripple_item.xml" value="0.22664473684210526" />
         <entry key="app/src/main/res/drawable/ripple_item_chat.xml" value="0.22664473684210526" />
+        <entry key="app/src/main/res/drawable/ripple_item_message.xml" value="0.22631578947368422" />
         <entry key="app/src/main/res/drawable/ripple_item_settings.xml" value="0.22664473684210526" />
+        <entry key="app/src/main/res/drawable/ripple_message.xml" value="0.22631578947368422" />
+        <entry key="app/src/main/res/drawable/selector_button_message.xml" value="0.22631578947368422" />
         <entry key="app/src/main/res/drawable/settings_item_option_ripple.xml" value="0.22664473684210526" />
         <entry key="app/src/main/res/drawable/shape_edit_text_message.xml" value="0.2244299674267101" />
         <entry key="app/src/main/res/drawable/shape_input_message.xml" value="0.2244299674267101" />
+        <entry key="app/src/main/res/drawable/shape_item_receiver_message.xml" value="0.22631578947368422" />
+        <entry key="app/src/main/res/drawable/shape_item_sender_message.xml" value="0.22631578947368422" />
+        <entry key="app/src/main/res/drawable/shape_new_message.xml" value="0.22631578947368422" />
         <entry key="app/src/main/res/drawable/shape_rounded.xml" value="0.22664473684210526" />
+        <entry key="app/src/main/res/drawable/shape_splash_screen.xml" value="0.13223684210526315" />
         <entry key="app/src/main/res/drawable/shape_user.xml" value="0.22664473684210526" />
         <entry key="app/src/main/res/drawable/share.xml" value="0.22664473684210526" />
         <entry key="app/src/main/res/drawable/splash_screen.xml" value="0.2244299674267101" />
@@ -88,6 +97,7 @@
         <entry key="app/src/main/res/drawable/volume_off.xml" value="0.22631578947368422" />
         <entry key="app/src/main/res/font/roboto.xml" value="0.23322475570032572" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21611842105263157" />
+        <entry key="app/src/main/res/layout/activity_share.xml" value="0.21400651465798046" />
         <entry key="app/src/main/res/layout/fragment_archive_chat.xml" value="0.21611842105263157" />
         <entry key="app/src/main/res/layout/fragment_archive_list_chat.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.34427083333333336" />
@@ -97,30 +107,37 @@
         <entry key="app/src/main/res/layout/fragment_dialog_feedback.xml" value="0.34427083333333336" />
         <entry key="app/src/main/res/layout/fragment_dialog_info_edit.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_dialog_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_dialog_list_chat.xml" value="0.21611842105263157" />
         <entry key="app/src/main/res/layout/fragment_dialog_list_message.xml" value="0.21644736842105264" />
         <entry key="app/src/main/res/layout/fragment_dialog_message.xml" value="0.21611842105263157" />
         <entry key="app/src/main/res/layout/fragment_dialog_name.xml" value="0.21611842105263157" />
         <entry key="app/src/main/res/layout/fragment_dialog_password.xml" value="0.34427083333333336" />
         <entry key="app/src/main/res/layout/fragment_dialog_permission.xml" value="0.21611842105263157" />
         <entry key="app/src/main/res/layout/fragment_dialog_progress.xml" value="0.21644736842105264" />
+        <entry key="app/src/main/res/layout/fragment_dialog_theme.xml" value="0.21611842105263157" />
         <entry key="app/src/main/res/layout/fragment_list.xml" value="0.34479166666666666" />
         <entry key="app/src/main/res/layout/fragment_list_chat.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_list_message.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.16742654508611957" />
+        <entry key="app/src/main/res/layout/fragment_share.xml" value="0.21611842105263157" />
         <entry key="app/src/main/res/layout/fragment_sign_in.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.34479166666666666" />
+        <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_user.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_user_chat.xml" value="0.34427083333333336" />
-        <entry key="app/src/main/res/layout/item_chat.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/item_chat.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_chat_pinned.xml" value="0.21611842105263157" />
+        <entry key="app/src/main/res/layout/item_message_receiver.xml" value="0.21611842105263157" />
+        <entry key="app/src/main/res/layout/item_message_sender.xml" value="0.21611842105263157" />
         <entry key="app/src/main/res/layout/item_receiver_message.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_search_user.xml" value="0.21644736842105264" />
         <entry key="app/src/main/res/layout/item_sender_message.xml" value="0.22" />
         <entry key="app/src/main/res/menu/menu_bab_list.xml" value="0.21611842105263157" />
         <entry key="app/src/main/res/menu/menu_profile.xml" value="0.11842105263157894" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_app.xml" value="0.22631578947368422" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_app_round.xml" value="0.22631578947368422" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.10986842105263157" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.11019736842105263" />
       </map>
     </option>
   </component>

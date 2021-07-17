@@ -64,7 +64,7 @@ private object Versions {
     const val COROUTINES_ANDROID = "1.5.0"
     const val CONSTRAINT_LAYOUT = "2.0.4"
     const val VIEW_MODEL_STATE = "2.2.0"
-    const val MATERIAL_DESIGN = "1.2.0-beta01"
+    const val MATERIAL_DESIGN = "1.3.0"
     const val RECYCLER_VIEW = "1.2.0"
     const val NAVIGATION = "2.3.5"
     const val COROUTINES = "1.5.0"
@@ -105,9 +105,9 @@ object Modules {
 
 object App {
     const val APP_ID = "com.chatychaty"
-    const val VERSION_NAME = "1.0.0"
+    const val VERSION_NAME = "2.0.0"
     const val NAME = "ChatyChaty"
-    const val VERSION_CODE = 5
+    const val VERSION_CODE = 6
     const val MIN_SDK = 23
     const val COMPILE_SDK = 30
     const val BUILD_TOOLS = "30.0.2"

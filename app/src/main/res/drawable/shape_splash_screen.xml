@@ -5,7 +5,7 @@
         <shape
             android:shape="rectangle"
             android:tint="@color/colorBackground">
-            <corners android:radius="@dimen/radius" />
+            <corners android:radius="@dimen/spacing_normal" />
         </shape>
     </item>
 

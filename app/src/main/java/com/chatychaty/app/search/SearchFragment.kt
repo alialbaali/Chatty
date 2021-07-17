@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.chatychaty.app.R
 import com.chatychaty.app.databinding.FragmentSearchBinding
-import com.chatychaty.app.util.ProgressDialogFragment
 import com.chatychaty.app.util.UiState
 import com.chatychaty.app.util.snackbar
 import kotlinx.coroutines.flow.launchIn
@@ -27,8 +26,6 @@ class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
 
     private val viewModel by viewModel<SearchViewModel>()
-
-    private lateinit var progressDialogFragment: ProgressDialogFragment
 
     private val imm by lazy {
         requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -61,10 +58,9 @@ class SearchFragment : Fragment() {
 
         binding.et.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-
                 viewModel.createChat()
-
                 imm.hideSoftInputFromWindow(v.windowToken, 0)
+                findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToProgressDialogFragment())
                 true
             } else {
                 false
@@ -74,23 +70,19 @@ class SearchFragment : Fragment() {
 
     private fun collectState() {
         viewModel.state
-            .onEach {
-                when (it) {
-                    is UiState.Empty -> {
+            .onEach { state ->
+                when (state) {
 
-                    }
                     is UiState.Failure -> {
-                        progressDialogFragment.dismiss()
-                        binding.root.snackbar(it.exception.message.toString())
+                        findNavController().navigateUp()
+                        binding.root.snackbar(state.exception.message.toString())
                     }
                     is UiState.Loading -> {
-                        progressDialogFragment = ProgressDialogFragment()
-                            .also { it.show(parentFragmentManager, null) }
                     }
                     is UiState.Success -> {
-                        progressDialogFragment.dismiss()
                         findNavController().navigateUp()
-                        binding.root.snackbar(it.value)
+                        findNavController().navigateUp()
+                        binding.root.snackbar(state.value)
                     }
                 }
             }

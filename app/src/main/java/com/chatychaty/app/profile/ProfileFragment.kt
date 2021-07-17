@@ -43,8 +43,7 @@ class ProfileFragment : Fragment() {
         viewModel.chat
             .onEach { state ->
                 when (state) {
-                    is UiState.Empty -> {
-                    }
+
                     is UiState.Failure -> {
 
                     }

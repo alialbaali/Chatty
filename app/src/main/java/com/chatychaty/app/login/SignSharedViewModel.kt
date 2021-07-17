@@ -16,15 +16,12 @@ class SignSharedViewModel(private val userRepository: UserRepository) : ViewMode
     val name = MutableStateFlow("")
     val password = MutableStateFlow("")
 
-    private val mutableState = MutableStateFlow<UiState<User>>(UiState.Empty)
+    private val mutableState = MutableStateFlow<UiState<User>>(UiState.Loading)
     val state get() = mutableState.asStateFlow()
 
     fun signUp() {
         viewModelScope.launch {
-            mutableState.value = UiState.Loading
-
             val user = createUser()
-
             mutableState.value = userRepository.signUp(user)
                 .asUiState()
         }
@@ -32,10 +29,7 @@ class SignSharedViewModel(private val userRepository: UserRepository) : ViewMode
 
     fun signIn() {
         viewModelScope.launch {
-            mutableState.value = UiState.Loading
-
             val user = createUser()
-
             mutableState.value = userRepository.signIn(user)
                 .asUiState()
         }

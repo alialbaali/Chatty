@@ -20,7 +20,6 @@ import com.bumptech.glide.Glide
 import com.chatychaty.app.R
 import com.chatychaty.app.databinding.FragmentUserBinding
 import com.chatychaty.app.util.PermissionDialogFragment
-import com.chatychaty.app.util.ProgressDialogFragment
 import com.chatychaty.app.util.UiState
 import com.chatychaty.app.util.snackbar
 import kotlinx.coroutines.flow.launchIn
@@ -35,8 +34,6 @@ class UserFragment : Fragment() {
     private lateinit var binding: FragmentUserBinding
 
     private val viewModel by viewModel<UserViewModel>()
-
-    private lateinit var progressDialogFragment: ProgressDialogFragment
 
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
@@ -53,6 +50,7 @@ class UserFragment : Fragment() {
         storageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             it.data?.data?.let { uri ->
                 uploadImage(uri)
+                findNavController().navigate(UserFragmentDirections.actionUserFragmentToProgressDialogFragment())
             }
         }
     }
@@ -88,9 +86,6 @@ class UserFragment : Fragment() {
         viewModel.user
             .onEach { state ->
                 when (state) {
-                    is UiState.Empty -> {
-
-                    }
                     is UiState.Failure -> {
 
                     }
@@ -110,22 +105,14 @@ class UserFragment : Fragment() {
         viewModel.state
             .onEach { state ->
                 when (state) {
-                    is UiState.Empty -> {
-
-                    }
                     is UiState.Failure -> {
-                        binding.fab.isEnabled = true
-                        progressDialogFragment.dismiss()
+                        findNavController().navigateUp()
                         binding.root.snackbar("${state.exception.message}")
                     }
                     is UiState.Loading -> {
-                        binding.fab.isEnabled = false
-                        progressDialogFragment = ProgressDialogFragment()
-                        progressDialogFragment.show(parentFragmentManager, null)
                     }
                     is UiState.Success -> {
-                        binding.fab.isEnabled = true
-                        progressDialogFragment.dismiss()
+                        findNavController().navigateUp()
                         binding.root.snackbar("Image has been updated successfully")
                     }
                 }

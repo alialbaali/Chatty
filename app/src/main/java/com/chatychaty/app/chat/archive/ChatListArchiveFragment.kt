@@ -56,9 +56,6 @@ class ChatListArchiveFragment : Fragment() {
         viewModel.archivedChats
             .onEach { state ->
                 when (state) {
-                    UiState.Empty -> {
-
-                    }
                     is UiState.Failure -> {
 
                     }

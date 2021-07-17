@@ -95,22 +95,23 @@ class ChatListFragment : Fragment() {
         viewModel.chatMessages
             .onEach { state ->
                 when (state) {
-                    is UiState.Empty -> {
-                        adapter.submitList(emptyList())
-                    }
                     is UiState.Failure -> {
+                        binding.pb.visibility = View.GONE
                         binding.root.snackbar("Failed to load chats")
                     }
                     is UiState.Loading -> {
+                        binding.pb.visibility = View.VISIBLE
                     }
                     is UiState.Success -> {
-                        if (state.value.isEmpty()) {
+                        binding.pb.visibility = View.GONE
+                        val chats = state.value
+                        if (chats.isEmpty()) {
                             binding.tvPlaceholder.visibility = View.VISIBLE
                             binding.rv.visibility = View.GONE
                         } else {
                             binding.tvPlaceholder.visibility = View.GONE
                             binding.rv.visibility = View.VISIBLE
-                            adapter.submitList(state.value)
+                            adapter.submitList(chats)
                         }
                     }
                 }

@@ -40,12 +40,11 @@ private fun <R> Throwable.parseError(): Result<R> = when (this) {
             ?.string()
             ?.let { errorBody ->
 
-                val errors = JSONObject(errorBody)
-                    .run { get("errors") as JSONArray }
-                    .join(", ")
-                    .replace("\"", "")
-                    .replace(".", "")
-                    .plus(".")
+                val errors = try {
+                    errorBody.deserialize()
+                } catch (throwable: Throwable) {
+                    return Result.failure(throwable)
+                }
 
                 Result.failure(Throwable(errors))
 
@@ -53,4 +52,13 @@ private fun <R> Throwable.parseError(): Result<R> = when (this) {
     }
 
     else -> Result.failure(this)
+}
+
+private fun String.deserialize(): String {
+    return JSONObject(this)
+        .run { get("errors") as JSONArray }
+        .join(", ")
+        .replace("\"", "")
+        .replace(".", "")
+        .plus(".")
 }

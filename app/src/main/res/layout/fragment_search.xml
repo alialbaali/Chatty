@@ -52,7 +52,7 @@
                         android:text="@={viewModel.username}"
                         android:textColor="@color/colorPrimary"
                         android:textColorHint="@color/colorOnSecondary"
-                        android:textSize="@dimen/text_dimen" />
+                        android:textSize="@dimen/size_small" />
 
                 </com.google.android.material.appbar.MaterialToolbar>
             </com.google.android.material.appbar.AppBarLayout>

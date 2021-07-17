@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.chatychaty.app.databinding.FragmentDialogPasswordBinding
 import com.chatychaty.app.util.BaseBottomSheetDialogFragment
-import com.chatychaty.app.util.ProgressDialogFragment
 import com.chatychaty.app.util.UiState
 import com.chatychaty.app.util.snackbar
 import kotlinx.coroutines.flow.launchIn
@@ -25,8 +25,6 @@ class PasswordDialogFragment : BaseBottomSheetDialogFragment() {
     private val imm by lazy {
         requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
-
-    private lateinit var progressDialogFragment: ProgressDialogFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
@@ -49,20 +47,15 @@ class PasswordDialogFragment : BaseBottomSheetDialogFragment() {
         viewModel.state
             .onEach { state ->
                 when (state) {
-                    is UiState.Empty -> {
-                    }
+
                     is UiState.Failure -> {
-                        progressDialogFragment.dismiss()
-                        dismiss()
+                        findNavController().navigateUp()
                         requireParentFragment().requireView().snackbar("Password failed updating successfully")
                     }
                     is UiState.Loading -> {
-                        progressDialogFragment = ProgressDialogFragment()
-                        progressDialogFragment.show(parentFragmentManager, null)
                     }
                     is UiState.Success -> {
-                        progressDialogFragment.dismiss()
-                        dismiss()
+                        findNavController().navigateUp()
                         requireParentFragment().requireView().snackbar("Password has changed successfully!")
                     }
                 }

@@ -70,6 +70,9 @@
         <action
             android:id="@+id/action_global_chatListFragment"
             app:destination="@id/chatListFragment" />
+        <action
+            android:id="@+id/action_global_progressDialogFragment"
+            app:destination="@id/progressDialogFragment" />
     </navigation>
     <fragment
         android:id="@+id/chatListFragment"
@@ -132,12 +135,20 @@
         android:id="@+id/searchFragment"
         android:name="com.chatychaty.app.search.SearchFragment"
         android:label="SearchFragment"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_progressDialogFragment"
+            app:destination="@id/progressDialogFragment" />
+    </fragment>
     <dialog
         android:id="@+id/passwordDialogFragment"
         android:name="com.chatychaty.app.user.PasswordDialogFragment"
         android:label="PasswordDialogFragment"
-        tools:layout="@layout/fragment_dialog_password" />
+        tools:layout="@layout/fragment_dialog_password" >
+        <action
+            android:id="@+id/action_passwordDialogFragment_to_progressDialogFragment"
+            app:destination="@id/progressDialogFragment" />
+    </dialog>
     <dialog
         android:id="@+id/listDialogFragment"
         android:name="com.chatychaty.app.chat.ChatListDialogFragment"
@@ -167,13 +178,8 @@
         android:label="NameDialogFragment"
         tools:layout="@layout/fragment_dialog_name">
         <action
-            android:id="@+id/action_profileDialogFragment_to_signGraph"
-            app:destination="@id/signGraph"
-            app:enterAnim="@anim/slide_in_up"
-            app:exitAnim="@anim/slide_out_down"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/chatListFragment"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_nameDialogFragment_to_progressDialogFragment"
+            app:destination="@id/progressDialogFragment" />
     </dialog>
     <dialog
         android:id="@+id/chatItemDialogFragment"
@@ -259,6 +265,9 @@
         <action
             android:id="@+id/action_userFragment_to_nameDialogFragment"
             app:destination="@id/nameDialogFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_progressDialogFragment"
+            app:destination="@id/progressDialogFragment" />
     </fragment>
     <dialog
         android:id="@+id/messageListDialogFragment"
@@ -293,4 +302,8 @@
             app:argType="string"
             app:nullable="true" />
     </fragment>
+    <dialog
+        android:id="@+id/progressDialogFragment"
+        android:name="com.chatychaty.app.util.ProgressDialogFragment"
+        android:label="ProgressDialogFragment" />
 </navigation>

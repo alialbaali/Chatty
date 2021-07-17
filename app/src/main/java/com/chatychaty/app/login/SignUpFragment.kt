@@ -9,7 +9,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.chatychaty.app.R
 import com.chatychaty.app.databinding.FragmentSignUpBinding
-import com.chatychaty.app.util.ProgressDialogFragment
 import com.chatychaty.app.util.UiState
 import com.chatychaty.app.util.snackbar
 import kotlinx.coroutines.flow.launchIn
@@ -21,8 +20,6 @@ class SignUpFragment : Fragment() {
     private lateinit var binding: FragmentSignUpBinding
 
     private val viewModel by sharedViewModel<SignSharedViewModel>()
-
-    private lateinit var progressDialogFragment: ProgressDialogFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSignUpBinding.inflate(inflater, container, false).also {
@@ -53,8 +50,10 @@ class SignUpFragment : Fragment() {
 
             if (password.isBlank()) binding.tilPassword.error = resources.getString(R.string.password_error)
 
-            if (name.isNotBlank() && username.isNotBlank() && password.isNotBlank())
+            if (name.isNotBlank() && username.isNotBlank() && password.isNotBlank()) {
                 viewModel.signUp()
+                findNavController().navigate(SignUpFragmentDirections.actionGlobalProgressDialogFragment())
+            }
 
         }
     }
@@ -64,18 +63,12 @@ class SignUpFragment : Fragment() {
             .onEach { state ->
                 when (state) {
                     is UiState.Failure -> {
-                        progressDialogFragment.dismiss()
+                        findNavController().navigateUp()
                         binding.root.snackbar(state.exception.message.toString())
                     }
                     is UiState.Loading -> {
-                        progressDialogFragment = ProgressDialogFragment()
-                        progressDialogFragment.show(parentFragmentManager, null)
                     }
                     is UiState.Success -> {
-                        progressDialogFragment.dismiss()
-                    }
-                    is UiState.Empty -> {
-
                     }
                 }
             }

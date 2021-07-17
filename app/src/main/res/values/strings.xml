@@ -12,6 +12,7 @@
     <string name="user_image">User image</string>
     <string name="forgot_your_password">Forgot your password?</string>
     <string name="chats">Chats</string>
+    <string name="share_with">Share with</string>
     <string name="empty_messages">No messages, try sending a message.</string>
     <string name="empty_chats">No chats, try starting a chat with someone.</string>
     <string name="empty_archive_chats">No archived chats.</string>
@@ -97,6 +98,7 @@
     <string name="chat_is_unmuted">Chat has been unmuted!</string>
     <string name="chat_is_muted">Chat has been muted!</string>
     <string name="reply">Reply</string>
+    <string name="mark_as_read">Mark as read</string>
     <string name="no_messages">No messages</string>
     <string name="message_status">Message status</string>
 </resources>
