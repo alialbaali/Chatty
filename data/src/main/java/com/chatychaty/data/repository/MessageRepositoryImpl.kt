@@ -99,7 +99,7 @@ class MessageRepositoryImpl(
         }
     }
 
-    override suspend fun updateNewMessages() = messageDao.updateNewMessages()
+    override suspend fun updateNewMessages(chatId: String) = messageDao.updateNewMessages(chatId)
 
     override suspend fun deleteMessages() = withContext(dispatcher) {
         messageDao.deleteMessages()

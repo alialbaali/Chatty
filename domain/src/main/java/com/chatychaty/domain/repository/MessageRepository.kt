@@ -23,7 +23,7 @@ interface MessageRepository {
 
     suspend fun isMessageDelivered(messageId: String): Result<Boolean>
 
-    suspend fun updateNewMessages()
+    suspend fun updateNewMessages(chatId: String)
 
     suspend fun refreshMessages()
 

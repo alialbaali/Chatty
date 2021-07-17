@@ -42,8 +42,8 @@ interface MessageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateMessages(messages: List<Message>)
 
-    @Query("UPDATE messages SET is_new = 0")
-    suspend fun updateNewMessages()
+    @Query("UPDATE messages SET is_new = 0 WHERE chat_id = :chatId")
+    suspend fun updateNewMessages(chatId: String)
 
     @Query("DELETE FROM messages")
     suspend fun deleteMessages()

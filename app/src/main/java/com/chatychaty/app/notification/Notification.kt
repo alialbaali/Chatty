@@ -1,15 +1,13 @@
-package com.chatychaty.app.util
+package com.chatychaty.app.notification
 
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.Person
-import androidx.core.app.RemoteInput
 import androidx.core.os.bundleOf
 import androidx.navigation.NavDeepLinkBuilder
 import com.chatychaty.app.R
@@ -21,23 +19,10 @@ private const val CHANNEL_NAME = "ChatyChaty"
 private const val NOTIFICATION_ID = 0
 const val REMOTE_INPUT_KEY = "Body"
 
-fun Context.createNotification() {
-    val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-}
-
 fun NotificationManager.createNotification(context: Context, chat: Chat, messages: List<Message>, isSender: Boolean) {
     if (!chat.isMuted) {
+
         val pendingIntent = context.createNotificationPendingIntent(chat.chatId)
-
-        val remoteInput = RemoteInput.Builder(REMOTE_INPUT_KEY)
-            .setLabel(context.getString(R.string.type_a_message))
-            .build()
-
-        val replyIntent = Intent(context, NotificationReceiver::class.java)
-            .putExtra("chatId", chat.chatId)
-            .putExtra("messageId", messages.first().id)
-
-        val replyPendingIntent = PendingIntent.getBroadcast(context, 0, replyIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val sender = Person.Builder()
             .setName("You")
@@ -53,20 +38,22 @@ fun NotificationManager.createNotification(context: Context, chat: Chat, message
             }
         }
 
-        val action = NotificationCompat.Action.Builder(R.drawable.ic_round_edit_24, context.getString(R.string.reply), replyPendingIntent)
-            .addRemoteInput(remoteInput)
-            .build()
+        val markAsReadAction = context.createMarkAsReadAction(chat.chatId)
 
-        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+        val replyAction = context.createReplyAction(chat.chatId, messages.first().id)
+
+        val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
             .setStyle(style)
-            .addAction(action)
+            .addAction(markAsReadAction)
+            .addAction(replyAction)
             .setCategory(Notification.CATEGORY_MESSAGE)
             .setAutoCancel(true)
+            .build()
 
-        notify(chat.chatId, NOTIFICATION_ID, builder.build())
+        notify(chat.chatId, NOTIFICATION_ID, notification)
     }
 }
 

@@ -4,6 +4,7 @@ import android.app.NotificationManager
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.chatychaty.app.notification.createNotification
 import com.chatychaty.domain.repository.ChatRepository
 import com.chatychaty.domain.repository.MessageRepository
 import kotlinx.coroutines.flow.collect
@@ -12,7 +13,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import timber.log.Timber
 
 class SyncWorker(
     private val context: Context,

@@ -1,4 +1,4 @@
-package com.chatychaty.app.util
+package com.chatychaty.app.notification
 
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
@@ -14,7 +14,7 @@ import kotlinx.coroutines.runBlocking
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class NotificationReceiver : BroadcastReceiver(), KoinComponent {
+class NotificationReplyReceiver : BroadcastReceiver(), KoinComponent {
 
     private val messageRepository by inject<MessageRepository>()
     private val chatRepository by inject<ChatRepository>()
@@ -31,9 +31,7 @@ class NotificationReceiver : BroadcastReceiver(), KoinComponent {
         runBlocking(Dispatchers.IO) {
             val chat = chatRepository.getChatById(chatId)
                 .firstOrNull()
-            chat?.let {
-                notificationManager.createNotification(context, it, listOf(message), true)
-            }
+            chat?.let { notificationManager.createNotification(context, it, listOf(message), true) }
             messageRepository.createMessage(message)
         }
     }
