@@ -47,10 +47,9 @@ class PasswordDialogFragment : BaseBottomSheetDialogFragment() {
         viewModel.state
             .onEach { state ->
                 when (state) {
-
                     is UiState.Failure -> {
                         findNavController().navigateUp()
-                        requireParentFragment().requireView().snackbar("Password failed updating successfully")
+                        requireParentFragment().requireView().snackbar("Failed changing the password!")
                     }
                     is UiState.Loading -> {
                     }
