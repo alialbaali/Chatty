@@ -72,7 +72,7 @@ private object Versions {
     const val RETROFIT = "2.9.0"
     const val TIMBER = "4.7.1"
     const val KOTLIN = "1.5.20"
-    const val GRADLE = "7.0.0-beta05"
+    const val GRADLE = "7.0.0-rc01"
     const val NAVIGATION_SAFE_ARGS = "2.3.5"
     const val OKHTTP = "4.4.0"
     const val MOSHI = "1.12.0"

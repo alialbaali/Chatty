@@ -8,5 +8,6 @@
     <color name="colorSecondary">#1E1E1E</color>
     <color name="colorOnSecondary">#858585</color>
 
-    <color name="colorAccent">#5A189A</color>
+    <color name="colorAccent">#9C27B0</color>
+    <color name="ic_app_background">#FFFFFF</color>
 </resources>
