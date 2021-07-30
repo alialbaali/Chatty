@@ -68,6 +68,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/chats" />
+
+                <ImageView
+                    android:id="@+id/iv_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/spacing_normal"
+                    android:contentDescription="@string/my_image"
+                    android:src="@drawable/ic_round_person_24" />
             </Toolbar>
 
             <com.google.android.material.textfield.TextInputLayout

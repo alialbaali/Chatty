@@ -71,7 +71,7 @@
                     android:layout_gravity="end"
                     android:layout_marginEnd="@dimen/spacing_normal"
                     android:background="@color/colorSurface"
-                    android:contentDescription="@string/user_image"
+                    android:contentDescription="@string/profile_image"
                     app:imageUrl="@{imgUrl}"
                     app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance"
                     tools:src="@drawable/ic_round_person_24" />
