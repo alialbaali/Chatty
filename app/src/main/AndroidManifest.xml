@@ -16,7 +16,9 @@
         android:theme="@style/SplashScreenTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".main.MainActivity">
+        <activity
+            android:name=".main.MainActivity"
+            android:label="ChatyChaty">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
