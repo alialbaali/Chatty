@@ -29,7 +29,6 @@ class ThemeDialogFragment : BaseBottomSheetDialogFragment() {
         viewModel.theme
             .onEach { state ->
                 when (state) {
-
                     is UiState.Failure -> {
 
                     }

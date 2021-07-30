@@ -44,7 +44,6 @@ class ChatItemDialogFragment : BaseBottomSheetDialogFragment() {
 
     @SuppressLint("SetTextI18n")
     private fun collectState() {
-
         viewModel.chat
             .onEach { state ->
                 when (state) {
@@ -88,63 +87,38 @@ class ChatItemDialogFragment : BaseBottomSheetDialogFragment() {
     }
 
     private fun setupListeners() {
-        val parentFragmentFab = requireParentFragment()
-            .requireView()
-            .findViewById<FloatingActionButton>(R.id.fab)
-
+        val parentView = requireParentFragment().requireView()
+        val parentFab = parentView.findViewById<FloatingActionButton>(R.id.fab)
 
         binding.tvArchiveChat.setOnClickListener {
             dismiss()
             if ((viewModel.chat.value as UiState.Success).value.isArchived) {
                 viewModel.unarchiveChat()
-                requireParentFragment()
-                    .requireView()
-                    .snackbar(getString(R.string.chat_is_unarchived))
+                parentView.snackbar(getString(R.string.chat_is_unarchived))
             } else {
                 viewModel.archiveChat()
-
-                requireParentFragment()
-                    .requireView()
-                    .snackbar(
-                        getString(R.string.chat_is_archived),
-                        anchorView = parentFragmentFab,
-                    )
+                parentView.snackbar(getString(R.string.chat_is_archived), anchorView = parentFab)
             }
         }
 
         binding.tvChangeColor.setOnClickListener {
             dismiss()
-            requireParentFragment()
-                .requireView()
-                .snackbar("TODO", anchorView = parentFragmentFab)
+            parentView.snackbar("TODO", anchorView = parentFab)
         }
 
         binding.tvDeleteChat.setOnClickListener {
             dismiss()
-            requireParentFragment()
-                .requireView()
-                .snackbar("TODO", anchorView = parentFragmentFab)
+            parentView.snackbar("TODO", anchorView = parentFab)
         }
 
         binding.tvPin.setOnClickListener {
             dismiss()
             if ((viewModel.chat.value as UiState.Success).value.isPinned) {
                 viewModel.unpinChat()
-                requireParentFragment()
-                    .requireView()
-                    .snackbar(
-                        getString(R.string.chat_is_unpinned),
-                        anchorView = parentFragmentFab
-                    )
+                parentView.snackbar(getString(R.string.chat_is_unpinned), anchorView = parentFab)
             } else {
                 viewModel.pinChat()
-
-                requireParentFragment()
-                    .requireView()
-                    .snackbar(
-                        getString(R.string.chat_is_pinned),
-                        anchorView = parentFragmentFab,
-                    )
+                parentView.snackbar(getString(R.string.chat_is_pinned), anchorView = parentFab)
             }
         }
 
@@ -157,21 +131,10 @@ class ChatItemDialogFragment : BaseBottomSheetDialogFragment() {
             dismiss()
             if ((viewModel.chat.value as UiState.Success).value.isMuted) {
                 viewModel.unmuteChat()
-                requireParentFragment()
-                    .requireView()
-                    .snackbar(
-                        getString(R.string.chat_is_unmuted),
-                        anchorView = parentFragmentFab
-                    )
+                parentView.snackbar(getString(R.string.chat_is_unmuted), anchorView = parentFab)
             } else {
                 viewModel.muteChat()
-
-                requireParentFragment()
-                    .requireView()
-                    .snackbar(
-                        getString(R.string.chat_is_muted),
-                        anchorView = parentFragmentFab,
-                    )
+                parentView.snackbar(getString(R.string.chat_is_muted), anchorView = parentFab)
             }
         }
 

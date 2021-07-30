@@ -57,10 +57,9 @@ class ChatListFragment : Fragment() {
     }
 
     private fun setupListeners() {
-//
-//        binding.ivImage.setOnClickListener {
-//            findNavController().navigate(ChatListFragmentDirections.actionChatListFragmentToUserFragment())
-//        }
+        binding.ivUser.setOnClickListener {
+            findNavController().navigate(ChatListFragmentDirections.actionChatListFragmentToUserFragment())
+        }
         binding.fab.setOnClickListener {
             findNavController().navigate(ChatListFragmentDirections.actionChatListFragmentToSearchFragment())
         }

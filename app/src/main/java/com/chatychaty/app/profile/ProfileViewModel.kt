@@ -20,6 +20,4 @@ class ProfileViewModel(private val chatRepository: ChatRepository, private val c
             .onEach { mutableChat.value = UiState.Success(it) }
             .launchIn(viewModelScope)
     }
-
-
 }

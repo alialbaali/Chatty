@@ -44,8 +44,13 @@ class MainViewModel(
     fun connectHub() {
         viewModelScope.launch {
             messageRepository.connectHub()
-            launch { messageRepository.syncMessages() }
-            launch { chatRepository.syncChats() }
+        }
+    }
+
+    fun syncData() {
+        viewModelScope.launch {
+            messageRepository.syncMessages()
+            chatRepository.syncChats()
         }
     }
 
@@ -61,5 +66,4 @@ class MainViewModel(
             chatRepository.refreshChats()
         }
     }
-
 }

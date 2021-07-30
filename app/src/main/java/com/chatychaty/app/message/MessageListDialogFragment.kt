@@ -44,7 +44,6 @@ class MessageListDialogFragment : BaseBottomSheetDialogFragment() {
         viewModel.chat
             .onEach {
                 when (it) {
-
                     is UiState.Failure -> {
 
                     }

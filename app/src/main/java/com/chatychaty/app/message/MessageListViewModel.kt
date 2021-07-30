@@ -83,5 +83,4 @@ class MessageListViewModel(
             chatRepository.unmuteChat((mutableChat.value as UiState.Success).value.chatId)
         }
     }
-
 }

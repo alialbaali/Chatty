@@ -44,18 +44,21 @@ class PasswordDialogFragment : BaseBottomSheetDialogFragment() {
     }
 
     private fun collectState() {
+        val parentView = requireParentFragment()
+            .requireView()
+
         viewModel.state
             .onEach { state ->
                 when (state) {
                     is UiState.Failure -> {
                         findNavController().navigateUp()
-                        requireParentFragment().requireView().snackbar("Failed changing the password!")
+                        parentView.snackbar("Failed changing the password! ${state.exception.message}")
                     }
                     is UiState.Loading -> {
                     }
                     is UiState.Success -> {
                         findNavController().navigateUp()
-                        requireParentFragment().requireView().snackbar("Password has changed successfully!")
+                        parentView.snackbar("Password has changed successfully!")
                     }
                 }
             }

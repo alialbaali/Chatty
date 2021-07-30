@@ -1,7 +1,9 @@
 package com.chatychaty.app.util
 
 import android.annotation.SuppressLint
+import android.os.IBinder
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.chatychaty.app.R
 import com.chatychaty.domain.model.Chat
 import com.chatychaty.domain.model.Message
@@ -92,3 +94,6 @@ fun List<Pair<Chat, Message>>.sortedByIsPinnedAndSentDate() =
         compareByDescending<Pair<Chat, Message>> { it.first.isPinned }
             .thenByDescending { it.second.sentDate }
     )
+
+fun InputMethodManager.showKeyboard(view: View) = showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+fun InputMethodManager.hideKeyboard(windowToken: IBinder) = hideSoftInputFromWindow(windowToken, InputMethodManager.HIDE_IMPLICIT_ONLY)

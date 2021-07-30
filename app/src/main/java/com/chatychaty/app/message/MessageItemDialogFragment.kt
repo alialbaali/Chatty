@@ -70,7 +70,7 @@ class MessageItemDialogFragment : BaseBottomSheetDialogFragment() {
                     )
                 }
             }
-            val chooser = Intent.createChooser(intent, getString(R.string.share_to))
+            val chooser = Intent.createChooser(intent, getString(R.string.share_with))
             startActivity(chooser)
         }
 

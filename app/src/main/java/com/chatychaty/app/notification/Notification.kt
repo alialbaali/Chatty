@@ -43,7 +43,7 @@ fun NotificationManager.createNotification(context: Context, chat: Chat, message
         val replyAction = context.createReplyAction(chat.chatId, messages.first().id)
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.mipmap.ic_app)
+            .setSmallIcon(R.mipmap.ic_app_round)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
             .setStyle(style)

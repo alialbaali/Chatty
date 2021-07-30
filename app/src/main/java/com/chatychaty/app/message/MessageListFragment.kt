@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.chatychaty.app.R
 import com.chatychaty.app.databinding.FragmentListMessageBinding
 import com.chatychaty.app.notification.cancelNotification
 import com.chatychaty.app.util.UiState
@@ -78,7 +79,6 @@ class MessageListFragment : Fragment() {
             viewModel.messageBody.value = args.body.toString()
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
             binding.et.requestFocus()
-//            findNavController().popBackStack(R.id.chatListFragment, true)
         }
     }
 
@@ -114,7 +114,6 @@ class MessageListFragment : Fragment() {
         viewModel.chat
             .onEach { state ->
                 when (state) {
-
                     is UiState.Failure -> {
 
                     }

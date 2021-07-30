@@ -142,7 +142,7 @@ class UserFragment : Fragment() {
         }
 
         binding.tvDeleteAccount.setOnClickListener {
-            signOut()
+            binding.root.snackbar("TODO")
         }
         binding.fab.setOnClickListener {
             when {

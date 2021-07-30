@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.work.Constraints
 import androidx.work.NetworkType
@@ -20,9 +21,9 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.chatychaty.app.R
 import com.chatychaty.app.databinding.ActivityMainBinding
+import com.chatychaty.app.notification.createNotificationChannel
 import com.chatychaty.app.util.SyncWorker
 import com.chatychaty.app.util.UiState
-import com.chatychaty.app.notification.createNotificationChannel
 import com.chatychaty.domain.model.Theme
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -51,14 +52,15 @@ class MainActivity : AppCompatActivity() {
                 .getStringExtra(Intent.EXTRA_TEXT)
                 ?.let {
                     findNavController(R.id.nav_host_fragment_container)
-                        .navigate(R.id.shareFragment, bundleOf("body" to it))
+                        .navigate(
+                            R.id.shareFragment,
+                            bundleOf("body" to it),
+                            NavOptions.Builder()
+                                .setPopUpTo(R.id.chatListFragment, true)
+                                .build()
+                        )
                 }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        workManager.cancelAllWork()
     }
 
     @Suppress("DEPRECATION")
@@ -94,11 +96,12 @@ class MainActivity : AppCompatActivity() {
             .onEach {
                 if (it is UiState.Success) {
                     findNavController(R.id.nav_host_fragment_container).also { nav ->
-                        nav.popBackStack()
+                        nav.popBackStack(R.id.signGraph, false)
                         nav.navigate(R.id.chatListFragment)
                     }
                     viewModel.refreshData()
                     viewModel.connectHub()
+                    viewModel.syncData()
                 }
             }
             .launchIn(lifecycleScope)
@@ -116,14 +119,15 @@ class MainActivity : AppCompatActivity() {
             .launchIn(lifecycleScope)
     }
 
-    override fun onStop() {
-        super.onStop()
-        setupSyncWorker()
+    override fun onStart() {
+        super.onStart()
+        workManager.cancelAllWork()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-//        viewModel.disconnectHub()
+    override fun onStop() {
+        super.onStop()
+        viewModel.disconnectHub()
+        setupSyncWorker()
     }
 
 }
