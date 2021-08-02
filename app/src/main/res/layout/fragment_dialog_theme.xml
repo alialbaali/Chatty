@@ -1,26 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-
-    </data>
-
     <LinearLayout
         android:id="@+id/ll"
+        style="@style/Dialog"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@drawable/shape_dialog"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <View
             android:id="@+id/v_head"
+            style="@style/HeadView"
             android:layout_width="25dp"
             android:layout_height="3dp"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/spacing_normal"
-            android:background="@drawable/shape_view_head" />
-
+            android:layout_margin="@dimen/spacing_normal" />
 
         <RadioGroup
             android:id="@+id/rg_theme"
@@ -55,8 +47,6 @@
                 android:layout_marginEnd="@dimen/spacing_normal"
                 android:text="@string/dark_theme" />
 
-
         </RadioGroup>
-
     </LinearLayout>
 </layout>

@@ -19,7 +19,7 @@
         <item name="trackCornerRadius">@dimen/spacing_extra_large</item>
     </style>
 
-    <style name="ToolbarText" parent="Widget.MaterialComponents.TextView">
+    <style name="ToolbarTextView" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">@dimen/size_huge</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="fontFamily">@font/roboto_medium</item>
@@ -47,17 +47,10 @@
         <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="singleLine">true</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:textCursorDrawable">@null</item>
     </style>
 
-    <style name="SignButton" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="rippleColor">@android:color/transparent</item>
-        <item name="android:fontFamily">@font/roboto_medium</item>
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:textSize">@dimen/size_small</item>
-    </style>
-
-    <style name="Button" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="PrimaryButton" parent="Widget.MaterialComponents.Button">
         <item name="cornerRadius">@dimen/spacing_normal</item>
         <item name="android:textSize">@dimen/size_normal</item>
         <item name="android:textAllCaps">false</item>
@@ -66,8 +59,15 @@
         <item name="android:backgroundTint">@color/colorAccent</item>
     </style>
 
-    <style name="MessageText" parent="TextAppearance.AppCompat">
-        <item name="android:fontFamily">@font/roboto</item>
+    <style name="SecondaryButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="rippleColor">@android:color/transparent</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/size_small</item>
+    </style>
+
+    <style name="MessageTextView" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/size_extra_small</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
@@ -75,11 +75,6 @@
     <style name="ImageViewShapeAppearance">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
-    </style>
-
-    <style name="ImageViewShapeAppearanceExpanded">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">0%</item>
     </style>
 
     <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
@@ -124,6 +119,70 @@
         <item name="android:colorControlNormal">@color/colorAccent</item>
         <item name="android:textColorHighlight">@color/colorOnSecondary</item>
         <item name="android:colorPrimary">@color/colorAccent</item>
+    </style>
+
+    <style name="PlaceholderTextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">@dimen/size_huge</item>
+    </style>
+
+    <style name="AppBarLayout" parent="Widget.Design.AppBarLayout">
+        <item name="android:background">@color/colorBackground</item>
+        <item name="android:elevation">@dimen/elevation_normal</item>
+        <item name="android:animateLayoutChanges">true</item>
+        <item name="liftOnScroll">true</item>
+    </style>
+
+    <style name="Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/colorBackground</item>
+    </style>
+
+    <style name="HeadView">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/shape_view_head</item>
+    </style>
+
+    <style name="Dialog">
+        <item name="android:background">@drawable/shape_dialog</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_gravity">bottom</item>
+    </style>
+
+    <style name="UserImageView">
+        <item name="android:background">@color/colorSurface</item>
+        <item name="android:src">@drawable/ic_round_person_24</item>
+    </style>
+
+    <style name="UserNameTextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/size_extra_large</item>
+    </style>
+
+    <style name="UserUsernameTextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/colorOnPrimary</item>
+        <item name="android:textSize">@dimen/size_extra_small</item>
+    </style>
+
+    <style name="EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:maxLines">3</item>
+        <item name="android:background">@drawable/shape_edit_text_message</item>
+        <item name="android:textColor">@color/colorSecondary</item>
+        <item name="android:textColorHint">@color/colorOnSecondary</item>
+    </style>
+
+    <style name="ChatyChatyTextView">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/size_giant</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:text">@string/app_name</item>
     </style>
 
 </resources>

@@ -31,13 +31,12 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_profile"
+                style="@style/UserImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/colorSurface"
                 android:contentDescription="@{chat.name}"
                 app:imageUrl="@{chat.imageUrl}"
-                app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance"
-                tools:src="@drawable/ic_round_person_24" />
+                app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance" />
 
         </FrameLayout>
 

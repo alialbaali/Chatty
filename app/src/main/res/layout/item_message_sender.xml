@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/spacing_extra_small"
                 android:text="@{message.body}"
-                android:textAppearance="@style/MessageText"
+                android:textAppearance="@style/MessageTextView"
                 tools:text="Hello What's up man? How are you doing? adsfadfadssdfasdfasasdf" />
 
             <com.google.android.material.textview.MaterialTextView

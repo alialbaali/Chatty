@@ -1,41 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <data>
-
-    </data>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
         android:id="@+id/ll"
+        style="@style/Dialog"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@drawable/shape_dialog"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <View
             android:id="@+id/v_head"
+            style="@style/HeadView"
             android:layout_width="25dp"
             android:layout_height="3dp"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/spacing_normal"
-            android:background="@drawable/shape_view_head" />
+            android:layout_margin="@dimen/spacing_normal" />
 
         <TextView
             android:id="@+id/tv_copy"
             style="@style/DialogItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_round_content_copy_24"
-            android:text="@android:string/copy" />
+            android:text="@android:string/copy"
+            app:drawableStartCompat="@drawable/ic_round_content_copy_24" />
 
         <TextView
             android:id="@+id/tv_share"
             style="@style/DialogItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_round_share_24"
-            android:text="@string/share" />
+            android:text="@string/share"
+            app:drawableStartCompat="@drawable/ic_round_share_24" />
 
     </LinearLayout>
 </layout>

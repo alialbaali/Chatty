@@ -23,15 +23,10 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_app_name"
-                style="@style/ToolbarText"
+                style="@style/ChatyChatyTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/app_name"
                 android:layout_marginTop="@dimen/spacing_extra_large"
-                android:textColor="@color/colorAccent"
-                android:textSize="36sp"
-                app:fontFamily="@font/roboto_medium"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -117,7 +112,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_sign_up"
-                style="@style/Button"
+                style="@style/PrimaryButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_normal"
@@ -131,7 +126,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/tv_sign_in"
-                style="@style/SignButton"
+                style="@style/SecondaryButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_normal"

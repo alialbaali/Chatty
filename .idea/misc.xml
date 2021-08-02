@@ -83,6 +83,7 @@
         <entry key="app/src/main/res/drawable/ripple_message.xml" value="0.22631578947368422" />
         <entry key="app/src/main/res/drawable/selector_button_message.xml" value="0.22631578947368422" />
         <entry key="app/src/main/res/drawable/settings_item_option_ripple.xml" value="0.22664473684210526" />
+        <entry key="app/src/main/res/drawable/shape_dialog.xml" value="0.22631578947368422" />
         <entry key="app/src/main/res/drawable/shape_edit_text_message.xml" value="0.2244299674267101" />
         <entry key="app/src/main/res/drawable/shape_input_message.xml" value="0.2244299674267101" />
         <entry key="app/src/main/res/drawable/shape_item_receiver_message.xml" value="0.22631578947368422" />
@@ -111,9 +112,10 @@
         <entry key="app/src/main/res/layout/fragment_dialog_list_message.xml" value="0.21644736842105264" />
         <entry key="app/src/main/res/layout/fragment_dialog_message.xml" value="0.21611842105263157" />
         <entry key="app/src/main/res/layout/fragment_dialog_name.xml" value="0.21611842105263157" />
-        <entry key="app/src/main/res/layout/fragment_dialog_password.xml" value="0.34427083333333336" />
+        <entry key="app/src/main/res/layout/fragment_dialog_password.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_dialog_permission.xml" value="0.21611842105263157" />
         <entry key="app/src/main/res/layout/fragment_dialog_progress.xml" value="0.21644736842105264" />
+        <entry key="app/src/main/res/layout/fragment_dialog_search.xml" value="0.21611842105263157" />
         <entry key="app/src/main/res/layout/fragment_dialog_theme.xml" value="0.21611842105263157" />
         <entry key="app/src/main/res/layout/fragment_list.xml" value="0.34479166666666666" />
         <entry key="app/src/main/res/layout/fragment_list_chat.xml" value="0.2" />

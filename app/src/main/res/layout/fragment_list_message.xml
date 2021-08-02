@@ -21,13 +21,11 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_placeholder"
+            style="@style/PlaceholderTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_margin="@dimen/spacing_normal"
-            android:gravity="center"
             android:text="@string/empty_messages"
-            android:textSize="@dimen/size_huge"
             android:visibility="gone"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
@@ -50,40 +48,36 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/abl"
+            style="@style/AppBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:background="@color/colorBackground"
-            android:elevation="@dimen/elevation_normal"
-            app:liftOnScroll="true">
+            android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/tb"
+                style="@style/Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorBackground"
                 app:navigationIcon="@drawable/ic_round_arrow_back_24">
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_image"
+                    style="@style/UserImageView"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="end"
                     android:layout_marginEnd="@dimen/spacing_normal"
-                    android:background="@color/colorSurface"
                     android:contentDescription="@string/profile_image"
                     app:imageUrl="@{imgUrl}"
-                    app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance"
-                    tools:src="@drawable/ic_round_person_24" />
+                    app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_name"
-                    style="@style/ToolbarText"
+                    style="@style/ToolbarTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="@string/name" />
 
-            </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.MaterialToolbar>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_search"
@@ -128,21 +122,16 @@
 
             <EditText
                 android:id="@+id/et"
+                style="@style/EditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:autofillHints="true"
-                android:background="@drawable/shape_edit_text_message"
                 android:hint="@string/type_a_message"
                 android:inputType="textLongMessage|textAutoCorrect|textMultiLine|text|textAutoComplete"
-                android:maxLines="3"
                 android:paddingHorizontal="@dimen/spacing_normal"
                 android:paddingVertical="@dimen/spacing_small"
-                android:text="@={viewModel.messageBody}"
-                android:textAllCaps="false"
-                android:textColor="@color/colorSecondary"
-                android:textColorHint="@color/colorOnSecondary" />
+                android:text="@={viewModel.messageBody}" />
 
             <ImageButton
                 android:id="@+id/btn_send"

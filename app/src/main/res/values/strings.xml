@@ -83,5 +83,6 @@
     <string name="profile">Profile</string>
     <string name="block_user">Block user</string>
     <string name="profile_image">Profile image</string>
-    <string name="type_username">Type a username</string>
+    <string name="type_a_username">Type a username</string>
+    <string name="search">Search</string>
 </resources>

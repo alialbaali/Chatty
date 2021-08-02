@@ -14,60 +14,50 @@
 
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
+        android:id="@+id/ll"
+        style="@style/Dialog"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipChildren="false"
-        android:clipToPadding="false">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/cl"
+        <View
+            android:id="@+id/v_head"
+            style="@style/HeadView"
+            android:layout_width="25dp"
+            android:layout_height="3dp"
+            android:layout_margin="@dimen/spacing_normal" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_name"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@drawable/shape_dialog"
-            android:orientation="vertical">
+            android:layout_margin="@dimen/spacing_normal"
+            android:hint="@string/name"
+            app:counterEnabled="true"
+            app:counterMaxLength="32"
+            app:endIconMode="clear_text"
+            app:errorEnabled="true">
 
-            <View
-                android:id="@+id/v_head"
-                android:layout_width="25dp"
-                android:layout_height="3dp"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/spacing_normal"
-                android:background="@drawable/shape_view_head" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_name"
-                style="@style/TextInputLayout"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_name"
+                style="@style/TextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/spacing_normal"
-                android:hint="@string/name"
-                app:counterEnabled="true"
-                app:counterMaxLength="32"
-                app:endIconMode="clear_text"
-                app:errorEnabled="true">
+                android:inputType="text|textPersonName|textCapWords|textAutoComplete"
+                android:text="@={viewModel.name}" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_name"
-                    style="@style/TextInputEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text|textPersonName|textCapWords|textAutoComplete"
-                    android:text="@={viewModel.name}" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_confirm"
+            style="@style/PrimaryButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_normal"
+            android:padding="@dimen/spacing_normal"
+            android:text="@string/confirm" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_confirm"
-                style="@style/Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/spacing_normal"
-                android:padding="@dimen/spacing_normal"
-                android:text="@string/confirm" />
-
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 
 </layout>

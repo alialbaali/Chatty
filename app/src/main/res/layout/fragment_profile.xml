@@ -19,29 +19,28 @@
         android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".note.ui.NotebookFragment">
+        android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/abl"
+            style="@style/AppBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorBackground"
-            app:elevation="@dimen/elevation_none">
+            android:layout_height="wrap_content">
 
-            <Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/tb"
+                style="@style/Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:navigationIcon="@drawable/ic_round_arrow_back_24">
 
                 <TextView
                     android:id="@+id/tv_title"
-                    style="@style/ToolbarText"
+                    style="@style/ToolbarTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/profile" />
-            </Toolbar>
+            </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -55,29 +54,21 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/fl"
+                style="@style/UserImageView"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:background="@color/colorSurface"
                 app:imageUrl="@{imageUrl}"
-                app:layout_collapseMode="pin"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance"
-                tools:src="@drawable/ic_round_person_24" />
+                app:shapeAppearanceOverlay="@style/ImageViewShapeAppearance" />
 
             <TextView
                 android:id="@+id/tv_name"
+                style="@style/UserNameTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_normal"
                 android:layout_marginEnd="@dimen/spacing_normal"
-                android:background="@android:color/transparent"
-                android:ellipsize="end"
-                android:fontFamily="@font/roboto_medium"
-                android:hint="@string/name"
-                android:maxLines="1"
-                android:textColor="@color/colorPrimary"
-                android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_username"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/fl"
@@ -87,15 +78,11 @@
 
             <TextView
                 android:id="@+id/tv_username"
+                style="@style/UserUsernameTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_normal"
                 android:layout_marginEnd="@dimen/spacing_normal"
-                android:ellipsize="end"
-                android:fontFamily="@font/roboto_medium"
-                android:maxLines="1"
-                android:textColor="@color/colorOnPrimary"
-                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/fl"
@@ -127,24 +114,24 @@
                     style="@style/SettingsItem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_round_block_24"
-                    android:text="@string/block_user" />
+                    android:text="@string/block_user"
+                    app:drawableStartCompat="@drawable/ic_round_block_24" />
 
                 <TextView
                     android:id="@+id/tv_change_color"
                     style="@style/SettingsItem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_round_palette_24"
-                    android:text="@string/change_chat_color" />
+                    android:text="@string/change_chat_color"
+                    app:drawableStartCompat="@drawable/ic_round_palette_24" />
 
                 <TextView
                     android:id="@+id/tv_delete_chat"
                     style="@style/SettingsItem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_round_delete_24"
-                    android:text="@string/delete_chat" />
+                    android:text="@string/delete_chat"
+                    app:drawableStartCompat="@drawable/ic_round_delete_24" />
 
             </LinearLayout>
 

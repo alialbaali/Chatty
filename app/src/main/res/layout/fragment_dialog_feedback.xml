@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -11,20 +12,16 @@
 
     <LinearLayout
         android:id="@+id/cl"
+        style="@style/Dialog"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@drawable/shape_dialog"
-        android:orientation="vertical">
-
+        android:layout_height="wrap_content">
 
         <View
             android:id="@+id/v_head"
+            style="@style/HeadView"
             android:layout_width="25dp"
             android:layout_height="3dp"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/spacing_normal"
-            android:background="@drawable/shape_view_head" />
+            android:layout_margin="@dimen/spacing_normal" />
 
         <RatingBar
             android:id="@+id/rb"
@@ -46,8 +43,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_normal"
-            android:hint="@string/feedback">
-
+            android:hint="@string/feedback"
+            app:counterEnabled="true"
+            app:counterMaxLength="100">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_feedback"
@@ -55,16 +53,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="text|textMultiLine|textCapSentences"
-                android:maxLines="10"
+                android:maxLength="100"
                 android:scrollbars="vertical"
-                android:singleLine="false"
                 android:text="@={viewModel.feedbackText}" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_submit"
-            style="@style/Button"
+            style="@style/PrimaryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_normal"

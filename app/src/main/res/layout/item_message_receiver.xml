@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/spacing_extra_small"
                 android:text="@{message.body}"
-                android:textAppearance="@style/MessageText"
+                android:textAppearance="@style/MessageTextView"
                 android:textColor="@color/colorPrimary"
                 tools:text="Hello What's up man? How are you doing? " />
 

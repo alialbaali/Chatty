@@ -61,7 +61,7 @@ class ChatListFragment : Fragment() {
             findNavController().navigate(ChatListFragmentDirections.actionChatListFragmentToUserFragment())
         }
         binding.fab.setOnClickListener {
-            findNavController().navigate(ChatListFragmentDirections.actionChatListFragmentToSearchFragment())
+            findNavController().navigate(ChatListFragmentDirections.actionChatListFragmentToSearchDialogFragment())
         }
         binding.bab.setNavigationOnClickListener {
             findNavController().navigate(ChatListFragmentDirections.actionChatListFragmentToListDialogFragment())

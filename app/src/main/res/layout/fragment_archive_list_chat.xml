@@ -10,13 +10,11 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_placeholder"
+            style="@style/PlaceholderTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_margin="@dimen/spacing_normal"
-            android:gravity="center"
             android:text="@string/empty_archive_chats"
-            android:textSize="@dimen/size_huge"
             android:visibility="gone"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
@@ -30,33 +28,25 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/abl"
+            style="@style/AppBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:background="@color/colorBackground"
-            android:elevation="@dimen/elevation_normal"
-            app:liftOnScroll="true">
+            android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/tb"
+                style="@style/Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorBackground"
                 app:navigationIcon="@drawable/ic_round_arrow_back_24">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_app_name"
-                    style="@style/ToolbarText"
+                    style="@style/ToolbarTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/archived_chats"
-                    android:textColor="@color/colorAccent"
-                    app:fontFamily="@font/roboto_medium" />
+                    android:text="@string/archived_chats" />
 
-            </androidx.appcompat.widget.Toolbar>
-
+            </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

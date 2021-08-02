@@ -1,58 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-    </data>
 
     <LinearLayout
         android:id="@+id/ll"
+        style="@style/Dialog"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@drawable/shape_dialog"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <View
             android:id="@+id/v_head"
+            style="@style/HeadView"
             android:layout_width="25dp"
             android:layout_height="3dp"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/spacing_normal"
-            android:background="@drawable/shape_view_head" />
+            android:layout_margin="@dimen/spacing_normal" />
 
         <TextView
             android:id="@+id/tv_view_profile"
             style="@style/DialogItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_round_account_info_24"
-            tools:text="View profile" />
+            tools:text="View profile"
+            app:drawableStartCompat="@drawable/ic_round_account_info_24" />
 
         <TextView
             android:id="@+id/tv_change_color"
             style="@style/DialogItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_round_palette_24"
-            android:text="@string/change_chat_color" />
+            android:text="@string/change_chat_color"
+            app:drawableStartCompat="@drawable/ic_round_palette_24" />
 
         <TextView
             android:id="@+id/tv_search_messages"
             style="@style/DialogItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_round_search_24"
-            android:text="@string/search_messages" />
+            android:text="@string/search_messages"
+            app:drawableStartCompat="@drawable/ic_round_search_24" />
 
         <TextView
             android:id="@+id/tv_delete_chat"
             style="@style/DialogItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_round_delete_24"
-            android:text="@string/delete_chat" />
+            android:text="@string/delete_chat"
+            app:drawableStartCompat="@drawable/ic_round_delete_24" />
 
     </LinearLayout>
 </layout>
