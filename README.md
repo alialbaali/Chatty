@@ -3,7 +3,8 @@
 #### Android chats application built using kotlin.
 
 ## Motivation
-The app is a part of my [Portfolio](https://alialbaali.com) projects. It showcases my skills regarding developing Android Apps.
+
+The app is a part of my [Portfolio](https://alialbaali.com) projects. It showcases my skills regarding developing Android apps.
 
 ## Screenshots
 
@@ -12,13 +13,14 @@ The app is a part of my [Portfolio](https://alialbaali.com) projects. It showcas
 
 ## Features
 
-* Dark Mode
-* Archive Chats 
-* Minimal Design
+* Dark mode
+* Archive chats
+* Minimal design
+* Real-time communication using websockets
 
 ## Libraries
 
-* Android Architecture Components(LiveData, ViewModel, etc...)
+* Android Architecture Components
 * Kotlin
 * Data Binding
 * Room (DB)
@@ -29,44 +31,45 @@ The app is a part of my [Portfolio](https://alialbaali.com) projects. It showcas
 
 ## Architecture
 
-> The app uses Clean Architecture with MVVM. It's splitted into 3 Main Layers. 
+> The app uses Clean Architecture with MVVM design pattern. It's splitted into 3 main modules.
 
 #### Domain
-###### Contains all the Business Logic. It's splitted into 3 packages.
 
-* ##### Intreactor
-    Contains Use Cases for each action that can be triggered and used directly through ViewModels in the `Presentation` Layer.
+###### Contains all the models Logic. It's splitted into 2 packages.
 
 * ##### Model
-    Contains app Models.
+  Contains app models.
 
-* ##### Repository 
-    Contains repositories interfaces which are used by the Use Cases and implemented in the `Data` Layer. 
-    
+* ##### Repository
+  Contains repositories interfaces which are used by the Use Cases and implemented in the `Data` Layer.
+
 #### Data
-######  Contains repositories implementations and Data Sources interfaces. It's splitted into 2 pacakges. 
+
+###### Contains repositories implementations and Data Sources interfaces. It's splitted into 2 pacakges.
 
 * ##### Local
-    Contains interfaces to preform actions locally and implementend in the Local Module.
-    
+  Contains interfaces to preform actions locally and implementend in the Local Module.
+
 * ##### Remote
-    Contains interfaces to preform actions remotely and implementend in the Remote Module.
-    
+  Contains interfaces to preform actions remotely and implementend in the Remote Module.
 
 #### Presentation (app)
-######  Contains all the UI Logic.
+
+###### Contains all the UI and business logic.
 
 #### DI (Dependency Injection)
+
 ###### Contains Koin DI modules.
 
 #### BuildSrc
-###### Contains Gradle dependencies and app configuration.
+
+###### Contains gradle dependencies and app configuration.
 
 ## Requirements
 
-* JDK 1.8
+* JDK 11
 * [Android SDK](https://developer.android.com/studio/index.html)
-* Android L (API 21)
+* Android N (API 23)
 * Latest Android SDK Tools and build tools.
 
 ## Running
@@ -76,4 +79,5 @@ The app is a part of my [Portfolio](https://alialbaali.com) projects. It showcas
 ```
 
 ## License
+
 ChatyChaty is distributed under the terms of the Apache License (Version 2.0). See [License](LICENSE.md) for details.
