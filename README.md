@@ -4,7 +4,11 @@
 
 ## Motivation
 
-The app is a part of my [Portfolio](https://alialbaali.com) projects. It showcases my skills regarding developing Android apps.
+The app is a part of my [portfolio](https://alialbaali.com) projects. It showcases my skills regarding developing Android apps.
+
+## Download
+
+You can download the app apk using this [link](https://github.com/alialbaali/ChatyChaty/releases/download/v1.1.0/ChatyChaty.apk).
 
 ## Screenshots
 
@@ -56,6 +60,8 @@ The app is a part of my [Portfolio](https://alialbaali.com) projects. It showcas
 #### Presentation (app)
 
 ###### Contains all the UI and business logic.
+
+### Other modules
 
 #### DI (Dependency Injection)
 
