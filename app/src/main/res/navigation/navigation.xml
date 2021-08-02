@@ -94,8 +94,8 @@
             app:popEnterAnim="@anim/slide_in_down"
             app:popExitAnim="@anim/slide_out_up" />
         <action
-            android:id="@+id/action_chatListFragment_to_searchFragment"
-            app:destination="@id/searchFragment"
+            android:id="@+id/action_chatListFragment_to_searchDialogFragment"
+            app:destination="@id/searchDialogFragment"
             app:enterAnim="@anim/slide_in_up"
             app:exitAnim="@anim/slide_out_down"
             app:launchSingleTop="false"
@@ -131,15 +131,15 @@
             android:name="chatId"
             app:argType="string" />
     </fragment>
-    <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.chatychaty.app.search.SearchFragment"
+    <dialog
+        android:id="@+id/searchDialogFragment"
+        android:name="com.chatychaty.app.search.SearchDialogFragment"
         android:label="SearchFragment"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_dialog_search" >
         <action
-            android:id="@+id/action_searchFragment_to_progressDialogFragment"
+            android:id="@+id/action_searchDialogFragment_to_progressDialogFragment"
             app:destination="@id/progressDialogFragment" />
-    </fragment>
+    </dialog>
     <dialog
         android:id="@+id/passwordDialogFragment"
         android:name="com.chatychaty.app.user.PasswordDialogFragment"

@@ -5,39 +5,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.chatychaty.app.R
-import com.chatychaty.app.databinding.FragmentSearchBinding
+import com.chatychaty.app.databinding.FragmentDialogSearchBinding
+import com.chatychaty.app.util.BaseBottomSheetDialogFragment
 import com.chatychaty.app.util.UiState
 import com.chatychaty.app.util.snackbar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-/**
- * A simple [Fragment] subclass.
- */
-class SearchFragment : Fragment() {
+class SearchDialogFragment : BaseBottomSheetDialogFragment() {
 
-    private lateinit var binding: FragmentSearchBinding
+    private lateinit var binding: FragmentDialogSearchBinding
 
     private val viewModel by viewModel<SearchViewModel>()
 
-    private val imm by lazy {
-        requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    }
+    private val imm by lazy { requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentSearchBinding.inflate(inflater, container, false).also {
+        binding = FragmentDialogSearchBinding.inflate(inflater, container, false).also {
             it.lifecycleOwner = this
             it.viewModel = viewModel
         }
-
-        binding.tb.navigationIcon?.setTint(resources.getColor(R.color.colorPrimary))
 
         setListeners()
         collectState()
@@ -47,45 +40,36 @@ class SearchFragment : Fragment() {
 
     private fun setListeners() {
 
-        binding.tb.setNavigationOnClickListener {
-            imm.hideSoftInputFromWindow(binding.et.windowToken, 0)
-            findNavController().navigateUp()
-        }
-
-        binding.et.requestFocus()
+        binding.etUsername.requestFocus()
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
 
-        binding.et.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                viewModel.createChat()
-                imm.hideSoftInputFromWindow(v.windowToken, 0)
-                findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToProgressDialogFragment())
-                true
-            } else {
-                false
-            }
+        binding.btnSearch.setOnClickListener {
+            imm.hideSoftInputFromWindow(binding.etUsername.windowToken, 0)
+            findNavController().navigate(SearchDialogFragmentDirections.actionSearchDialogFragmentToProgressDialogFragment())
+            viewModel.createChat()
         }
     }
 
     private fun collectState() {
+        val parentFragmentView = requireParentFragment().requireView()
+        val parentFragmentAnchorView = parentFragmentView.findViewById<FloatingActionButton>(R.id.fab)
         viewModel.state
             .onEach { state ->
                 when (state) {
-
                     is UiState.Failure -> {
                         findNavController().navigateUp()
-                        binding.root.snackbar(state.exception.message.toString())
+                        findNavController().navigateUp()
+                        parentFragmentView.snackbar(state.exception.message.toString(), anchorView = parentFragmentAnchorView)
                     }
                     is UiState.Loading -> {
                     }
                     is UiState.Success -> {
                         findNavController().navigateUp()
                         findNavController().navigateUp()
-                        binding.root.snackbar(state.value)
+                        parentFragmentView.snackbar(state.value, anchorView = parentFragmentAnchorView)
                     }
                 }
             }
             .launchIn(lifecycleScope)
-
     }
 }
