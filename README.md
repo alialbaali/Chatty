@@ -35,41 +35,47 @@ You can download the app apk using this [link](https://github.com/alialbaali/Cha
 
 ## Architecture
 
-> The app uses Clean Architecture with MVVM design pattern. It's splitted into 3 main modules.
+> The app uses Clean Architecture with MVVM design pattern. It's divided into 3 main modules.
 
 #### Domain
 
-###### Contains all the models Logic. It's splitted into 2 packages.
+Contains all the models. It's split into 2 packages.
 
 * ##### Model
   Contains app models.
 
 * ##### Repository
-  Contains repositories interfaces which are used by the Use Cases and implemented in the `Data` Layer.
+  Contains repositories interfaces which are used by ViewModels and implemented in the `Data` module.
 
 #### Data
 
-###### Contains repositories implementations and Data Sources interfaces. It's splitted into 2 pacakges.
+Contains repositories implementations and DataSources interfaces. It's split into 2 packages.
 
 * ##### Local
-  Contains interfaces to preform actions locally and implementend in the Local Module.
+  Contains interfaces to preform actions locally and implemented in the `Local` module.
 
 * ##### Remote
-  Contains interfaces to preform actions remotely and implementend in the Remote Module.
+  Contains interfaces to preform actions remotely and implemented in the `Remote` module.
 
 #### Presentation (app)
 
-###### Contains all the UI and business logic.
+Contains all the UI and business logic.
 
 ### Other modules
 
 #### DI (Dependency Injection)
 
-###### Contains Koin DI modules.
+Contains Koin DI modules.
 
 #### BuildSrc
 
-###### Contains gradle dependencies and app configuration.
+Contains gradle dependencies and app configuration.
+
+#### Remote
+Contains network data sources implementations.
+
+#### Local
+Contains database data sources implementations.
 
 ## Requirements
 
