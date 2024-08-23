@@ -1,4 +1,4 @@
-# ChatyChaty
+# Chatty
 
 #### Android chats application built using kotlin.
 
@@ -92,4 +92,4 @@ Contains database data sources implementations.
 
 ## License
 
-ChatyChaty is distributed under the terms of the Apache License (Version 2.0). See [License](LICENSE.md) for details.
+Chatty is distributed under the terms of the Apache License (Version 2.0). See [License](LICENSE.md) for details.
